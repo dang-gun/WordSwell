@@ -5,9 +5,17 @@ VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{E81D19F6-0391-42D6-A99B-C76D849BADA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Tool.Db", "WordSwell.Tool.Db\WordSwell.Tool.Db.csproj", "{7CD95E51-47CE-428E-B6C9-2C32FF6CD2A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Tool.Db", "WordSwell.Tool.Db\WordSwell.Tool.Db.csproj", "{7CD95E51-47CE-428E-B6C9-2C32FF6CD2A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Tool.ApiModel", "WordSwell.Tool.ApiModel\WordSwell.Tool.ApiModel.csproj", "{A1D1AB32-D9FE-45F3-BE48-4D266102AA02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Tool.ApiModel", "WordSwell.Tool.ApiModel\WordSwell.Tool.ApiModel.csproj", "{A1D1AB32-D9FE-45F3-BE48-4D266102AA02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{4FD432BE-0474-46EF-8CD9-ACE3499B31BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.DB", "WordSwell.DB\WordSwell.DB.csproj", "{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Backend", "WordSwell.Backend\WordSwell.Backend.csproj", "{86325EAB-78B3-402F-BFFF-F17FEDF11B73}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WordSwell.Frontend", "WordSwell.Frontend\WordSwell.Frontend.esproj", "{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +31,20 @@ Global
 		{A1D1AB32-D9FE-45F3-BE48-4D266102AA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1D1AB32-D9FE-45F3-BE48-4D266102AA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1D1AB32-D9FE-45F3-BE48-4D266102AA02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86325EAB-78B3-402F-BFFF-F17FEDF11B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86325EAB-78B3-402F-BFFF-F17FEDF11B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86325EAB-78B3-402F-BFFF-F17FEDF11B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86325EAB-78B3-402F-BFFF-F17FEDF11B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +52,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7CD95E51-47CE-428E-B6C9-2C32FF6CD2A0} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
 		{A1D1AB32-D9FE-45F3-BE48-4D266102AA02} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
+		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8} = {4FD432BE-0474-46EF-8CD9-ACE3499B31BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {342428FC-799C-444B-8F56-410F795B082E}
