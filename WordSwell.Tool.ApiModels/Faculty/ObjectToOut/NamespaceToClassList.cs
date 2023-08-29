@@ -57,7 +57,9 @@ internal class NamespaceToClassList
                         //허용 리스트와 비교
                         for(int i = 0; i < arrNamespace.Length; ++i)
                         {
-                            if(-1 < w1.Namespace.IndexOf(arrNamespace[i]))
+                            string sItem = arrNamespace[i];
+                            if (w1.Namespace.Length >= sItem.Length
+                                && w1.Namespace.Substring(0, sItem.Length) == sItem)
                             {//허용 리스트에 있다.
                                 bReturn = true;
                                 break;
