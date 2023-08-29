@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WordSwell.DB</name>
+    </assembly>
+    <members>
+        <member name="T:DbAssist.Faculty.DbInitialSetting">
+            <summary>
+            초기 세팅 지원
+            </summary>
+        </member>
+        <member name="M:DbAssist.Faculty.DbInitialSetting.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="sDbType">사용할 DB의 종류. 내부적으로는 소문자로 처리됨</param>
+            <param name="ConnectString">DB 커낵션 문자열</param>
+        </member>
+        <member name="T:DbAssist.UseDbType">
+            <summary>
+            사용하는 DB 타입
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.None">
+            <summary>
+            없음
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.Memory">
+            <summary>
+            In Memory
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.Sqlite">
+            <summary>
+            Sqlite - 이 프로젝트는 Sqlite를 사용하지 않음
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.Mssql">
+            <summary>
+            MS Sql
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.Postgresql">
+            <summary>
+            포스트그래스 sql
+            </summary>
+        </member>
+        <member name="F:DbAssist.UseDbType.Mariadb">
+            <summary>
+            마리아 db, 마이sql
+            </summary>
+        </member>
+        <member name="T:WordSwell.DB.GlobalDb">
+            <summary>
+            Static으로 선언된 적역 변수들
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.GlobalDb.DBType">
+            <summary>
+            DB 타입
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.GlobalDb.DBString">
+            <summary>
+            DB 컨낵션 스트링 저장
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.GlobalDb.DbArrayDiv">
+            <summary>
+            문자열로 저장된 배열(혹은 리스트)의 데이터를 구분할때 사용하는 구분자
+            </summary>
+            <remarks>
+            이 값을 중간에 바꾸면 기존의 데이터를 재대로 못읽을 수 있다.
+            </remarks>
+        </member>
+        <member name="M:WordSwell.DB.GlobalDb.SHA256_Get(System.String)">
+            <summary>
+            지정된 문자열을 SHA256로 단반향 암호화를 한다.
+            </summary>
+            <param name="sData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordSwell.DB.GlobalDb.SaveChanges_UpdateConcurrency(ModelsDB.ModelsDbContext,System.Func{System.Boolean},System.Int32)">
+            <summary>
+            낙관적 동시성 적용
+            </summary>
+            <remarks>
+            낙관적 동시성이 체크가 성공하면 저장한다.<br />
+            지정된 실행식을 지정된 횟수만큼 반복한다.<br />
+            추적중인 데이터가 모두 다시 로드 되므로 가급적 Context를 짧게 만들어야 
+            부하도 적고 속도도 빨라진다.
+            </remarks>
+            <param name="db1"></param>
+            <param name="callback">반복해서 동작시킬 실행식.</param>
+            <param name="nMaxLoop">최대 반복수. 마이너스 값이면 무한반복한다.</param>
+            <returns>업데이트 성공 여부</returns>
+        </member>
+        <member name="M:WordSwell.DB.GlobalDb.SaveChanges_UpdateConcurrencyCheck(ModelsDB.ModelsDbContext)">
+            <summary>
+            낙관적 동시성 체크
+            </summary>
+            <remarks>
+            낙관적 동시성 체크가 성공면 저장하고 true가 리턴되고
+            실패하면 false가 리턴된다.
+            </remarks>
+            <param name="db1"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ModelsDB.Blog.idBlog">
+            <summary>
+            게시판 고유번호
+            </summary>
+        </member>
+        <member name="T:ModelsDB.Board">
+            <summary>
+            게시판
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.idBoard">
+            <summary>
+            게시판 고유번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.Title">
+            <summary>
+            게시판 제목
+            </summary>
+        </member>
+        <member name="T:ModelsDB.BoardPost">
+            <summary>
+            게시판의 게시물
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPost.idBoardPost">
+            <summary>
+            게시판의 게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPost.idBoard">
+            <summary>
+            소속 게시판 고유번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPost.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPost.idUser">
+            <summary>
+            유저 아이디
+            </summary>
+            <remarks>
+            0 = 비회원
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.BoardPost.Password">
+            <summary>
+            비밀번호
+            </summary>
+            <remarks>
+            비회원이 글쓴 경우 넣는다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.BoardPost.WriteTime">
+            <summary>
+            작성 시간
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPost.EditTime">
+            <summary>
+            수정 시간
+            </summary>
+        </member>
+        <member name="T:ModelsDB.BoardPostContents">
+            <summary>
+            게시판의 게시물의 내용물
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPostContents.idBoardPostContents">
+            <summary>
+            게시판의 게시물의 내용물 고유 번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPostContents.idBoardPost">
+            <summary>
+            게시판의 게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.BoardPostContents.Contents">
+            <summary>
+            게시물 내용
+            </summary>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ModelsDB.ModelsDbContext})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:ModelsDB.ModelsDbContext.Board">
+            <summary>
+            게시판
+            </summary>
+        </member>
+        <member name="P:ModelsDB.ModelsDbContext.BoardPost">
+            <summary>
+            게시판의 게시물
+            </summary>
+        </member>
+        <member name="P:ModelsDB.ModelsDbContext.BoardPostContents">
+            <summary>
+            게시판의 게시물의 내용물
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            게시판
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_Mariadb">
+             <summary>
+             mssql전용 컨텍스트
+             </summary>
+            <remarks>
+             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
+             Remove-Migration -Context ModelsDB.ModelsDbContext_Mariadb
+             Update-Database -Context ModelsDbContext_Mariadb
+             Update-Database -Context ModelsDbContext_Mariadb -Migration 0
+            </remarks>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Mariadb.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ModelsDB.ModelsDbContext})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Mariadb.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_MariadbFactory">
+            <summary>
+             mssql전용 컨텍스트 팩토리
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_MariadbFactory.CreateDbContext(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_Mssql">
+             <summary>
+             mssql전용 컨텍스트
+             </summary>
+            <remarks>
+             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Mssql -OutputDir Migrations/Mssql 
+             Remove-Migration -Context ModelsDB.ModelsDbContext_Mssql
+             Update-Database -Context ModelsDbContext_Mssql
+             Update-Database -Context ModelsDbContext_Mssql -Migration 0
+            </remarks>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Mssql.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ModelsDB.ModelsDbContext})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Mssql.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_MssqlFactory">
+            <summary>
+             mssql전용 컨텍스트 팩토리
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_MssqlFactory.CreateDbContext(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_Postgresql">
+             <summary>
+             Postgresql전용 컨텍스트
+             </summary>
+            <remarks>
+             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Postgresql -OutputDir Migrations/Postgresql
+             Remove-Migration -Context ModelsDB.ModelsDbContext_Postgresql
+             Update-Database -Context ModelsDbContext_Postgresql
+             Update-Database -Context ModelsDbContext_Postgresql -Migration 0
+            </remarks>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Postgresql.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{ModelsDB.ModelsDbContext})">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_Postgresql.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ModelsDB.ModelsDbContext_PostgresqlFactory">
+            <summary>
+             Postgresql전용 컨텍스트 팩토리
+            </summary>
+        </member>
+        <member name="M:ModelsDB.ModelsDbContext_PostgresqlFactory.CreateDbContext(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ModelsDB.Post.idPost">
+            <summary>
+            게시판 고유번호
+            </summary>
+        </member>
+    </members>
+</doc>

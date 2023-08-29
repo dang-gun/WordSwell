@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+//Https설정 불러오기
+const HttpsConfigGet = require('./AspNetCore_HttpsConfigGet');
+
 module.exports = (env, argv) => 
 {
     //릴리즈(프로덕션)인지 여부
@@ -25,8 +28,8 @@ module.exports = (env, argv) =>
         output: {
             //path: path.resolve(__dirname, "build", argv.mode),
             path: path.resolve(__dirname, "build", EnvString),
-            filename: "[name].[chunkhash].js",
-            //filename: "app.js",
+            //filename: "[name].[chunkhash].js",
+            filename: "app.js",
             publicPath: "/",
         },
 
@@ -58,9 +61,29 @@ module.exports = (env, argv) =>
 
         devServer: {
             /** 서비스 포트 */
-            port: "5173",
+            port: "9601",
+            https: HttpsConfigGet(true),
+            proxy: {
+                "/api/":
+                {
+                    target: "https://localhost:7250",
+                    logLevel: "debug",
+                    //호스트 헤더 변경 허용
+                    changeOrigin: true,
+                    secure: false,
+                    onProxyReq: function (proxyReq, req, res)
+                    {
+                        console.log(`[HPM] [${req.method}] ${req.url}`);
+                        //console.log(" ~~~~ proxyReq ~~~~");
+                        //console.log(proxyReq);
+                        //console.log(" ~~~~ res ~~~~");
+                        //console.log(res);
+                    },
+                },
+            },
+
             /** 출력파일의 위치 */
-            static: [path.resolve("./", "build/development/")],
+            static: [path.resolve("./", "build", "development/")],
             /** 브라우저 열지 여부 */
             open: false,
             /** 핫리로드 사용여부 */

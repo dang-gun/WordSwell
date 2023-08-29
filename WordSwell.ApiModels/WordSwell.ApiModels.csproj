@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>WordSwell.ApiModels.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ProjectFiles\readme.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ProjectFiles\readme.txt" />
+  </ItemGroup>
+
+</Project>

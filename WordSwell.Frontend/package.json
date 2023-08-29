@@ -5,10 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=development --watch",
-    "release": "webpack --mode=production",
-    "publish": "npm run release && dotnet publish -c Release",
-    "dev": "webpack serve --env --mode development",
+    "start": "webpack-dev-server --mode development --hot",
+    "build": "webpack --progress --profile",
+    "jsdoc": "jsdoc -c jsdoc.conf README.md",
+    "dev": "webpack serve --env development",
     "prod": "webpack --progress --profile --mode production"
   },
   "keywords": [],

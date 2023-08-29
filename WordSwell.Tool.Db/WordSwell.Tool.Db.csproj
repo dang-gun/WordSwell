@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SettingInfo_gitignore.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SettingInfo_gitignore.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WordSwell.DB\WordSwell.DB.csproj" />
   </ItemGroup>
 

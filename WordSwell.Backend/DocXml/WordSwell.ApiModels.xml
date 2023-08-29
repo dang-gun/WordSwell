@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WordSwell.ApiModels</name>
+    </assembly>
+    <members>
+        <member name="T:WordSwell.ApiModels.TestCont.TestCallModel">
+            <summary>
+            테스트용 호출 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestCallModel.Int">
+            <summary>
+            숫자
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestCallModel.String">
+            <summary>
+            문자열
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestCallModel.DateTime">
+            <summary>
+            날짜
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.TestCont.TestResultModel">
+            <summary>
+            테스트용 결과 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestResultModel.Int">
+            <summary>
+            숫자
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestResultModel.String">
+            <summary>
+            문자열
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestResultModel.DateTime">
+            <summary>
+            날짜
+            </summary>
+        </member>
+    </members>
+</doc>
