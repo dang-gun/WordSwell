@@ -1,5 +1,5 @@
 ﻿
-namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 /// <summary>
 /// 네임스페이스에 소속된 개체 리스트

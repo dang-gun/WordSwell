@@ -1,7 +1,4 @@
-﻿
-using WordSwell.Tool.ApiModelsGlobal.Attributes;
-
-namespace WordSwell.ApiModels.TestCont;
+﻿namespace WordSwell.ApiModels.TestCont;
 
 /// <summary>
 /// 테스트용 타입 - 타입스크립트=역참조 불가

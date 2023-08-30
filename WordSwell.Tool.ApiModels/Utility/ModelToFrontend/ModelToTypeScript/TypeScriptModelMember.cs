@@ -1,6 +1,6 @@
 ﻿
 
-namespace Utility.ModelToFrontend;
+namespace DGUtility.ModelToFrontend;
 
 /// <summary>
 /// 모델의 멤버 정보를 검색하기 쉽게 저장한다.

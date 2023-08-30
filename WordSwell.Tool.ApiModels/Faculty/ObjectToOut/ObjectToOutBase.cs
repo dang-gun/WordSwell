@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utility.ProjectXml;
+﻿using DGUtility.ProjectXml;
 
-namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 internal class ObjectToOutBase: ObjectToOutInterface
 {

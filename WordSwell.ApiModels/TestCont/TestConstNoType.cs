@@ -1,5 +1,4 @@
-﻿
-using WordSwell.Tool.ApiModelsGlobal.Attributes;
+﻿using DGU_ModelToOutFiles.Global.Attributes;
 
 namespace WordSwell.ApiModels.TestCont;
 

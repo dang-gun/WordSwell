@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using Utility.ProjectXml;
 
-namespace Utility.ModelToFrontend;
+using DGUtility.ProjectXml;
+
+
+namespace DGUtility.ModelToFrontend;
 
 /// <summary>
 /// 모델을 Json 파일로 변환하기 위한 클래스

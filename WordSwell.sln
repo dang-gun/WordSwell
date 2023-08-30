@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.ApiModels", "Word
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Tool.ApiModels", "WordSwell.Tool.ApiModels\WordSwell.Tool.ApiModels.csproj", "{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Tool.ApiModelsGlobal", "WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj", "{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,7 +60,6 @@ Global
 		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8} = {4FD432BE-0474-46EF-8CD9-ACE3499B31BB}
 		{B24F5FD1-8A87-4899-82DE-6C4AD2B06CC3} = {4FD432BE-0474-46EF-8CD9-ACE3499B31BB}
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
-		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {342428FC-799C-444B-8F56-410F795B082E}

@@ -10,11 +10,25 @@
   <ItemGroup>
     <ProjectReference Include="..\WordSwell.ApiModels\WordSwell.ApiModels.csproj" />
     <ProjectReference Include="..\WordSwell.DB\WordSwell.DB.csproj" />
-    <ProjectReference Include="..\WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="DGU_EnumToClass">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_EnumToClass.dll</HintPath>
+	  </Reference>
+	  <Reference Include="DGU_EnumToClass_SummaryAssist">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_EnumToClass_SummaryAssist.dll</HintPath>
+	  </Reference>
+	  <Reference Include="DGU_ModelToOutFiles.Global">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ModelToOutFiles.Global.dll</HintPath>
+	  </Reference>
+	  <Reference Include="DGU_ProjectXmlAssist">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ProjectXmlAssist.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	
   <ItemGroup>

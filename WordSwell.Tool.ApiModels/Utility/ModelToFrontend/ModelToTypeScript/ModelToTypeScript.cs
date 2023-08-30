@@ -1,7 +1,7 @@
-﻿using Utility.ProjectXml;
+﻿using DGUtility.ProjectXml;
 using System.Text;
 
-namespace Utility.ModelToFrontend;
+namespace DGUtility.ModelToFrontend;
 
 /// <summary>
 /// 모델을 타입스크립트용 파일로 변환하기위한 클래스

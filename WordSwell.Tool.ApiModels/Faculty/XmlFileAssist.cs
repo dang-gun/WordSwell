@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utility.FileAssist;
 
-namespace WordSwell.Tool.ApiModels.Faculty;
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 /// <summary>
 /// XML 파일 지원
@@ -73,43 +73,15 @@ internal class XmlFileAssist
         //가급적 비주얼 스튜디오상 프로젝트 정렬에 맞출것!
         //□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□
 
-        //WordSwell.ApiModels
+        //DGU_ModelToOutFiles.TestModels
         listProjectXmlDir
             .Add(new FileCopyDir_OutListModel()
             {
-                Name = "WordSwell.ApiModels.xml"
+                Name = "DGU_ModelToOutFiles.TestModels.xml"
                 ,
                 OriginalDir
                     = Path.GetFullPath(
-                        Path.Combine("..", "WordSwell.ApiModels")
-                        , ProjectRootPath)
-                ,
-                TargetDir = sTargetDir
-            });
-
-        //WordSwell.DB
-        listProjectXmlDir
-            .Add(new FileCopyDir_OutListModel()
-            {
-                Name = "WordSwell.DB.xml"
-                ,
-                OriginalDir
-                    = Path.GetFullPath(
-                        Path.Combine("..", "WordSwell.DB")
-                        , ProjectRootPath)
-                ,
-                TargetDir = sTargetDir
-            });
-
-        //WordSwell.Backend
-        listProjectXmlDir
-            .Add(new FileCopyDir_OutListModel()
-            {
-                Name = "WordSwell.Backend.xml"
-                ,
-                OriginalDir
-                    = Path.GetFullPath(
-                        Path.Combine("..", "WordSwell.Backend")
+                        Path.Combine("..", "DGU_ModelToOutFiles.TestModels")
                         , ProjectRootPath)
                 ,
                 TargetDir = sTargetDir

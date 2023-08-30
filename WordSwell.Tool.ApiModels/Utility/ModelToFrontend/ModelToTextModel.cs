@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace Utility.ModelToFrontend;
+
+namespace DGUtility.ModelToFrontend;
 
 /// <summary>
 /// 최종 출력을 위해 텍스트를 정리해둔 모델

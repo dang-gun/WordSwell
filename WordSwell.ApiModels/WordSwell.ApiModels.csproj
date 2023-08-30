@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj" />
+    <Reference Include="DGU_ModelToOutFiles.Global">
+      <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ModelToOutFiles.Global.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

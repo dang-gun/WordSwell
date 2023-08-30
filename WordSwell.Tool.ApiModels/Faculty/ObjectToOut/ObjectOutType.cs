@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+﻿
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 /// <summary>
 /// 오브젝트 출력 타입

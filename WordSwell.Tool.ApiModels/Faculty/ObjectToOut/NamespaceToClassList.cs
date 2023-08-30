@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Utility.ProjectXml;
+﻿using System.Reflection;
 
+using DGU_ModelToOutFiles.Global.Attributes;
 
-using WordSwell.ApiModels.TestCont;
-using ModelsDB.Board;
-using ModelsDB.User;
-using WordSwell.Tool.ApiModelsGlobal.Attributes;
-
-namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 /// <summary>
 /// 네임스페이스에 소속된 개체 리스트

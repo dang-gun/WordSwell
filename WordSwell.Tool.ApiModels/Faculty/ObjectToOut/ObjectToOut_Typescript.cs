@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
-using Utility.EnumToClass;
-using Utility.FileAssist;
-using Utility.ModelToFrontend;
-using Utility.ProjectXml;
 
-namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+using Utility.FileAssist;
+
+using DGUtility.EnumToClass;
+using DGUtility.ModelToFrontend;
+using DGUtility.ProjectXml;
+
+namespace DGU_ModelToOutFiles.App.Faculty;
 
 /// <summary>
 /// 타입 스크립트로 내보낸다
@@ -110,9 +108,10 @@ internal class ObjectToOut_Typescript : ObjectToOutBase, ObjectToOutInterface
     }
 
     /// <summary>
-    /// 파일 결로 리스트를 임포트 패스로 변경해준다.
+    /// 파일 경로 리스트를 임포트 패스로 변경해준다.
     /// </summary>
     /// <param name="listOutPhysicalPath"></param>
+    /// <param name="sClassName"></param>
     /// <returns></returns>
     private string DirToImportPath(
         List<string> listOutPhysicalPath

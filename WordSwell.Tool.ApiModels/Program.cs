@@ -1,9 +1,5 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Utility.FileAssist;
-using Utility.ProjectXml;
-using WordSwell.Tool.ApiModels.Faculty;
-using WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
+﻿using DGU_ModelToOutFiles.App.Faculty;
+using DGUtility.ProjectXml;
 
 namespace WordSwell.Tool.ApiModels;
 
