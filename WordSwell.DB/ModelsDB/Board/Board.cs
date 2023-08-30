@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 using WordSwell.DB.ModelsDB_partial.Board;
@@ -25,4 +26,13 @@ public class Board
     /// 게시판 상태
     /// </summary>
     public BoardStateType State { get; set; } = BoardStateType.None;
+
+    /// <summary>
+    /// 다른 개체에서 이 개체로 연결된 리스트
+    /// </summary>
+    /// <remarks>
+    /// 이 개체에게 연결된 외래키
+    /// </remarks>
+    [ForeignKey("idBoard")]
+    public ICollection<BoardPost> Posts { get; } = new List<BoardPost>();
 }

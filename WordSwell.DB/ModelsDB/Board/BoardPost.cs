@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace ModelsDB.Board;
@@ -13,12 +14,17 @@ public class BoardPost
     /// </summary>
     [Key]
     public long idBoardPost { get; set; }
-    
+
 
     /// <summary>
-    /// 소속 게시판 고유번호
+    /// 소속 게시판 고유번호 - 외래키
     /// </summary>
+    [ForeignKey("idBoard")]
     public long idBoard { get; set; }
+    /// <summary>
+    /// 연결된 소속 게시판 정보
+    /// </summary>
+    public Board? Board { get; set; }
 
 
     /// <summary>
@@ -50,4 +56,19 @@ public class BoardPost
     /// 수정 시간
     /// </summary>
     public DateTime? EditTime { get; set; }
+
+
+    /// <summary>
+    /// 다른 개체에서 이 개체로 연결된 리스트.
+    /// 리스트로 표현되어 있지만 1:1구조이다.
+    /// </summary>
+    /// <remarks>
+    /// 이 개체에게 연결된 외래키
+    /// </remarks>
+    [ForeignKey("idBoardPost")]
+    [JsonIgnore]
+    public ICollection<BoardPostContents> Contents { get; } 
+        = new List<BoardPostContents>();
+
+
 }

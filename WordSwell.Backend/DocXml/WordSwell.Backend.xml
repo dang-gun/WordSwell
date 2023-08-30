@@ -79,6 +79,11 @@
             프로그램 전역 변수
             </summary>
         </member>
+        <member name="F:Game_Adosaki.Global.GlobalStatic.DebugIs">
+            <summary>
+            디버그 모드 여부
+            </summary>
+        </member>
         <member name="F:Game_Adosaki.Global.GlobalStatic.FileProc">
             <summary>
             파일 변환 관련

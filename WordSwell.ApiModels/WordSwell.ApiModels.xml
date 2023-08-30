@@ -4,6 +4,96 @@
         <name>WordSwell.ApiModels</name>
     </assembly>
     <members>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostListCallModel">
+            <summary>
+            게시물 리스트를 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListCallModel.Search">
+            <summary>
+            검색어
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListCallModel.SearchTargetType">
+            <summary>
+            검색 대상
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListCallModel.ShowCount">
+            <summary>
+            한 페이지 표시 개수
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListCallModel.PageNumber">
+            <summary>
+            표시할 페이지 번호
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostListResultModel">
+            <summary>
+            게시판 게시물 리스트
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListResultModel.PostList">
+            <summary>
+            검색된 충전 요청 리스트
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListResultModel.TotalCount">
+            <summary>
+            검색된 게시물 숫자
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListResultModel.PageNumber">
+            <summary>
+            지금 보고 있는 페이지 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostListResultModel.ShowCount">
+            <summary>
+            한 페이지의 컨탠츠 개수
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.SearchTargetType">
+            <summary>
+            검색 대상
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.None">
+            <summary>
+            없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.PostIndex">
+            <summary>
+            게시물 고유번호
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Contents">
+            <summary>
+            내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.TitleAndContents">
+            <summary>
+            제목 + 내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.UserName">
+            <summary>
+            유저 이름
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.TestCont.TestCallModel">
             <summary>
             테스트용 호출 모델

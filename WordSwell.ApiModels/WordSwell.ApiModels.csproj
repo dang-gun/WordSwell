@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WordSwell.DB\WordSwell.DB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DGU_ApiResult">
+      <HintPath>..\lib\DGU_ApiResult\DGU_ApiResult.dll</HintPath>
+    </Reference>
     <Reference Include="DGU_ModelToOutFiles.Global">
       <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ModelToOutFiles.Global.dll</HintPath>
     </Reference>

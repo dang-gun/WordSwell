@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace ModelsDB.Board;
@@ -15,9 +16,14 @@ public class BoardPostContents
     public long idBoardPostContents { get; set; }
 
     /// <summary>
-    /// 게시판의 게시물 고유 번호
+    /// 게시판의 게시물 고유 번호 - 외래키
     /// </summary>
+    [ForeignKey("idBoard")]
     public long idBoardPost { get; set; }
+    /// <summary>
+    /// 연결된 게시물
+    /// </summary>
+    public BoardPost? BoardPost { get; set; }
 
 
     /// <summary>
@@ -26,5 +32,5 @@ public class BoardPostContents
     public string Contents { get; set; } = string.Empty;
 
 
-
+    
 }
