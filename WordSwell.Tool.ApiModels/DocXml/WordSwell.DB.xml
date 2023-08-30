@@ -107,6 +107,60 @@
             <param name="db1"></param>
             <returns></returns>
         </member>
+        <member name="T:WordSwell.DB.ModelsDB_partial.Board.BoardStateType">
+            <summary>
+            보드 상태
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardStateType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardStateType.Open">
+            <summary>
+            열림
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardStateType.Close">
+            <summary>
+            닫침
+            </summary>
+        </member>
+        <member name="T:WordSwell.DB.ModelsDB_partial.Board.BoardUserType">
+            <summary>
+            보드 사용자 타입
+            </summary>
+            <remarks>
+            개시판 사용자를 나누기위한 대분류.
+            타입스크립트 - 역참조 해야 한다.
+            </remarks>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardUserType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardUserType.NonUser">
+            <summary>
+            비회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardUserType.User">
+            <summary>
+            회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardUserType.Admin">
+            <summary>
+            관리자(개발자 포함)
+            </summary>
+        </member>
+        <member name="F:WordSwell.DB.ModelsDB_partial.Board.BoardUserType.BoardAdmin">
+            <summary>
+            이 게시판 관리자
+            </summary>
+        </member>
         <member name="T:ModelsDB.Board.Board">
             <summary>
             게시판
@@ -120,6 +174,11 @@
         <member name="P:ModelsDB.Board.Board.Title">
             <summary>
             게시판 제목
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.Board.State">
+            <summary>
+            게시판 상태
             </summary>
         </member>
         <member name="T:ModelsDB.Board.BoardPost">

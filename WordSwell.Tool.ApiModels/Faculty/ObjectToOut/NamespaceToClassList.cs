@@ -10,6 +10,7 @@ using Utility.ProjectXml;
 using WordSwell.ApiModels.TestCont;
 using ModelsDB.Board;
 using ModelsDB.User;
+using WordSwell.Tool.ApiModelsGlobal.Attributes;
 
 namespace WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
 
@@ -41,6 +42,8 @@ internal class NamespaceToClassList
         string sAssemblyName
         , string[] arrNamespace)
     {
+        //출력 안함 설정이 되었는지 체크하는 개체
+        OutputNoAttributeCheck attrchkON = new OutputNoAttributeCheck();
 
         Assembly asm = Assembly.Load(sAssemblyName);
 
@@ -50,10 +53,13 @@ internal class NamespaceToClassList
                 .Where(w1 =>
                 {
                     bool bReturn = false;
-                    if (true == w1.IsClass && null != w1.Namespace)
-                    {//클래스이면서
+                    if ((true == w1.IsClass || true == w1.IsEnum)  
+                        && null != w1.Namespace)
+                    {//클래스거나 열거형이면
                         //네임스페이스가 있으면
 
+
+                        
                         //허용 리스트와 비교
                         for(int i = 0; i < arrNamespace.Length; ++i)
                         {
@@ -100,17 +106,21 @@ internal class NamespaceToClassList
             }
 
             ClassList.AddRange(
-                group.Select(s =>
-                    new ObjectOutModel()
-                    {
-                        Assembly = asm
-                        , Namespace = sNamespace
-                        , Namespace_Cut = sNamespace_Cut
-                        , ClassName = s.Name
-                        , OutPhysicalPathList = listOutPhysicalPath
-                        , OutPhysicalPath = sOutPhysicalPath
-                    }
-                ));
+                group
+                    //출력 안함 설정이 안되는 항목만 추출
+                    .Where(w=> false == OutputNoCheck(attrchkON, w))
+                    .Select(s =>
+                        new ObjectOutModel()
+                        {
+                            Assembly = asm
+                            , Namespace = sNamespace
+                            , Namespace_Cut = sNamespace_Cut
+                            , ClassName = s.Name
+                            , ObjectOutType = ObjectOutTypeGet(s)
+                            , OutPhysicalPathList = listOutPhysicalPath
+                            , OutPhysicalPath = sOutPhysicalPath
+                        }
+                    ));
         }
 
         //https://stackoverflow.com/questions/223952/create-an-instance-of-a-class-from-a-string
@@ -142,5 +152,61 @@ internal class NamespaceToClassList
         }
     }
 
+    /// <summary>
+    /// 출력 안함 설정이 되어있는지 확인
+    /// </summary>
+    /// <param name="attrchkON"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public bool OutputNoCheck(
+        OutputNoAttributeCheck attrchkON
+        , Type type)
+    {
+        bool bReturn = false;
+
+        OutputNoAttribute? temp = attrchkON.Check(type);
+        if (null != temp)
+        {
+            bReturn = temp.OutputNoIs;
+        }
+
+        return bReturn;
+    }
+
+    /// <summary>
+    /// 타입으로 오브젝트 출력 타입으로 바꾼다.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private ObjectOutType ObjectOutTypeGet(Type type)
+    {
+
+        ObjectOutType ooReturn = ObjectOutType.None;
+
+        if (true == type.IsClass)
+        {
+            ooReturn = ObjectOutType.Class;
+        }
+        else if (true == type.IsEnum)
+        {
+            EnumTypeAttributeCheck newETA = new EnumTypeAttributeCheck();
+            EnumTypeAttribute? temp = newETA.Check(type);
+
+            if (null == temp
+                || false == temp.TypeScript_EnumNoConstIs)
+            {
+                //const를 붙인다.
+                ooReturn = ObjectOutType.Enum;
+            }
+            else
+            {
+                //const를 붙이지 않는다.
+                ooReturn = ObjectOutType.Enum_ConstNo;
+            }
+            
+        }
+
+        return ooReturn;
+    }
 
 }

@@ -43,6 +43,12 @@ internal class ObjectOutModel
     }
 
     /// <summary>
+    /// 개체 출력 타입
+    /// </summary>
+    public ObjectOutType ObjectOutType { get; set; } = ObjectOutType.None;
+
+
+    /// <summary>
     /// 생성된 개체
     /// </summary>
     public object? Instance { get; set; }

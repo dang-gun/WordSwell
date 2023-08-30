@@ -21,4 +21,8 @@
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj" />
+	</ItemGroup>
 </Project>

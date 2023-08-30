@@ -80,10 +80,25 @@ internal class ObjectToOut_Typescript : ObjectToOutBase, ObjectToOutInterface
                 //경로 생성
                 itemOOM.OutPhysicalPath_Create();
 
+                if (itemOOM.ObjectOutType == ObjectOutType.Class)
+                {
+                    //타입스크립트(인터페이스)로 변환
+                    tsModel_Temp.TypeData_Set(itemOOM.Instance);
+                    sTemp = tsModel_Temp.ToTypeScriptInterfaceString(itemOOM.ImportAdd);
+                }
+                else if (itemOOM.ObjectOutType == ObjectOutType.Enum)
+                {
 
-                //타입스크립트로 변환
-                tsModel_Temp.TypeData_Set(itemOOM.Instance);
-                sTemp = tsModel_Temp.ToTypeScriptInterfaceString(itemOOM.ImportAdd);
+                    etmBP_Temp.TypeData_Set((Enum)itemOOM.Instance);
+                    sTemp = etmBP_Temp.ToTypeScriptEnumString(true);
+                }
+                else if (itemOOM.ObjectOutType == ObjectOutType.Enum_ConstNo)
+                {
+
+                    etmBP_Temp.TypeData_Set((Enum)itemOOM.Instance);
+                    sTemp = etmBP_Temp.ToTypeScriptEnumString(false);
+                }
+
                 fileSave
                     .FileSave(Path.Combine(base.OutputPath, itemOOM.OutPhysicalFullPath) + ".ts"
                                 , sTemp + itemOOM.LastText);

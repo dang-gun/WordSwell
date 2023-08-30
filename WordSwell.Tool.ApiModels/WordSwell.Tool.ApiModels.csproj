@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WordSwell.ApiModels\WordSwell.ApiModels.csproj" />
     <ProjectReference Include="..\WordSwell.DB\WordSwell.DB.csproj" />
+    <ProjectReference Include="..\WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

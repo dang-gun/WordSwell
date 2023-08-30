@@ -39,6 +39,86 @@
             개체 테스트 2
             </summary>
         </member>
+        <member name="T:WordSwell.ApiModels.TestCont.TestConstNoType">
+            <summary>
+            테스트용 타입 - 타입스크립트=역참조 가능
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstNoType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstNoType.NonUser">
+            <summary>
+            비회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstNoType.User">
+            <summary>
+            회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstNoType.Admin">
+            <summary>
+            관리자(개발자 포함)
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstNoType.BoardAdmin">
+            <summary>
+            이 게시판 관리자
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.TestCont.TestConstType">
+            <summary>
+            테스트용 타입 - 타입스크립트=역참조 불가
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstType.NonUser">
+            <summary>
+            비회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstType.User">
+            <summary>
+            회원
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstType.Admin">
+            <summary>
+            관리자(개발자 포함)
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.TestCont.TestConstType.BoardAdmin">
+            <summary>
+            이 게시판 관리자
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.TestCont.TestOutputNoModel">
+            <summary>
+            출력 안함
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestOutputNoModel.Int">
+            <summary>
+            숫자
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestOutputNoModel.String">
+            <summary>
+            문자열
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.TestCont.TestOutputNoModel.DateTime">
+            <summary>
+            날짜
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.TestCont.TestResultModel">
             <summary>
             테스트용 결과 모델

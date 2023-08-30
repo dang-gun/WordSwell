@@ -16,4 +16,8 @@
     <Content Include="ProjectFiles\readme.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj" />
+  </ItemGroup>
+
 </Project>

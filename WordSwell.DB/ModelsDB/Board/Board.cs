@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
+using WordSwell.DB.ModelsDB_partial.Board;
+
 namespace ModelsDB.Board;
 
 /// <summary>
@@ -19,4 +21,8 @@ public class Board
     /// </summary>
     public string Title { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 게시판 상태
+    /// </summary>
+    public BoardStateType State { get; set; } = BoardStateType.None;
 }

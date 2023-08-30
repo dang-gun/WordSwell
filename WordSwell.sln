@@ -9,15 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Tool.Db", "WordSw
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reference", "Reference", "{4FD432BE-0474-46EF-8CD9-ACE3499B31BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.DB", "WordSwell.DB\WordSwell.DB.csproj", "{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.DB", "WordSwell.DB\WordSwell.DB.csproj", "{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Backend", "WordSwell.Backend\WordSwell.Backend.csproj", "{86325EAB-78B3-402F-BFFF-F17FEDF11B73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Backend", "WordSwell.Backend\WordSwell.Backend.csproj", "{86325EAB-78B3-402F-BFFF-F17FEDF11B73}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WordSwell.Frontend", "WordSwell.Frontend\WordSwell.Frontend.esproj", "{DD6E3781-4FB7-4B66-B9B6-C36AFB7E0529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.ApiModels", "WordSwell.ApiModels\WordSwell.ApiModels.csproj", "{B24F5FD1-8A87-4899-82DE-6C4AD2B06CC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.ApiModels", "WordSwell.ApiModels\WordSwell.ApiModels.csproj", "{B24F5FD1-8A87-4899-82DE-6C4AD2B06CC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Tool.ApiModels", "WordSwell.Tool.ApiModels\WordSwell.Tool.ApiModels.csproj", "{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSwell.Tool.ApiModels", "WordSwell.Tool.ApiModels\WordSwell.Tool.ApiModels.csproj", "{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSwell.Tool.ApiModelsGlobal", "WordSwell.Tool.ApiModelsGlobal\WordSwell.Tool.ApiModelsGlobal.csproj", "{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{2ECE9E44-A778-4A6C-A5F1-A6647F881DC8} = {4FD432BE-0474-46EF-8CD9-ACE3499B31BB}
 		{B24F5FD1-8A87-4899-82DE-6C4AD2B06CC3} = {4FD432BE-0474-46EF-8CD9-ACE3499B31BB}
 		{03B6676B-2B35-40E5-A0E4-9C7EAE7E9A83} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
+		{0400753C-D366-4EF6-A4DB-EE44AD29CE7E} = {E81D19F6-0391-42D6-A99B-C76D849BADA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {342428FC-799C-444B-8F56-410F795B082E}

@@ -1,4 +1,6 @@
-﻿using Utility.FileAssist;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using Utility.FileAssist;
 using Utility.ProjectXml;
 using WordSwell.Tool.ApiModels.Faculty;
 using WordSwell.Tool.ApiModels.Faculty.ObjectToOut;
@@ -8,7 +10,6 @@ namespace WordSwell.Tool.ApiModels;
 internal class Program
 {
     
-
     static void Main(string[] args)
     {
         //프로젝트 루트 폴더
@@ -19,7 +20,6 @@ internal class Program
 
         Console.WriteLine("Hello, WordSwell.Tool.ApiModels!");
 
-        
         //출력할 위치
         string sOutputPath = "D:\\OutputFiles";
         //출력 타입
@@ -101,7 +101,12 @@ internal class Program
                 new NamespaceTargetModel()
                 {
                     AssemblyName = "WordSwell.DB"
-                    , NamespaceList = new string[] { "ModelsDB" }
+                    , NamespaceList 
+                        = new string[] 
+                        { 
+                            "ModelsDB" 
+                            , "ModelsDB_partial"
+                        }
                 }
                 , new NamespaceTargetModel()
                 {
