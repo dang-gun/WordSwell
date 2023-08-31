@@ -1,5 +1,6 @@
 ﻿using DGUtility.ApiResult;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using ModelsContext;
 using ModelsDB.Board;
@@ -17,7 +18,7 @@ namespace WordSwell.Backend.Controllers;
 public class BoardController : Controller
 {
     /// <summary>
-    /// 
+    /// 지정한 게시판의 조건에 맞는 리스트를 표시한다.
     /// </summary>
     /// <param name="callData"></param>
     /// <returns></returns>
@@ -30,14 +31,14 @@ public class BoardController : Controller
 
 
         //게시물 숫자
-        if (null != callData.ShowCount 
+        if (null == callData.ShowCount 
             || 0 >= callData.ShowCount)
         {
             callData.ShowCount = 10;
         }
 
         //페이지 번호
-        if (null != callData.PageNumber
+        if (null == callData.PageNumber
             || 0 >= callData.PageNumber)
         {
             callData.PageNumber = 1;
@@ -61,7 +62,7 @@ public class BoardController : Controller
                     "B1-100001"
                     , "게시판을 찾을 수 없습니다");
             }
-        }
+        }//end using db1
 
         if (true == arReturn.IsSuccess())
         {
@@ -112,7 +113,7 @@ public class BoardController : Controller
                             {
                                 iqG_R = iqG_R.Where(w =>
                                 callData.Search.Contains(
-                                    w.Contents.Count > 0 
+                                    w.Contents!.Count > 0 
                                     ? w.Contents.First().Contents
                                     : string.Empty)
                                 );
@@ -126,7 +127,7 @@ public class BoardController : Controller
                                     = iqG_R
                                         .Where(w => callData.Search.Contains(w.Title)
                                         || callData.Search.Contains(
-                                                w.Contents.Count > 0
+                                                w.Contents!.Count > 0
                                                 ? w.Contents.First().Contents
                                                 : string.Empty));
                             }
@@ -159,6 +160,92 @@ public class BoardController : Controller
             }//end using db2
         }
         
+
+        return arReturn.ToResult();
+    }
+
+    /// <summary>
+    /// 지정한 게시판의 지정한 게시물의 내용을 본다.
+    /// </summary>
+    /// <param name="callData"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public ActionResult<PostViewResultModel> PostView([FromQuery] PostViewCallModel callData)
+    {
+        ApiResultReady arReturn = new ApiResultReady(this);
+        PostViewResultModel rmReturn = new PostViewResultModel();
+        arReturn.ResultObject = rmReturn;
+
+        //지정된 게시판
+        Board? findBoard = null;
+        //지정된 게시물
+        BoardPost? findPost = null;
+        //지정된 게시물의 내용
+        BoardPostContents? findPostContents = null;
+
+        using (ModelsDbContext db1 = new ModelsDbContext())
+        {
+            //게시판 검색
+            findBoard
+                = db1.Board
+                    .Where(w => w.idBoard == callData.idBoard)
+                    .FirstOrDefault();
+
+            if (null == findBoard)
+            {
+                arReturn.ApiResultInfoSet(
+                    "B1-200001"
+                    , "게시판을 찾을 수 없습니다");
+            }
+        }//end using db1
+
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db2 = new ModelsDbContext())
+            {
+                //게시물 검색
+                findPost
+                    = db2.BoardPost
+                        .Where(w => w.idBoard == callData.idBoard 
+                                && w.idBoardPost == callData.idBoardPost)
+                        .Include(i => i.Contents)
+                        .FirstOrDefault();
+
+                if (null == findPost)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-200010"
+                        , "게시물이 없습니다");
+                }
+                else
+                {
+                    if(null == findPost!.Contents
+                        || 0 >= findPost!.Contents.Count)
+                    {//게시물 내용이 없다.
+                        arReturn.ApiResultInfoSet(
+                        "B1-200011"
+                        , "게시물의 내용이 없습니다");
+                    }
+                    else
+                    {//게시물 내용이 있다.
+                        findPostContents = findPost.Contents.First();
+                    }
+                }
+
+            }//end using db2
+        }
+
+
+        if (true == arReturn.IsSuccess())
+        {
+            //결과 넣기
+            rmReturn.Post = findPost;
+            rmReturn.PostContents = findPostContents;
+        }
+
+            
+
 
         return arReturn.ToResult();
     }

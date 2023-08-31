@@ -59,6 +59,36 @@
             한 페이지의 컨탠츠 개수
             </summary>
         </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostViewCallModel">
+            <summary>
+            게시물 보기 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostViewCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostViewCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostViewResultModel">
+            <summary>
+            지정한 게시판의 지정한 게시물을 보기 결과 리스트
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostViewResultModel.Post">
+            <summary>
+            게시물
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostViewResultModel.PostContents">
+            <summary>
+            게시물의 내용물
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.SearchTargetType">
             <summary>
             검색 대상

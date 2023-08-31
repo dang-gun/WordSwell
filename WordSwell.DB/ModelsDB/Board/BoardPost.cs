@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+//using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace ModelsDB.Board;
 
@@ -24,6 +25,7 @@ public class BoardPost
     /// <summary>
     /// 연결된 소속 게시판 정보
     /// </summary>
+    [JsonIgnore]
     public Board? Board { get; set; }
 
 
@@ -67,8 +69,7 @@ public class BoardPost
     /// </remarks>
     [ForeignKey("idBoardPost")]
     [JsonIgnore]
-    public ICollection<BoardPostContents> Contents { get; } 
-        = new List<BoardPostContents>();
+    public ICollection<BoardPostContents>? Contents { get; set; }
 
 
 }

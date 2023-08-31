@@ -181,6 +181,14 @@
             게시판 상태
             </summary>
         </member>
+        <member name="P:ModelsDB.Board.Board.Posts">
+            <summary>
+            다른 개체에서 이 개체로 연결된 리스트
+            </summary>
+            <remarks>
+            이 개체에게 연결된 외래키
+            </remarks>
+        </member>
         <member name="T:ModelsDB.Board.BoardPost">
             <summary>
             게시판의 게시물
@@ -193,7 +201,12 @@
         </member>
         <member name="P:ModelsDB.Board.BoardPost.idBoard">
             <summary>
-            소속 게시판 고유번호
+            소속 게시판 고유번호 - 외래키
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPost.Board">
+            <summary>
+            연결된 소속 게시판 정보
             </summary>
         </member>
         <member name="P:ModelsDB.Board.BoardPost.Title">
@@ -227,6 +240,15 @@
             수정 시간
             </summary>
         </member>
+        <member name="P:ModelsDB.Board.BoardPost.Contents">
+            <summary>
+            다른 개체에서 이 개체로 연결된 리스트.
+            리스트로 표현되어 있지만 1:1구조이다.
+            </summary>
+            <remarks>
+            이 개체에게 연결된 외래키
+            </remarks>
+        </member>
         <member name="T:ModelsDB.Board.BoardPostContents">
             <summary>
             게시판의 게시물의 내용물
@@ -239,7 +261,12 @@
         </member>
         <member name="P:ModelsDB.Board.BoardPostContents.idBoardPost">
             <summary>
-            게시판의 게시물 고유 번호
+            게시판의 게시물 고유 번호 - 외래키
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostContents.BoardPost">
+            <summary>
+            연결된 게시물
             </summary>
         </member>
         <member name="P:ModelsDB.Board.BoardPostContents.Contents">
@@ -344,8 +371,8 @@
              mssql전용 컨텍스트
              </summary>
             <remarks>
-             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Mssql -OutputDir Migrations/Mssql 
-             Remove-Migration -Context ModelsDB.ModelsDbContext_Mssql
+             Add-Migration InitialCreate -Context ModelsDbContext_Mssql -OutputDir Migrations/Mssql 
+             Remove-Migration -Context ModelsDbContext_Mssql
              Update-Database -Context ModelsDbContext_Mssql
              Update-Database -Context ModelsDbContext_Mssql -Migration 0
             </remarks>

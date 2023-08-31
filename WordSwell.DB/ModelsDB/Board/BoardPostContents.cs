@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace ModelsDB.Board;
 
@@ -23,6 +23,7 @@ public class BoardPostContents
     /// <summary>
     /// 연결된 게시물
     /// </summary>
+    [JsonIgnore]
     public BoardPost? BoardPost { get; set; }
 
 
@@ -30,7 +31,5 @@ public class BoardPostContents
     /// 게시물 내용
     /// </summary>
     public string Contents { get; set; } = string.Empty;
-
-
-    
+   
 }

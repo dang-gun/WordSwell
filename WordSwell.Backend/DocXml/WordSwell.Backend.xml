@@ -4,6 +4,25 @@
         <name>WordSwell.Backend</name>
     </assembly>
     <members>
+        <member name="T:WordSwell.Backend.Controllers.BoardController">
+            <summary>
+            게시판 처리
+            </summary>
+        </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostList(WordSwell.ApiModels.BoardCont.PostListCallModel)">
+            <summary>
+            지정한 게시판의 조건에 맞는 리스트를 표시한다.
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostView(WordSwell.ApiModels.BoardCont.PostViewCallModel)">
+            <summary>
+            지정한 게시판의 지정한 게시물의 내용을 본다.
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordSwell.Backend.Controllers.TestController">
             <summary>
             테스트용 API
@@ -62,6 +81,11 @@
             <param name="args"></param>
             <returns></returns>
         </member>
+        <member name="T:WordSwell.Backend.Startup">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:WordSwell.Backend.Startup.Configuration">
             <summary>
             
@@ -72,6 +96,19 @@
             
             </summary>
             <param name="configuration"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:WordSwell.Backend.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:WordSwell.Backend.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
             <param name="env"></param>
         </member>
         <member name="T:Game_Adosaki.Global.GlobalStatic">

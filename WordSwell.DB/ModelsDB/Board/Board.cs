@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 using WordSwell.DB.ModelsDB_partial.Board;
 
@@ -34,5 +34,6 @@ public class Board
     /// 이 개체에게 연결된 외래키
     /// </remarks>
     [ForeignKey("idBoard")]
-    public ICollection<BoardPost> Posts { get; } = new List<BoardPost>();
+    [JsonIgnore]
+    public ICollection<BoardPost>? Posts { get; set; }
 }

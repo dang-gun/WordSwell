@@ -11,7 +11,14 @@
         </member>
         <member name="M:WordSwell.Backend.Controllers.BoardController.PostList(WordSwell.ApiModels.BoardCont.PostListCallModel)">
             <summary>
-            
+            지정한 게시판의 조건에 맞는 리스트를 표시한다.
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostView(WordSwell.ApiModels.BoardCont.PostViewCallModel)">
+            <summary>
+            지정한 게시판의 지정한 게시물의 내용을 본다.
             </summary>
             <param name="callData"></param>
             <returns></returns>

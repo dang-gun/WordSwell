@@ -71,16 +71,10 @@ public class Startup
         GlobalStatic.FileProc.ProjectXmlDir
             = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "DocXml", "WordSwell.Backend.xml");
 
-        GlobalStatic.FileProc.ProjectXmlDir_Other
-            .Add(new FileCopyDir_OutListModel()
-            {
-                Name = "WordSwell.Backend.xml"
-                , OriginalDir = Path.GetFullPath(Path.Combine("."))
-                , TargetDir = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "DocXml")
-            });
-
 
         //xml 파일 복사 **********************
+        //대상 폴더
+        string sXmlTarget = Path.GetFullPath(Path.Combine(".", "DocXml"));
         if (true == System.Diagnostics.Debugger.IsAttached
             && true == GlobalStatic.DebugIs)
         {//IDE가 연결되어 있고
@@ -93,17 +87,30 @@ public class Startup
                         Path.Combine("..", "WordSwell.Tool.ApiModels", "DocXml")
                         , GlobalStatic.FileProc.ProjectRootDir));
 
-            //대상 폴더
-            string sTarget = Path.GetFullPath(Path.Combine(".", "DocXml"));
+            
 
             //읽어들인 경로로 파일 복사
             foreach (string sItem in arrFile)
             {
                 string sFileName = Path.GetFileName(sItem);
-                string dest = Path.Combine(sTarget, sFileName);
+                string dest = Path.Combine(sXmlTarget, sFileName);
                 File.Copy(sItem, dest, true);
             }
         }
+
+        //복사된 xml 파일을 모두 지정
+        FileInfo[] arrFI = new DirectoryInfo(sXmlTarget).GetFiles();
+        foreach (FileInfo itemFI in arrFI)
+        {
+            GlobalStatic.FileProc.ProjectXmlDir_Other
+            .Add(new FileCopyDir_OutListModel()
+            {
+                Name = itemFI.FullName
+                , OriginalDir = sXmlTarget
+                , TargetDir = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "DocXml")
+            });
+        }
+        
 
     }
 
