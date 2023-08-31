@@ -9,17 +9,36 @@ internal class Program
     static void Main(string[] args)
     {
         //프로젝트 루트 폴더
-        string sProjectRootDir
-            = Path.GetFullPath(
-                Path.Combine("..", "..", "..")
-                , Environment.CurrentDirectory);
+        string sProjectRootDir = string.Empty;
+        if (true == System.Diagnostics.Debugger.IsAttached)
+        {//IDE에서 실행중일때
+            
+            sProjectRootDir
+                = Path.GetFullPath(
+                    Path.Combine("..", "..", "..")
+                    , Environment.CurrentDirectory);
+        }
+        else
+        {//일반 실행일때
 
+            // 현재 실행중인 프로그램 명을 포함한 경로
+            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            // 현재 실행중인 프로그램의 경로
+            sProjectRootDir = Path.GetDirectoryName(path)!;
+
+            Console.WriteLine("false : " + sProjectRootDir);
+        }
+        
+
+        //Application.StartupPath
         Console.WriteLine("Hello, WordSwell.Tool.ApiModels!");
 
         //출력할 위치
         string sOutputPath = "D:\\OutputFiles";
         //출력 타입
         string sOutputType = "typescript";
+        //출력할 폴더 비우기 여부
+        bool bOutputPathClear = false;
 
         for (int i = 0; i < args.Length; ++i)
         {
@@ -47,6 +66,10 @@ internal class Program
                                 //break;
                         }
                     }
+                    break;
+
+                case "-clear"://출력 폴더 비우기 여부
+                    bOutputPathClear = true;
                     break;
             }
         }
@@ -87,9 +110,34 @@ internal class Program
                 break;
 
             default:
+                Console.WriteLine("====== 잘못된 형식을 지정하였습니다. ======");
                 return;
 
         }
+
+        if(true == bOutputPathClear)
+        {//출력 폴더 지우기
+
+            DirectoryInfo diOutP = new DirectoryInfo(sOutputPath);
+
+            //루트에 있는 파일 찾기
+            FileInfo[] arrFI = diOutP.GetFiles();
+            foreach (FileInfo fileItem in arrFI)
+            {
+                //파일 삭제
+                fileItem.Delete();
+            }
+
+            //루트에 있는 폴더 찾기
+            DirectoryInfo[] arrDI = diOutP.GetDirectories();
+            foreach (DirectoryInfo diItem in arrDI)
+            {
+                //폴더 삭제
+                diItem.Delete(true);
+            }
+
+        }
+
         //파일로 출력
         otoTemp.ToTargetSave(
             new NamespaceTargetModel[]

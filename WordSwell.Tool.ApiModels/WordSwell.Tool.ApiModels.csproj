@@ -41,7 +41,7 @@
     <None Update="DocXml\WordSwell.DB.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestBat.bat">
+    <None Update="OutFiles\TestBat.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
