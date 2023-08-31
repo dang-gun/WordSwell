@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WordSwell.Tool.ApiModels": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}

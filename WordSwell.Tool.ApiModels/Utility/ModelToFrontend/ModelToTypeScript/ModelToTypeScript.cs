@@ -1,4 +1,5 @@
 ﻿using DGUtility.ProjectXml;
+using System.Reflection;
 using System.Text;
 
 namespace DGUtility.ModelToFrontend;
@@ -162,6 +163,8 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
                 string sArrayType = string.Empty;
 				bool bNullable = false;
 
+
+
 				if (item.PropertyType.Name == "List`1")
 				{//리스트 타입이다.
 
@@ -169,14 +172,59 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 					sType = "List";
 					//배열이 가지고 있는 타입을 저장한다.
 					sArrayType = item.PropertyType.GenericTypeArguments[0].Name;
-				}
-				else if (item.PropertyType.Name == "Nullable`1")
+
+                    if (null != item.PropertyType.GenericTypeArguments[0].FullName)
+                    {
+                        sNameFull = item.PropertyType.GenericTypeArguments[0].FullName!;
+                    }
+
+					//커스텀 속성 체크
+					this.CustomAttributesFind(item, ref bNullable);
+                }
+                else if (item.PropertyType.Name == "ICollection`1")
+                {//리스트 타입이다.
+
+                    //리스트 타입인걸 알리고
+                    sType = "List";
+                    //배열이 가지고 있는 타입을 저장한다.
+                    sArrayType = item.PropertyType.GenericTypeArguments[0].Name;
+
+					//네임스페이스 전체 이름 재정의
+					if(null != item.PropertyType.GenericTypeArguments[0].FullName)
+					{
+                        sNameFull = item.PropertyType.GenericTypeArguments[0].FullName!;
+                    }
+
+                    //커스텀 속성 체크
+                    this.CustomAttributesFind(item, ref bNullable);
+                }
+                else if (item.PropertyType.Name == "Nullable`1")
 				{
 					//널 허용
 					bNullable = true;
 
                     //원본이 가지고 있는 타입을 저장한다.
                     sType = item.PropertyType.GenericTypeArguments[0].Name;
+
+                    //네임스페이스 전체 이름 재정의
+                    if (null != item.PropertyType.GenericTypeArguments[0].FullName)
+                    {
+                        sNameFull = item.PropertyType.GenericTypeArguments[0].FullName!;
+                    }
+                }
+				else if("[]" == sType.Substring(sType.Length - 2))
+                {//개체 배열이다.
+
+					//배열 개체를 지정하고
+					sArrayType = sType.Substring(0, sType.Length - 2);
+                    //리스트 타입인걸 알리고
+                    sType = "List";
+
+                    //네임스페이스 전체 이름 재정의
+                    sNameFull = sNameFull.Substring(0, sNameFull.Length - 2);
+
+                    //커스텀 속성 체크
+                    this.CustomAttributesFind(item, ref bNullable);
                 }
 
 				this.ModelMember.Add(new TypeScriptModelMember()
@@ -216,7 +264,7 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 	/// </summary>
 	public void ImportClear()
 	{
-		this.ImportRootDir = string.Empty;
+		//this.ImportRootDir = string.Empty;
 		this.ImportItem.Clear();
 	}
 
@@ -500,4 +548,23 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 
 		return bReturn;
 	}
+
+	/// <summary>
+	/// 지정된 아이템에서 커스텀 어트리 뷰트를 검색하고 
+	/// 지정된 어트리뷰트가 있으면 알려준다.
+	/// </summary>
+	/// <param name="item"></param>
+	/// <param name="bNullableAttribute"></param>
+	private void CustomAttributesFind(
+		PropertyInfo item
+		, ref bool bNullableAttribute)
+	{
+
+		if(null != item.CustomAttributes
+						.Where(w => w.AttributeType.Name == "NullableAttribute")
+						.FirstOrDefault())
+		{//널 속성이 있다.
+			bNullableAttribute = true;
+        }
+    }
 }

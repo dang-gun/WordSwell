@@ -18,7 +18,7 @@ public class PostListCallModel
     /// <summary>
     /// 검색 대상
     /// </summary>
-    public SearchTargetType? SearchTargetType { get; set; }
+    public BoardSearchTargetType? SearchTargetType { get; set; }
 
     /// <summary>
     /// 한 페이지 표시 개수

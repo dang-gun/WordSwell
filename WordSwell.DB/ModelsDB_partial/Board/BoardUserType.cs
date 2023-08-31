@@ -1,8 +1,6 @@
-﻿
+﻿using DGU_ModelToOutFiles.Global.Attributes;
 
-using DGU_ModelToOutFiles.Global.Attributes;
-
-namespace WordSwell.DB.ModelsDB_partial.Board;
+namespace ModelsDB_partial.Board;
 
 /// <summary>
 /// 보드 사용자 타입

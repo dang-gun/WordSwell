@@ -84,7 +84,7 @@ public class BoardController : Controller
                     //검색
                     switch (callData.SearchTargetType)
                     {
-                        case SearchTargetType.PostIndex:
+                        case BoardSearchTargetType.PostIndex:
                             {
                                 long nPostIndex = 0;
                                 if (true == Int64.TryParse(callData.Search, out nPostIndex))
@@ -101,7 +101,7 @@ public class BoardController : Controller
                             }
                             break;
 
-                        case SearchTargetType.Title:
+                        case BoardSearchTargetType.Title:
                             {
                                 iqG_R 
                                     = iqG_R
@@ -109,7 +109,7 @@ public class BoardController : Controller
                             }
                             break;
 
-                        case SearchTargetType.Contents:
+                        case BoardSearchTargetType.Contents:
                             {
                                 iqG_R = iqG_R.Where(w =>
                                 callData.Search.Contains(
@@ -121,7 +121,7 @@ public class BoardController : Controller
                             }
                             break;
 
-                        case SearchTargetType.TitleAndContents:
+                        case BoardSearchTargetType.TitleAndContents:
                             {
                                 iqG_R
                                     = iqG_R
@@ -133,7 +133,7 @@ public class BoardController : Controller
                             }
                             break;
 
-                        case SearchTargetType.UserName:
+                        case BoardSearchTargetType.UserName:
                             {
                             }
                             break;

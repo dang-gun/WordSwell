@@ -23,6 +23,13 @@
             <param name="callData"></param>
             <returns></returns>
         </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostWrite(WordSwell.ApiModels.BoardCont.PostWriteCallModel)">
+            <summary>
+            게시물 작성
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordSwell.Backend.Controllers.TestController">
             <summary>
             테스트용 API

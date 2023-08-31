@@ -3,7 +3,7 @@
 /// <summary>
 /// 검색 대상
 /// </summary>
-public enum SearchTargetType
+public enum BoardSearchTargetType
 {
     /// <summary>
     /// 없음

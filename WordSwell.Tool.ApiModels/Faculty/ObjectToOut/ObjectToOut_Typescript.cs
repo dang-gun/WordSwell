@@ -15,16 +15,24 @@ namespace DGU_ModelToOutFiles.App.Faculty;
 internal class ObjectToOut_Typescript : ObjectToOutBase, ObjectToOutInterface
 {
     /// <summary>
+    /// 임포트시 앞에 붙을 루트
+    /// </summary>
+    private string ImportRootDir = string.Empty;
+
+
+    /// <summary>
     /// 개체 리스트를 타입스크립트 파일로 출력하기위한 클래스
     /// </summary>
     /// <param name="sOutputPath">출력할 물리 경로(폴더)</param>
     /// <param name="ProjectXml">주석이 들어 있는 XML 개체</param>
+    /// <param name="sImportRootDir">임포트시 앞에 붙을 루트 지정</param>
     public ObjectToOut_Typescript(
         string sOutputPath
-        , ProjectXmlAssist ProjectXml)
+        , ProjectXmlAssist ProjectXml
+        , string sImportRootDir)
         : base(sOutputPath, ProjectXml)
     {
-
+        this.ImportRootDir = sImportRootDir;
     }
 
     /// <summary>
@@ -45,7 +53,7 @@ internal class ObjectToOut_Typescript : ObjectToOutBase, ObjectToOutInterface
         //모델을 타입스크립트로 출력하기 위한 개체
         ModelToTs tsModel_Temp = new ModelToTs(base.ProjectXml);
         //임포트시 앞에 붙을 루트 지정
-        tsModel_Temp.ImportRootDir = "";
+        tsModel_Temp.ImportRootDir = this.ImportRootDir;
         //임포트시 다른 참조가 필요하면 호출되는 콜백
         tsModel_Temp.ImportSearchCallback
             = (string sNamespace)

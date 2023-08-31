@@ -4,6 +4,41 @@
         <name>WordSwell.ApiModels</name>
     </assembly>
     <members>
+        <member name="T:WordSwell.ApiModels.BoardCont.BoardSearchTargetType">
+            <summary>
+            검색 대상
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.None">
+            <summary>
+            없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.PostIndex">
+            <summary>
+            게시물 고유번호
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.Contents">
+            <summary>
+            내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.TitleAndContents">
+            <summary>
+            제목 + 내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.UserName">
+            <summary>
+            유저 이름
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostListCallModel">
             <summary>
             게시물 리스트를 요청할때 모델
@@ -127,41 +162,6 @@
         <member name="P:WordSwell.ApiModels.BoardCont.PostWriteResultModel.idBoardPost">
             <summary>
             생성된 게시물 고유 번호
-            </summary>
-        </member>
-        <member name="T:WordSwell.ApiModels.BoardCont.SearchTargetType">
-            <summary>
-            검색 대상
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.None">
-            <summary>
-            없음
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.PostIndex">
-            <summary>
-            게시물 고유번호
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Title">
-            <summary>
-            제목
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Contents">
-            <summary>
-            내용
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.TitleAndContents">
-            <summary>
-            제목 + 내용
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.UserName">
-            <summary>
-            유저 이름
             </summary>
         </member>
         <member name="T:WordSwell.ApiModels.TestCont.TestCallModel">
