@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsContext;
 
@@ -11,9 +12,10 @@ using ModelsContext;
 namespace WordSwell.DB.Migrations.Mssql
 {
     [DbContext(typeof(ModelsDbContext_Mssql))]
-    partial class ModelsDbContext_MssqlModelSnapshot : ModelSnapshot
+    [Migration("20230831070151_BoardPost_Edit0001")]
+    partial class BoardPost_Edit0001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

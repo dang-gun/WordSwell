@@ -43,14 +43,6 @@ public class BoardPost
     public long idUser { get; set; }
 
     /// <summary>
-    /// 비밀번호
-    /// </summary>
-    /// <remarks>
-    /// 비회원이 글쓴 경우 넣는다.
-    /// </remarks>
-    public string Password { get; set; } = string.Empty;
-
-    /// <summary>
     /// 작성 시간
     /// </summary>
     public DateTime WriteTime { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);

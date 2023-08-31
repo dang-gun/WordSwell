@@ -244,7 +244,79 @@ public class BoardController : Controller
             rmReturn.PostContents = findPostContents;
         }
 
-            
+
+        return arReturn.ToResult();
+    }
+
+    /// <summary>
+    /// 게시물 작성
+    /// </summary>
+    /// <param name="callData"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public ActionResult<PostWriteResultModel> PostWrite([FromBody] PostWriteCallModel callData)
+    {
+        ApiResultReady arReturn = new ApiResultReady(this);
+        PostWriteResultModel rmReturn = new PostWriteResultModel();
+        arReturn.ResultObject = rmReturn;
+
+        DateTime dtNow = DateTime.Now;
+
+
+        if(null == callData.Password
+            || string.Empty == callData.Password)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-300001"
+                    , "비회원 작성에서 비밀번호는 필수 있습니다.");
+        }
+        else if(null == callData.Title
+            || string.Empty == callData.Title)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-300020"
+                    , "제목을 넣어 주세요");
+        }
+        else if (null == callData.Contents
+            || string.Empty == callData.Contents)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-300021"
+                    , "내용을 넣어 주세요");
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            //게시물 작성
+            BoardPost newBP = new BoardPost();
+            newBP.idBoard = callData.idBoard;
+            newBP.Title = callData.Title!;
+            newBP.WriteTime = dtNow;
+
+            //게시물 내용 작성
+            BoardPostContents newBPC = new BoardPostContents();
+            newBPC.Password = callData.Password!;
+            newBPC.Contents = callData.Contents!;
+
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //게시물 등록
+                db1.BoardPost.Add(newBP);
+                db1.SaveChanges();
+
+
+                //등록된 게시물 번호 지정
+                newBPC.idBoardPost = newBP.idBoardPost;
+                db1.BoardPostContents.Add(newBPC);
+                db1.SaveChanges();
+
+            }//end if db1
+
+
+            //전달할 데이터
+            rmReturn.idBoard = newBP.idBoard;
+            rmReturn.idBoardPost = newBP.idBoardPost;
+        }
 
 
         return arReturn.ToResult();

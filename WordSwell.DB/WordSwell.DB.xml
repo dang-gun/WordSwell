@@ -222,14 +222,6 @@
             0 = 비회원
             </remarks>
         </member>
-        <member name="P:ModelsDB.Board.BoardPost.Password">
-            <summary>
-            비밀번호
-            </summary>
-            <remarks>
-            비회원이 글쓴 경우 넣는다.
-            </remarks>
-        </member>
         <member name="P:ModelsDB.Board.BoardPost.WriteTime">
             <summary>
             작성 시간
@@ -268,6 +260,14 @@
             <summary>
             연결된 게시물
             </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostContents.Password">
+            <summary>
+            비밀번호
+            </summary>
+            <remarks>
+            비회원이 글쓴 경우 넣는다.
+            </remarks>
         </member>
         <member name="P:ModelsDB.Board.BoardPostContents.Contents">
             <summary>

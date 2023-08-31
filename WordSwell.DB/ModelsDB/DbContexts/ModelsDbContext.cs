@@ -108,7 +108,6 @@ public class ModelsDbContext : DbContext
                 idBoard = 1,
                 Title = "프로젝트에서 생성한 게시물",
 				idUser = 0,
-				Password = "1111",
                 WriteTime = DateTime.Now,
                 EditTime = null,
             });
@@ -120,7 +119,6 @@ public class ModelsDbContext : DbContext
                 idBoard = 1,
                 Title = "프로젝트에서 생성한 게시물2",
                 idUser = 0,
-                Password = "1111",
                 WriteTime = DateTime.Now,
                 EditTime = null,
             });
@@ -131,6 +129,7 @@ public class ModelsDbContext : DbContext
             {
                 idBoardPostContents = 1,
                 idBoardPost = 1,
+                Password = "1111",
                 Contents = "프로젝트에서 생성한 게시물의 내용물",
             });
         //테스트용 게시물 생성
@@ -139,6 +138,7 @@ public class ModelsDbContext : DbContext
             {
                 idBoardPostContents = 2,
                 idBoardPost = 2,
+                Password = "1111",
                 Contents = "프로젝트에서 생성한 게시물의 내용물2",
             });
     }

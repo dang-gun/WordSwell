@@ -28,6 +28,16 @@ public class BoardPostContents
 
 
     /// <summary>
+    /// 비밀번호
+    /// </summary>
+    /// <remarks>
+    /// 비회원이 글쓴 경우 넣는다.
+    /// </remarks>
+    [JsonIgnore]
+    public string Password { get; set; } = string.Empty;
+
+
+    /// <summary>
     /// 게시물 내용
     /// </summary>
     public string Contents { get; set; } = string.Empty;
