@@ -15,11 +15,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.15.3",
+    "@types/marked": "^5.0.1",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "6.7.3",
     "eslint": "^8.48.0",
     "html-webpack-plugin": "5.5.0",
     "mini-css-extract-plugin": "2.7.3",
+    "postcss-loader": "^7.3.3",
     "ts-loader": "9.4.2",
     "typescript": "5.2.2",
     "webpack": "5.76.1",
@@ -27,6 +30,6 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "@types/node": "^18.15.3"
+    
   }
 }

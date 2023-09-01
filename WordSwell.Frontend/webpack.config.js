@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const spawn = require('child_process').spawn;
+
 //Https설정 불러오기
 const HttpsConfigGet = require('./AspNetCore_HttpsConfigGet');
 
@@ -57,6 +59,37 @@ module.exports = (env, argv) =>
                     test: /\.css$/,
                     use: [MiniCssExtractPlugin.loader, "css-loader"],
                 },
+                // CKEditor svg 로더 설정
+                //{
+                //    test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+                //    use: ['raw-loader']
+                //},
+                //{
+                //    test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+                //    use: [
+                //        {
+                //            loader: 'style-loader',
+                //            options: {
+                //                injectType: 'singletonStyleTag',
+                //                attributes: {
+                //                    'data-cke': true
+                //                }
+                //            }
+                //        },
+                //        'css-loader',
+                //        {
+                //            loader: 'postcss-loader',
+                //            options: {
+                //                postcssOptions: styles.getPostCssConfig({
+                //                    themeImporter: {
+                //                        themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+                //                    },
+                //                    minify: true
+                //                })
+                //            }
+                //        }
+                //    ]
+                //}
             ],
         },
         plugins: [

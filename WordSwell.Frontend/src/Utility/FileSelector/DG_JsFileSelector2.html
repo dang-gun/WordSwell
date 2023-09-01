@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="DG_JsFileSelector2.css">
+    <!-- <script src="DG_JsFileSelector2.js"></script> -->
+</head>
+
+<body>
+    <div id="root">
+        <div class="card">
+            <h2 class="title">자바스크립트 파일 선택 UI</h2>
+            <div class="card-body">
+                <div class="file-open-box">
+                    <input type="file" id="file-open" multiple="multiple" />
+                    <label for="file-open" class="btn">파일 열기</label>
+                </div>
+                <div class="file-dnd-box">
+                    <svg fill="#5D87FF" width="64px" height="64px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.213 6.639c-.276 0-.546.025-.809.068C13.748 4.562 11.716 3 9.309 3c-2.939 0-5.32 2.328-5.32 5.199 0 .256.02.508.057.756a3.567 3.567 0 0 0-.429-.027C1.619 8.928 0 10.51 0 12.463S1.619 16 3.617 16H8v-4H5.5L10 7l4.5 5H12v4h3.213C17.856 16 20 13.904 20 11.32c0-2.586-2.144-4.681-4.787-4.681z"/></svg>
+                    <div class="texts-box">
+                        <p>드래그 또는 드랍으로 업로드</p>
+                        <p>파일 열기를 눌러 파일을 추가하실 수도 있습니다.</p>
+                    </div>
+                </div>
+                <ul class="file-preview-list">
+
+                </ul>
+                </ul>
+                <div class="actions-box">
+                    <button type="button" class="btn primary" onclick="app.Test_FileAdd()">완성된 파일 정보 추가</button>
+                    <button type="button" class="btn primary" onclick="app.Test_GetItemList()">입력된 파일 정보(콘솔)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import StartUp from './dist/app.js';
+        window.app = new StartUp();
+    </script>
+</body>
+
+</html>
