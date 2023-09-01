@@ -1,9 +1,12 @@
-﻿import NavigoProvider from "./Faculty/Router/Providers/Navigo/NavigoProvider";
-import GlobalStatic from "./Global/GlobalStatic";
-import Home from "./Page/Home/Home";
-import Page from "./Page/Page";
-import AxeView from "./Utility/AxeView/AxeView";
+﻿import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/main.css";
+
+import NavigoProvider from "./Faculty/Router/Providers/Navigo/NavigoProvider";
+import GlobalStatic from "./Global/GlobalStatic";
+import Home from "./Pages/Home/Home";
+import NotFound from "./Pages/NotFound/NotFound";
+import Page from "./Pages/Page";
+import AxeView from "./Utility/AxeView/AxeView";
 
 export default class App
 {
@@ -14,7 +17,7 @@ export default class App
 
     constructor()
     {
-        this.DomThis = document.querySelector('#_app') as Element;
+        this.DomThis = document.getElementById('_app') as Element;
         GlobalStatic.app = this;
 
         this.AxeView = new AxeView();
@@ -31,10 +34,28 @@ export default class App
      */
     private ConfigureRoutes(): void
     {
-        const { on, ContentRender } = this.Router;
+        this.Router.on(
+            "/",
+            this.Router.ContentRender({
+                Page,
+                Component: Home,
+            })
+        )
+            .on(
+                "/404",
+                this.Router.ContentRender({
+                    Page,
+                    Component: NotFound,
+                })
+            )
+            .notFound(
+                this.Router.ContentRender({
+                    Page,
+                    Component: NotFound
+                })
+            )
 
-        on("/", ContentRender({ Page, Component: Home }))
-            .resolve();
+        this.Router.resolve();
 
         this.AnchorNavigate();
     }
@@ -78,7 +99,7 @@ export default class App
                     return;
                 }
 
-                event.preventDefault();
+                e.preventDefault();
 
                 if (href)
                 {

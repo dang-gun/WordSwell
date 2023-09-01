@@ -82,7 +82,6 @@ export default class RouterProviderBase
             GlobalStatic.PageNow.constructor.name !== Component.name
         )
         {
-
             if (null === GlobalStatic.PageLayout)
             {
                 return;

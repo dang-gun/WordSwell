@@ -36,8 +36,6 @@ export default class PageComponent extends HeosabiComponent
 
         this.LayoutComponents = components;
 
-        // this.Header = Header;
-        // this.Footer = Footer;
     }
 
     /**
@@ -79,6 +77,7 @@ export default class PageComponent extends HeosabiComponent
 
         // 등록된 레이아웃 컴포넌트 갯수
         const ComponentsToLoad = this.LayoutComponents.length;
+
         // 로드된 레이아웃 컴포넌트 갯수
         let loadedComponents = 0;
 

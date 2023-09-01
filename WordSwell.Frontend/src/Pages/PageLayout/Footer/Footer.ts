@@ -1,5 +1,5 @@
 import ContentComponent from "@/Faculty/Base/ContentComponent";
-import "./Footer.scss";
+import "./Footer.css";
 
 /**
  * Footer Component를 생성하는 Class

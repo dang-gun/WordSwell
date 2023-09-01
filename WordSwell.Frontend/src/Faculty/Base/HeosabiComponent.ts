@@ -1,9 +1,9 @@
 import GlobalStatic from "@/Global/GlobalStatic";
 import AsyncHtmlLoader from "@/Utility/AsyncHTMLLoader/async-html-loader";
-import {NavigateMatchModel} from "../Router/Models/NavigateMatchModel";
-import {Overwatch} from "@/Utility/AxeView/Overwatch";
-import {OverwatchInterface} from "@/Utility/AxeView/OverwatchInterface";
-import {OverwatchingOutputType, OverwatchingType} from "@/Utility/AxeView/OverwatchingType";
+import { NavigateMatchModel } from "../Router/Models/NavigateMatchModel";
+import { Overwatch } from "@/Utility/AxeView/Overwatch";
+import { OverwatchInterface } from "@/Utility/AxeView/OverwatchInterface";
+import { OverwatchingOutputType, OverwatchingType } from "@/Utility/AxeView/OverwatchingType";
 import PrintInferredTypes from "@/Utility/PrintInferredTypes/PrintInferredTypes";
 
 interface ChildComponentInterface

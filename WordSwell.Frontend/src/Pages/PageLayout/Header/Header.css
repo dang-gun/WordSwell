@@ -1,0 +1,98 @@
+.navbar {
+    height: 56px;
+}
+
+    .navbar .form-inline {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0 8px;
+        margin-left: auto;
+        min-width: 240px;
+    }
+
+        .navbar .form-inline input {
+            background-color: var(--bs-gray-800);
+            border: 1px solid var(--bs-gray-700);
+            color: white;
+            font-size: 14px;
+            padding: 6px 16px 6px 16px;
+        }
+
+            .navbar .form-inline input::placeholder {
+                color: var(--bs-gray-600);
+            }
+
+        .navbar .form-inline .search-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: none;
+            background: none;
+            height: 36px;
+            width: 36px;
+        }
+
+            .navbar .form-inline .search-btn svg {
+                width: 20px;
+                color: var(--bs-gray-400);
+            }
+
+.navbar-category {
+    background: white;
+    height: 46px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+    .navbar-category::-webkit-scrollbar {
+        display: none;
+    }
+
+    .navbar-category .category-container {
+        height: 100%;
+    }
+
+    .navbar-category .category-list {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin-left: -12px;
+    }
+
+        .navbar-category .category-list li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bs-gray-700);
+            height: 46px;
+            min-width: 60px;
+            font-size: 14px;
+            padding: 0 16px;
+            white-space: nowrap;
+            font-weight: 500;
+            transition: color 0.125s ease-in-out;
+        }
+
+@media (min-width: 768px) {
+    .navbar {
+        height: 70px;
+    }
+
+    .navbar-category .category-list {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin-left: -16px;
+    }
+}
+
+.navbar-category .category-list li a:hover {
+    color: var(--bs-primary);
+}

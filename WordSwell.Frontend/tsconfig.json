@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "commonjs",
+    "outDir": "./dist/",
+    "module": "esnext",
     "target": "es6",
     "lib": [ "es6", "dom" ],
-    "sourceMap": true,
     "allowJs": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
+    "removeComments": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "paths": {
-      "@/*": [ "src/*" ]
+      "@/*": [ "src/*" ],
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true
 
   },
   "exclude": [

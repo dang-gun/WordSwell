@@ -1,4 +1,4 @@
-import "./Header.scss";
+import "./Header.css";
 import ContentComponent from "@/Faculty/Base/ContentComponent";
 
 /**
@@ -7,7 +7,7 @@ import ContentComponent from "@/Faculty/Base/ContentComponent";
 export default class Header extends ContentComponent
 {
     /** Header Component의 html 파일 주소 */
-    private readonly PagePath: string = "Page/PageLayout/Header/Header.html";
+    private readonly PagePath: string = "Pages/PageLayout/Header/Header.html";
 
     constructor()
     {
@@ -15,12 +15,17 @@ export default class Header extends ContentComponent
         super();
     }
 
+    public get GetPagePath(): string
+    {
+        return this.PagePath;
+    }
+
     /**
      * Dom이 생성되고 나서 실행되는 함수
      * @returns {void}
      */
-    public async RenderingComplete(): Promise<void>
+    public RenderingComplete(): void
     {
-
+        console.log("헤더 렌더링")
     }
 }

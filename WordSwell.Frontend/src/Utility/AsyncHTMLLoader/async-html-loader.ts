@@ -78,6 +78,7 @@ class AsyncHtmlLoader
         // onError 함수에 대한 콜백을 받지 않았으면 실행하지 않는다.
         if (undefined === this.htmlContentFunction.onError)
         {
+            console.error(error);
             return;
         }
 

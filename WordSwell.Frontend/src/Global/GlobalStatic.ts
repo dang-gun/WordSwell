@@ -33,7 +33,6 @@ export default class GlobalStatic
 
     static ImageToSeparator = (data: string): string =>
     {
-        console.log('123');
         const regex = /<img\s+src="([^"]*)"\s+alt="([^\/]+)\/(\d+)"/g;
         const matches = [];
         let match;
