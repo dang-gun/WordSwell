@@ -7,8 +7,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //Https설정 불러오기
 const HttpsConfigGet = require('./AspNetCore_HttpsConfigGet');
 
+
+//소스 위치
+const RootPath = path.resolve(__dirname);
+const SrcPath = path.resolve(RootPath, 'src');
+
 module.exports = (env, argv) => 
 {
+    console.log("*** RootPath  = " + RootPath);
+    console.log("    SrcPath  = " + SrcPath);
+
     //릴리즈(프로덕션)인지 여부
     const EnvPrductionIs = false;
     const EnvString = "development";
@@ -35,6 +43,9 @@ module.exports = (env, argv) =>
 
         resolve: {
             extensions: [".js", ".ts"],
+            alias: {
+                '@': SrcPath,
+            },
         },
         module: {
             rules: [

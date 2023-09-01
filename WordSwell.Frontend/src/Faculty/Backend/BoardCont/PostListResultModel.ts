@@ -1,6 +1,6 @@
 ﻿
 
-import { BoardPost } from '../ModelsDB/Board/BoardPost';
+import { BoardPost } from '@/ModelsDB/Board/BoardPost';
 
 /** 게시판 게시물 리스트 */
 export interface PostListResultModel 

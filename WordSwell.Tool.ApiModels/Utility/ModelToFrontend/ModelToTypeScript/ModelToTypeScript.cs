@@ -161,11 +161,13 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 				string sType = item.PropertyType.Name;
 				string sNameFull = null != item.PropertyType.FullName ? item.PropertyType.FullName : string.Empty;
                 string sArrayType = string.Empty;
+				
+				//널 허용 여부
 				bool bNullable = false;
+				//출력하지 않는 프로퍼티인지 여부
+				bool bModelOutputNo = false;
 
-
-
-				if (item.PropertyType.Name == "List`1")
+                if (item.PropertyType.Name == "List`1")
 				{//리스트 타입이다.
 
 					//리스트 타입인걸 알리고
@@ -177,9 +179,6 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
                     {
                         sNameFull = item.PropertyType.GenericTypeArguments[0].FullName!;
                     }
-
-					//커스텀 속성 체크
-					this.CustomAttributesFind(item, ref bNullable);
                 }
                 else if (item.PropertyType.Name == "ICollection`1")
                 {//리스트 타입이다.
@@ -194,9 +193,6 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 					{
                         sNameFull = item.PropertyType.GenericTypeArguments[0].FullName!;
                     }
-
-                    //커스텀 속성 체크
-                    this.CustomAttributesFind(item, ref bNullable);
                 }
                 else if (item.PropertyType.Name == "Nullable`1")
 				{
@@ -222,18 +218,23 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 
                     //네임스페이스 전체 이름 재정의
                     sNameFull = sNameFull.Substring(0, sNameFull.Length - 2);
-
-                    //커스텀 속성 체크
-                    this.CustomAttributesFind(item, ref bNullable);
                 }
 
-				this.ModelMember.Add(new TypeScriptModelMember()
+
+                //커스텀 속성 체크
+                this.CustomAttributesFind(
+                    item
+                    , ref bNullable
+                    , ref bModelOutputNo);
+
+                this.ModelMember.Add(new TypeScriptModelMember()
 				{
 					Name = item.Name
 					, NameFull = sNameFull
                     , Type = sType
 					, ArrayType = sArrayType
 					, NullableIs = bNullable
+					, ModelOutputNoIs = bModelOutputNo
 				});
 			}
 		}
@@ -409,6 +410,11 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 		{
 			TypeScriptModelMember itemMM = this.ModelMember[i];
 
+			if(true == itemMM.ModelOutputNoIs)
+			{//출력 안함이다.
+				continue;
+			}
+
             ModelToTextItemModel newMTTI = new ModelToTextItemModel();
 
             //검색어 완성 시키기
@@ -475,8 +481,21 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
                 //일치하는 타입이 없다는건 별도 참조가 있다는 뜻이다.
                 foreach (ModelToTextImportModel item in listImport)
 				{
-					string sImportAddOne = this.ToTypeScriptImportString(item.Name, item.OutPhysicalFullPath);
-                    mtmReturn.ImportAdd.AppendLine(sImportAddOne);
+                    //타입스크립트 임포트 만들기
+                    string sImportAddOne
+                        = this.ToTypeScriptImportString(
+                            item.Name
+                            , item.OutPhysicalFullPath);
+
+					if (null == mtmReturn.ImportAdd
+								.Where(w => w == sImportAddOne)
+								.FirstOrDefault())
+					{//같은 이름의 참조가 없다.
+
+						//리스트에 추가
+						mtmReturn.ImportAdd.Add(sImportAddOne);
+					}
+                    
                 }
             }
 
@@ -549,15 +568,17 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 		return bReturn;
 	}
 
-	/// <summary>
-	/// 지정된 아이템에서 커스텀 어트리 뷰트를 검색하고 
-	/// 지정된 어트리뷰트가 있으면 알려준다.
-	/// </summary>
-	/// <param name="item"></param>
-	/// <param name="bNullableAttribute"></param>
-	private void CustomAttributesFind(
+    /// <summary>
+    /// 지정된 아이템에서 커스텀 어트리 뷰트를 검색하고 
+    /// 지정된 어트리뷰트가 있으면 알려준다.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="bNullableAttribute"></param>
+    /// <param name="bModelOutputNoAttribute"></param>
+    private void CustomAttributesFind(
 		PropertyInfo item
-		, ref bool bNullableAttribute)
+		, ref bool bNullableAttribute
+        , ref bool bModelOutputNoAttribute)
 	{
 
 		if(null != item.CustomAttributes
@@ -565,6 +586,14 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 						.FirstOrDefault())
 		{//널 속성이 있다.
 			bNullableAttribute = true;
+        }
+
+
+        if (null != item.CustomAttributes
+                        .Where(w => w.AttributeType.Name == "ModelOutputNoAttribute")
+                        .FirstOrDefault())
+        {//프로퍼티 출력 안함 속성이 있다.
+            bModelOutputNoAttribute = true;
         }
     }
 }

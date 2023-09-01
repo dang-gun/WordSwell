@@ -18,7 +18,7 @@ public class ModelToTextModel
     /// <summary>
     /// 임포트 영역 추가 영역
     /// </summary>
-    public StringBuilder ImportAdd = new StringBuilder();
+    public List<string> ImportAdd = new List<string>();
 
 
     /// <summary>
@@ -48,9 +48,30 @@ public class ModelToTextModel
     {
         StringBuilder sbReturn = new StringBuilder();
 
-        sbReturn.Append(this.Import);
-        sbReturn.Append(this.ImportAdd);
-        sbReturn.AppendLine();
+        if(string.Empty != this.Import.ToString()
+                                    .Replace(Environment.NewLine, string.Empty))
+        {//값이 있다.(줄 바꿈문자는 무시)
+
+            //값이 있을때만 출력
+            sbReturn.AppendLine(this.Import.ToString());
+
+            //빈줄 하나 추가
+            sbReturn.AppendLine();
+        }
+        
+        foreach(string sItem in this.ImportAdd)
+        {
+            sbReturn.AppendLine(sItem);
+        }
+        
+
+        if(0 < this.ImportAdd.Count)
+        {//this.ImportAdd가 있다.
+
+            //빈줄 하나 추가
+            sbReturn.AppendLine();
+        }
+        
 
         sbReturn.Append(this.HeadSummary);
         sbReturn.Append(this.HeadName);

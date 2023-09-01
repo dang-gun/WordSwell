@@ -29,8 +29,14 @@ public class TypeScriptModelMember
 	/// </remarks>
 	public string ArrayType { get; set; } = string.Empty;
 
+
+
 	/// <summary>
 	/// 널 입력 가능 여부
 	/// </summary>
 	public bool NullableIs { get; set; } = false;
+	/// <summary>
+	/// 출력 안함 여부
+	/// </summary>
+    public bool ModelOutputNoIs { get; set; } = false;
 }

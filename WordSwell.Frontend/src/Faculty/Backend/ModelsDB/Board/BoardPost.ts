@@ -1,7 +1,7 @@
 ﻿
 
-import { Board } from '../ModelsDB/Board/Board';
-import { BoardPostContents } from '../ModelsDB/Board/BoardPostContents';
+import { Board } from '@/ModelsDB/Board/Board';
+import { BoardPostContents } from '@/ModelsDB/Board/BoardPostContents';
 
 /** 게시판의 게시물 */
 export interface BoardPost 
@@ -11,7 +11,7 @@ export interface BoardPost
     /** 소속 게시판 고유번호 - 외래키 */
     idBoard: number,
     /** 연결된 소속 게시판 정보 */
-    Board: Board,
+    Board?: Board,
     /** 제목 */
     Title: string,
     /** 유저 아이디 */

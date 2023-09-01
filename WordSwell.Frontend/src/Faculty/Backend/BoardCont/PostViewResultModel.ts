@@ -1,7 +1,7 @@
 ﻿
 
-import { BoardPost } from '../ModelsDB/Board/BoardPost';
-import { BoardPostContents } from '../ModelsDB/Board/BoardPostContents';
+import { BoardPost } from '@/ModelsDB/Board/BoardPost';
+import { BoardPostContents } from '@/ModelsDB/Board/BoardPostContents';
 
 /** 지정한 게시판의 지정한 게시물을 보기 결과 리스트 */
 export interface PostViewResultModel 
