@@ -18,6 +18,24 @@ public static class Program
         //string sConnectStringSelect = string.Empty;
         string sConnectStringSelect = "DB_mssql_Test";
 
+        //읽어들이 appsettings.json
+        dynamic? jsonAppSettings = null;
+
+        if (true == File.Exists("appsettings.json"))
+        {//appsettings.json 파일이 있다.
+
+            string sTemp = File.ReadAllText("appsettings.json");
+            jsonAppSettings = JsonConvert.DeserializeObject(sTemp);
+
+            if (jsonAppSettings != null)
+            {
+                sConnectStringSelect = jsonAppSettings["DB_select"];
+            }
+        }
+
+        
+            
+        //콘솔 명령어를 최우선으로 사용한다.
         for (int i = 0; i < args.Length; ++i)
         {
             string sCmd = args[i].ToLower();
@@ -36,6 +54,16 @@ public static class Program
         if(string.Empty == sConnectStringSelect)
         {
             Console.WriteLine("선택된 DB가 없습니다.");
+        }
+        else if(jsonAppSettings != null)
+        {//appsettings.json이 있다.
+
+            DbInitialSetting dbInitialSetting;
+            //DB 설정
+            dbInitialSetting
+                = new DbInitialSetting(
+                    (jsonAppSettings[sConnectStringSelect].DBType).ToString()
+                    , (jsonAppSettings[sConnectStringSelect].ConnectionString).ToString());
         }
         else
         {

@@ -1,0 +1,40 @@
+1) DB 작성
+DbContexts > ModelsDbContext.cs을 수정하여 DB를 작성한다.
+
+
+2) 마이그레이션 준비
+'패키지 관리자 콘솔'을 연다.
+기본 프로젝트를 WordSwell.DB로 지정한다.
+시작 프로젝트를 WordSwell.Backend로 설정한다.
+WordSwell.Backend의 appsettings.json의 DB_select 항목에 사용할 DB 커낵트 스트링을 지정한다.
+
+3) 마이그레이션
+사용하려는 DB에 맞게 아래 명령어를 사용하여 DB를 마이그레이션한다.
+
+- MSSQL
+Add-Migration InitialCreate -Context ModelsDbContext_Mssql -OutputDir Migrations/Mssql 
+Remove-Migration -Context ModelsDbContext_Mssql
+Update-Database -Context ModelsDbContext_Mssql
+Update-Database -Context ModelsDbContext_Mssql -Migration 0
+
+- MariaDB, MySQL
+Add-Migration InitialCreate -Context ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
+Remove-Migration -Context ModelsDB.ModelsDbContext_Mariadb
+Update-Database -Context ModelsDbContext_Mariadb
+Update-Database -Context ModelsDbContext_Mariadb -Migration 0
+
+-PostgreSQL
+Add-Migration InitialCreate -Context ModelsDbContext_Postgresql -OutputDir Migrations/Postgresql
+Remove-Migration -Context ModelsDB.ModelsDbContext_Postgresql
+Update-Database -Context ModelsDbContext_Postgresql
+Update-Database -Context ModelsDbContext_Postgresql -Migration 0
+
+
+
+4) 마이그레이션 적용
+Update-Database 명령어를 이용하여 마이그레이션을 적용할 수 있지만
+WordSwell.Backend프로젝트를 실행하여 적용할 수도 있다.
+
+만약 다른 운영체제나 비주얼 스튜디오를 사용하지 않는다면
+WordSwell.Tool.Db를 실행하여 마이그레이션을 적용해도 된다.
+이때 WordSwell.Backend프로젝트의 appsettings.json을 복사하여 사용하면 된다.
