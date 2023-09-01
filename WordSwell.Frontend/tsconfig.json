@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "module": "commonjs",
     "target": "es6",
     "lib": [ "es6", "dom" ],
     "sourceMap": true,
-    "baseUrl": "./",
+    "allowJs": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "paths": {
       "@/*": [ "src/*" ]
-    }
+    },
+    "allowSyntheticDefaultImports": true
+
   },
   "exclude": [
     "node_modules"

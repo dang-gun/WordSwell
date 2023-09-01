@@ -400,3 +400,5 @@ FodyWeavers.xsd
 
 # 이 프로젝트에 올리면 안되는 파일
 SettingInfo_gitignore.json
+.env.development.local
+/WordSwell.Frontend/.env.development.local

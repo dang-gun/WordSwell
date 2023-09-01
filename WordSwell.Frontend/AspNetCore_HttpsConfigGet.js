@@ -1,5 +1,5 @@
 ﻿const fs = require('fs');
-const spawn = require('child_process').spawn;
+const spawnSync = require('child_process').spawnSync;
 const path = require('path');
 
 const crypto = require('crypto');
@@ -34,7 +34,7 @@ function aspnetcore_https()
 
     if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath))
     {
-        spawn('dotnet', [
+        spawnSync('dotnet', [
             'dev-certs',
             'https',
             '--export-path',
@@ -42,8 +42,8 @@ function aspnetcore_https()
             '--format',
             'Pem',
             '--no-password',
-        ], { stdio: 'inherit', })
-            .on('exit', (code) => { });
+        ], { stdio: "inherit", shell: true })
+
     }
 }
 
@@ -163,9 +163,7 @@ function readEnvFile(file, type)
     if (!fs.existsSync(file))
     {
         throw new Error(
-            `You specified ${chalk.cyan(
-                type
-            )} in your env, but the file  can't be found.`
+            `You specified ${type} in your env, but the file  can't be found.`
         );
     }
     return fs.readFileSync(file);
@@ -201,7 +199,7 @@ function HttpsConfigGet(bHttpsIs)
             aspnetcore_react();
         }
 
-        
+
         {
             //인증서 읽기
             console.log("SSL 로컬 인증서 : ");
