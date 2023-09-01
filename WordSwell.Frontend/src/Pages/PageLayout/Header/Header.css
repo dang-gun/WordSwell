@@ -1,8 +1,8 @@
-.navbar {
+.app-header > .navbar {
     height: 56px;
 }
 
-    .navbar .form-inline {
+    .app-header > .navbar .form-inline {
         position: relative;
         display: flex;
         align-items: center;
@@ -11,7 +11,7 @@
         min-width: 260px;
     }
 
-        .navbar .form-inline input {
+        .app-header > .navbar .form-inline input {
             background-color: var(--bs-gray-800);
             border: 1px solid var(--bs-gray-700);
             color: white;
@@ -19,17 +19,17 @@
             padding: 6px 36px 6px 14px;
         }
 
-            .navbar .form-inline input:focus {
-                background-color: var(--bs-gray-700);
+            .app-header > .navbar .form-inline input:focus {
+                background-color: var(--bs-gray-800);
                 border-color: var(--bs-gray-600);
                 box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
             }
 
-            .navbar .form-inline input::placeholder {
+            .app-header > .navbar .form-inline input::placeholder {
                 color: var(--bs-gray-600);
             }
 
-        .navbar .form-inline .search-btn {
+        .app-header > .navbar .form-inline .search-btn {
             position: absolute;
             right: 0;
             top: 0;
@@ -39,12 +39,12 @@
             width: 36px;
         }
 
-            .navbar .form-inline .search-btn svg {
+            .app-header > .navbar .form-inline .search-btn svg {
                 width: 20px;
                 color: var(--bs-gray-400);
             }
 
-.navbar-category {
+.app-header > .navbar-category {
     background: white;
     height: 46px;
     position: sticky;
@@ -57,22 +57,22 @@
     scrollbar-width: none;
 }
 
-    .navbar-category::-webkit-scrollbar {
+    .app-header > .navbar-category::-webkit-scrollbar {
         display: none;
     }
 
-    .navbar-category .category-container {
+    .app-header > .navbar-category .category-container {
         height: 100%;
     }
 
-    .navbar-category .category-list {
+    .app-header > .navbar-category .category-list {
         display: flex;
         align-items: center;
         height: 100%;
         margin-left: -12px;
     }
 
-        .navbar-category .category-list li a {
+        .app-header > .navbar-category .category-list li a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -87,11 +87,11 @@
         }
 
 @media (min-width: 768px) {
-    .navbar {
+    .app-header > .navbar {
         height: 70px;
     }
 
-    .navbar-category .category-list {
+    .app-header > .navbar-category .category-list {
         display: flex;
         align-items: center;
         height: 100%;
@@ -99,6 +99,6 @@
     }
 }
 
-.navbar-category .category-list li a:hover {
+.app-header > .navbar-category .category-list li a:hover {
     color: var(--bs-primary);
 }
