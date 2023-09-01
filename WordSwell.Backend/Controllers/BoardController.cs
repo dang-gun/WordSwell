@@ -1,9 +1,12 @@
-﻿using DGUtility.ApiResult;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
+
+using DGUtility.ApiResult;
+
 using ModelsContext;
 using ModelsDB.Board;
+using ModelsDB_partial.Board;
+
 using WordSwell.ApiModels.BoardCont;
 
 
@@ -69,9 +72,12 @@ public class BoardController : Controller
             using (ModelsDbContext db2 = new ModelsDbContext())
             {
                 //검색 대상 전체 리스트 **************************
-                IQueryable<BoardPost> iqG_R
+                //해당 게시판
+                //정상 상태 게시물만
+                IQueryable<BoardPost> findBpList
                     = db2.BoardPost
-                        .Where(w=>w.idBoard == findBoard!.idBoard);
+                        .Where(w => w.idBoard == findBoard!.idBoard
+                                && w.PostState == PostStateType.Normal);
 
 
                 //검색어 확인 ***************************************
@@ -89,12 +95,12 @@ public class BoardController : Controller
                                 long nPostIndex = 0;
                                 if (true == Int64.TryParse(callData.Search, out nPostIndex))
                                 {//숫자 변환이 됐다.
-                                    iqG_R 
-                                        = iqG_R.Where(w => w.idBoardPost == nPostIndex);
+                                    findBpList 
+                                        = findBpList.Where(w => w.idBoardPost == nPostIndex);
                                 }
                                 else
                                 {//일치하는거 없음
-                                    iqG_R = iqG_R.Take(0);
+                                    findBpList = findBpList.Take(0);
                                 }
 
                                 
@@ -103,15 +109,15 @@ public class BoardController : Controller
 
                         case BoardSearchTargetType.Title:
                             {
-                                iqG_R 
-                                    = iqG_R
+                                findBpList 
+                                    = findBpList
                                         .Where(w => callData.Search.Contains(w.Title));
                             }
                             break;
 
                         case BoardSearchTargetType.Contents:
                             {
-                                iqG_R = iqG_R.Where(w =>
+                                findBpList = findBpList.Where(w =>
                                 callData.Search.Contains(
                                     w.Contents!.Count > 0 
                                     ? w.Contents.First().Contents
@@ -123,8 +129,8 @@ public class BoardController : Controller
 
                         case BoardSearchTargetType.TitleAndContents:
                             {
-                                iqG_R
-                                    = iqG_R
+                                findBpList
+                                    = findBpList
                                         .Where(w => callData.Search.Contains(w.Title)
                                         || callData.Search.Contains(
                                                 w.Contents!.Count > 0
@@ -139,24 +145,24 @@ public class BoardController : Controller
                             break;
 
                         default://조건 안맞음
-                            iqG_R = iqG_R.Take(0);
+                            findBpList = findBpList.Take(0);
                             break;
                     }//end switch (callData.SearchTargetType)
                 }
 
 
                 //페이징전에 개수 파악 ***************************
-                rmReturn.TotalCount = iqG_R.Count();
+                rmReturn.TotalCount = findBpList.Count();
                 rmReturn.PageNumber = Convert.ToInt32(callData.PageNumber);
                 rmReturn.ShowCount = Convert.ToInt32(callData.ShowCount);
 
 
                 //페이지 개수 만큼 자른다.***********************************
-                iqG_R = iqG_R.Skip(rmReturn.ShowCount * (rmReturn.PageNumber - 1))
+                findBpList = findBpList.Skip(rmReturn.ShowCount * (rmReturn.PageNumber - 1))
                             .Take(rmReturn.ShowCount);
 
 
-                rmReturn.PostList = iqG_R.ToList();
+                rmReturn.PostList = findBpList.ToList();
             }//end using db2
         }
         
@@ -290,6 +296,7 @@ public class BoardController : Controller
             //게시물 작성
             BoardPost newBP = new BoardPost();
             newBP.idBoard = callData.idBoard;
+            newBP.PostState = ModelsDB_partial.Board.PostStateType.Normal;
             newBP.Title = callData.Title!;
             newBP.WriteTime = dtNow;
 
@@ -451,7 +458,7 @@ public class BoardController : Controller
         {
             arReturn.ApiResultInfoSet(
                     "B1-500001"
-                    , "비회원 작성에서 비밀번호는 필수 있습니다.");
+                    , "비회원 글에서 비밀번호는 필수 있습니다.");
         }
         else if (null == callData.Title
             || string.Empty == callData.Title)
@@ -535,6 +542,9 @@ public class BoardController : Controller
             {
                 //수정 사항 적용
                 findPost!.Title = callData.Title!;
+
+                //아직은 회원 기능이 없으므로 0으로 넣는다.
+                findPost.idUser_Edit = 0;
                 findPost.EditTime = dtNow;
 
                 findPostContents!.Contents = callData.Contents!;
@@ -551,4 +561,118 @@ public class BoardController : Controller
         return arReturn.ToResult();
     }
 
+    /// <summary>
+    /// 게시물 삭제
+    /// </summary>
+    /// <remarks>
+    /// 실제로 삭제되는건 아니고 상태만 삭제로 바꾼다.<br />
+    /// 특정조건(예> 스케줄러에 의한 삭제 )에 맞으면 영구삭제 한다.
+    /// </remarks>
+    /// <param name="callData"></param>
+    /// <returns></returns>
+    [HttpDelete]
+    public ActionResult<PostDeleteResultModel> PostDelete([FromQuery] PostDeleteCallModel callData)
+    {
+        ApiResultReady arReturn = new ApiResultReady(this);
+        PostDeleteResultModel rmReturn = new PostDeleteResultModel();
+        arReturn.ResultObject = rmReturn;
+
+        DateTime dtNow = DateTime.Now;
+
+
+        //지정된 게시판
+        Board? findBoard = null;
+        //지정된 게시물
+        BoardPost? findPost = null;
+        //지정된 게시물의 내용
+        BoardPostContents? findPostContents = null;
+
+        if (null == callData.Password
+            || string.Empty == callData.Password)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-600001"
+                    , "비회원 글에서 비밀번호는 필수 있습니다.");
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //게시판 검색
+                findBoard
+                    = db1.Board
+                        .Where(w => w.idBoard == callData.idBoard)
+                        .FirstOrDefault();
+
+                if (null == findBoard)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-600100"
+                        , "게시판을 찾을 수 없습니다");
+                }
+            }//end using db1
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db2 = new ModelsDbContext())
+            {
+                //게시물 검색
+                findPost
+                    = db2.BoardPost
+                        .Where(w => w.idBoard == callData.idBoard
+                                && w.idBoardPost == callData.idBoardPost)
+                        .Include(i => i.Contents)
+                        .FirstOrDefault();
+
+                if (null == findPost)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-600101"
+                        , "게시물이 없습니다");
+                }
+                else
+                {
+                    if (null == findPost!.Contents
+                        || 0 >= findPost!.Contents.Count)
+                    {//게시물 내용이 없다.
+                        arReturn.ApiResultInfoSet(
+                            "B1-600102"
+                            , "게시물의 내용이 없습니다");
+                    }
+                    else if (findPost!.Contents.First().Password != callData.Password)
+                    {
+                        arReturn.ApiResultInfoSet(
+                            "B1-600103"
+                            , "비밀 번호가 틀렸습니다.");
+                    }
+                    else
+                    {//게시물 내용이 있다.
+                        findPostContents = findPost.Contents.First();
+                    }
+                }
+
+            }//end using db2
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db3 = new ModelsDbContext())
+            {
+                //수정 사항 적용
+                //아직은 회원 기능이 없으므로 0으로 넣는다.
+                findPost!.idUser_Edit = 0;
+                findPost.PostState = ModelsDB_partial.Board.PostStateType.Delete;
+                findPost.EditTime = dtNow;
+
+                db3.BoardPost.Update(findPost);
+
+                db3.SaveChanges();
+            }//end using db2
+        }
+
+
+        return arReturn.ToResult();
+    }
 }

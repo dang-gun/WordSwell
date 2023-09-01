@@ -39,6 +39,31 @@
             유저 이름
             </summary>
         </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostDeleteCallModel">
+            <summary>
+            게시물 삭제 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostDeleteResultModel">
+            <summary>
+            게시물 삭제 요청 결과 모델
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel">
             <summary>
             게시물 수정 요청 모델
@@ -76,7 +101,7 @@
         </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostEditViewCallModel">
             <summary>
-            게시물 리스트를 요청할때 모델
+            게시물 수정을 위한 내용 요청할때 모델
             </summary>
         </member>
         <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.idBoard">

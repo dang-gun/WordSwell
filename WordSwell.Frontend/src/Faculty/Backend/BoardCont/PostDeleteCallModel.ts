@@ -1,5 +1,5 @@
-﻿/** 게시물 수정을 위한 내용 요청할때 모델 */
-export interface PostEditViewCallModel 
+﻿/** 게시물 삭제 요청할때 모델 */
+export interface PostDeleteCallModel 
 {
     /** 게시판 고유 번호 */
     idBoard: number,

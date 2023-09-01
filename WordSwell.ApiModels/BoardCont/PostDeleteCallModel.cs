@@ -1,9 +1,9 @@
 ﻿namespace WordSwell.ApiModels.BoardCont;
 
 /// <summary>
-/// 게시물 수정을 위한 내용 요청할때 모델
+/// 게시물 삭제 요청할때 모델
 /// </summary>
-public class PostEditViewCallModel
+public class PostDeleteCallModel
 {
     /// <summary>
     /// 게시판 고유 번호

@@ -44,6 +44,17 @@
             <param name="callData"></param>
             <returns></returns>
         </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostDelete(WordSwell.ApiModels.BoardCont.PostDeleteCallModel)">
+            <summary>
+            게시물 삭제
+            </summary>
+            <remarks>
+            실제로 삭제되는건 아니고 상태만 삭제로 바꾼다.<br />
+            특정조건(예> 스케줄러에 의한 삭제 )에 맞으면 영구삭제 한다.
+            </remarks>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordSwell.Backend.Controllers.TestController">
             <summary>
             테스트용 API
