@@ -1,3 +1,10 @@
-#divFooter {
-
+.app-footer {
+    background: white;
 }
+
+    .app-footer > .container p {
+        padding: 2rem 0 3rem;
+        color: var(--bs-gray-600);
+        font-size: 0.875rem;
+        margin-bottom: 0;
+    }
