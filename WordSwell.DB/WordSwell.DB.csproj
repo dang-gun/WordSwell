@@ -16,6 +16,14 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ProjectFiles\DbMigration.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ProjectFiles\DbMigration.txt" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.20" />

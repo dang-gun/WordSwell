@@ -9,7 +9,7 @@ namespace ModelsContext;
 /// mssql전용 컨텍스트
 /// </summary>
 ///<remarks>
-/// Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
+/// Add-Migration InitialCreate -Context ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
 /// Remove-Migration -Context ModelsDB.ModelsDbContext_Mariadb
 /// Update-Database -Context ModelsDbContext_Mariadb
 /// Update-Database -Context ModelsDbContext_Mariadb -Migration 0
