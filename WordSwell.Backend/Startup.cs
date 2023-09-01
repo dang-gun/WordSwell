@@ -58,18 +58,34 @@ public class Startup
         }
 
         
-
-
-
-
         //로컬 경로 저장
         GlobalStatic.FileProc.ProjectRootDir = env.ContentRootPath;
-        GlobalStatic.FileProc.ClientAppSrcDir.Add(
-            Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "production"));
-        GlobalStatic.FileProc.OutputFileDir
-            = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "UploadFile");
-        GlobalStatic.FileProc.ProjectXmlDir
-            = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "DocXml", "WordSwell.Backend.xml");
+
+
+        if (true == env.IsDevelopment())
+        {//개발모드일때
+
+            GlobalStatic.FileProc.ClientAppSrcDir.Add(
+                Path.GetFullPath(
+                    Path.Combine("..", "WordSwell.Frontend", "wwwroot", "production")
+                    , GlobalStatic.FileProc.ProjectRootDir));
+
+            GlobalStatic.FileProc.OutputFileDir
+                = Path.GetFullPath(
+                    Path.Combine("..", "WordSwell.Frontend", "wwwroot", "production", "UploadFile")
+                    , GlobalStatic.FileProc.ProjectRootDir);
+        }
+        else
+        {//프로덕션일때
+            GlobalStatic.FileProc.ClientAppSrcDir.Add(
+                Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "production"));
+
+            GlobalStatic.FileProc.OutputFileDir
+                = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "production", "UploadFile");
+        }
+
+
+        
 
 
         //xml 파일 복사 **********************

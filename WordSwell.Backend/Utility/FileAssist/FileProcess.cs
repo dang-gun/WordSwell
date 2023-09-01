@@ -33,16 +33,6 @@ public class FileProcess
 	/// </remarks>
 	public string OutputFileDir { get; set; } = string.Empty;
 
-
-	/// <summary>
-	/// 이 프로젝트의 프로젝트 Xml 파일 경로.
-	/// 프로젝트 세팅에 xml 파일 출력경로와 일치시켜준다.
-	/// </summary>
-	/// <remarks>
-	/// 플록시를 쓰는 경우 이 파일이 없어서 에러가 난다.<br />
-	/// api 프로젝트에서 복사해서 넣어주자.
-	/// </remarks>
-	public string ProjectXmlDir { get; set; } = string.Empty;
 	/// <summary>
 	/// 다른 프로젝트의 Xml 파일 경로.
 	/// </summary>
