@@ -1,6 +1,4 @@
-﻿
-
-import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
+﻿import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
 
 /** 게시판의 게시물의 내용물 */
 export interface BoardPostContents 

@@ -23,6 +23,27 @@
             <param name="callData"></param>
             <returns></returns>
         </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostWrite(WordSwell.ApiModels.BoardCont.PostWriteCallModel)">
+            <summary>
+            게시물 작성
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostEditView(WordSwell.ApiModels.BoardCont.PostEditViewCallModel)">
+            <summary>
+            게시물 수정을 위한 보기요청
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.PostEditApply(WordSwell.ApiModels.BoardCont.PostEditApplyCallModel)">
+            <summary>
+            게시물 수정 요청
+            </summary>
+            <param name="callData"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordSwell.Backend.Controllers.TestController">
             <summary>
             테스트용 API

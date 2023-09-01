@@ -1,7 +1,4 @@
-﻿
-
-
-/** 게시물 작성 결과 */
+﻿/** 게시물 작성 결과 */
 export interface PostWriteResultModel 
 {
     /** 게시판 */

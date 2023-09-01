@@ -39,6 +39,76 @@
             유저 이름
             </summary>
         </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel">
+            <summary>
+            게시물 수정 요청 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Contents">
+            <summary>
+            게시물 내용
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyResultModel">
+            <summary>
+            게시물 수정 요청 결과 모델
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditViewCallModel">
+            <summary>
+            게시물 리스트를 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditViewResultModel">
+            <summary>
+            게시물 수정용 보기 요청
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.Post">
+            <summary>
+            게시물
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.PostContents">
+            <summary>
+            게시물의 내용물
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostListCallModel">
             <summary>
             게시물 리스트를 요청할때 모델

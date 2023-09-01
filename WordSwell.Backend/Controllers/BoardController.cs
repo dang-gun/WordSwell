@@ -321,4 +321,234 @@ public class BoardController : Controller
 
         return arReturn.ToResult();
     }
+
+    /// <summary>
+    /// 게시물 수정을 위한 보기요청
+    /// </summary>
+    /// <param name="callData"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public ActionResult<PostEditViewResultModel> PostEditView([FromQuery] PostEditViewCallModel callData)
+    {
+        ApiResultReady arReturn = new ApiResultReady(this);
+        PostEditViewResultModel rmReturn = new PostEditViewResultModel();
+        arReturn.ResultObject = rmReturn;
+
+
+        //지정된 게시판
+        Board? findBoard = null;
+        //지정된 게시물
+        BoardPost? findPost = null;
+        //지정된 게시물의 내용
+        BoardPostContents? findPostContents = null;
+
+
+
+        if (null == callData.Password
+            || string.Empty == callData.Password)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-400001"
+                    , "비회원 작성에서 비밀번호는 필수 있습니다.");
+        }
+
+        
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //게시판 검색
+                findBoard
+                    = db1.Board
+                        .Where(w => w.idBoard == callData.idBoard)
+                        .FirstOrDefault();
+
+                if (null == findBoard)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-400100"
+                        , "게시판을 찾을 수 없습니다");
+                }
+            }//end using db1
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db3 = new ModelsDbContext())
+            {
+                //게시물 검색
+                findPost
+                    = db3.BoardPost
+                        .Where(w => w.idBoard == callData.idBoard
+                                && w.idBoardPost == callData.idBoardPost)
+                        .Include(i => i.Contents)
+                        .FirstOrDefault();
+
+                if (null == findPost)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-400101"
+                        , "게시물이 없습니다");
+                }
+                else
+                {
+                    if (null == findPost!.Contents
+                        || 0 >= findPost!.Contents.Count)
+                    {//게시물 내용이 없다.
+                        arReturn.ApiResultInfoSet(
+                            "B1-400102"
+                            , "게시물의 내용이 없습니다");
+                    }
+                    else if (findPost!.Contents.First().Password != callData.Password)
+                    {
+                        arReturn.ApiResultInfoSet(
+                            "B1-400103"
+                            , "비밀 번호가 틀렸습니다.");
+                    }
+                    else
+                    {//게시물 내용이 있다.
+                        findPostContents = findPost.Contents.First();
+                    }
+                }
+
+            }//end using db3
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            //결과 넣기
+            rmReturn.Post = findPost;
+            rmReturn.PostContents = findPostContents;
+        }
+
+        return arReturn.ToResult();
+    }
+
+    /// <summary>
+    /// 게시물 수정 요청
+    /// </summary>
+    /// <param name="callData"></param>
+    /// <returns></returns>
+    [HttpPut]
+    public ActionResult<PostEditApplyResultModel> PostEditApply([FromQuery] PostEditApplyCallModel callData)
+    {
+        ApiResultReady arReturn = new ApiResultReady(this);
+        PostEditApplyResultModel rmReturn = new PostEditApplyResultModel();
+        arReturn.ResultObject = rmReturn;
+
+        DateTime dtNow = DateTime.Now;
+
+
+        //지정된 게시판
+        Board? findBoard = null;
+        //지정된 게시물
+        BoardPost? findPost = null;
+        //지정된 게시물의 내용
+        BoardPostContents? findPostContents = null;
+
+        if (null == callData.Password
+            || string.Empty == callData.Password)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-500001"
+                    , "비회원 작성에서 비밀번호는 필수 있습니다.");
+        }
+        else if (null == callData.Title
+            || string.Empty == callData.Title)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-500020"
+                    , "제목을 넣어 주세요");
+        }
+        else if (null == callData.Contents
+            || string.Empty == callData.Contents)
+        {
+            arReturn.ApiResultInfoSet(
+                    "B1-500021"
+                    , "내용을 넣어 주세요");
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db1 = new ModelsDbContext())
+            {
+                //게시판 검색
+                findBoard
+                    = db1.Board
+                        .Where(w => w.idBoard == callData.idBoard)
+                        .FirstOrDefault();
+
+                if (null == findBoard)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-500100"
+                        , "게시판을 찾을 수 없습니다");
+                }
+            }//end using db1
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db2 = new ModelsDbContext())
+            {
+                //게시물 검색
+                findPost
+                    = db2.BoardPost
+                        .Where(w => w.idBoard == callData.idBoard
+                                && w.idBoardPost == callData.idBoardPost)
+                        .Include(i => i.Contents)
+                        .FirstOrDefault();
+
+                if (null == findPost)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "B1-500101"
+                        , "게시물이 없습니다");
+                }
+                else
+                {
+                    if (null == findPost!.Contents
+                        || 0 >= findPost!.Contents.Count)
+                    {//게시물 내용이 없다.
+                        arReturn.ApiResultInfoSet(
+                            "B1-500102"
+                            , "게시물의 내용이 없습니다");
+                    }
+                    else if (findPost!.Contents.First().Password != callData.Password)
+                    {
+                        arReturn.ApiResultInfoSet(
+                            "B1-500103"
+                            , "비밀 번호가 틀렸습니다.");
+                    }
+                    else
+                    {//게시물 내용이 있다.
+                        findPostContents = findPost.Contents.First();
+                    }
+                }
+
+            }//end using db2
+        }
+
+        if (true == arReturn.IsSuccess())
+        {
+            using (ModelsDbContext db3 = new ModelsDbContext())
+            {
+                //수정 사항 적용
+                findPost!.Title = callData.Title!;
+                findPost.EditTime = dtNow;
+
+                findPostContents!.Contents = callData.Contents!;
+
+
+                db3.BoardPost.Update(findPost);
+                db3.BoardPostContents.Update(findPostContents);
+
+                db3.SaveChanges();
+            }//end using db2
+        }
+
+
+        return arReturn.ToResult();
+    }
+
 }
