@@ -1,7 +1,7 @@
 ﻿
 
-import { BoardStateType } from '@/ModelsDB_partial/Board/BoardStateType';
-import { BoardPost } from '@/ModelsDB/Board/BoardPost';
+import { BoardStateType } from '@/Faculty/Backend/ModelsDB_partial/Board/BoardStateType';
+import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
 
 /** 게시판 */
 export interface Board 

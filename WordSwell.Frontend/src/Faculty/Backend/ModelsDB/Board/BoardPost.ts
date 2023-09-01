@@ -1,7 +1,7 @@
 ﻿
 
-import { Board } from '@/ModelsDB/Board/Board';
-import { BoardPostContents } from '@/ModelsDB/Board/BoardPostContents';
+import { Board } from '@/Faculty/Backend/ModelsDB/Board/Board';
+import { BoardPostContents } from '@/Faculty/Backend/ModelsDB/Board/BoardPostContents';
 
 /** 게시판의 게시물 */
 export interface BoardPost 
