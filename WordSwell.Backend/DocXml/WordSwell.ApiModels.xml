@@ -4,6 +4,136 @@
         <name>WordSwell.ApiModels</name>
     </assembly>
     <members>
+        <member name="T:WordSwell.ApiModels.BoardCont.BoardSearchTargetType">
+            <summary>
+            검색 대상
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.None">
+            <summary>
+            없음
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.PostIndex">
+            <summary>
+            게시물 고유번호
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.Contents">
+            <summary>
+            내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.TitleAndContents">
+            <summary>
+            제목 + 내용
+            </summary>
+        </member>
+        <member name="F:WordSwell.ApiModels.BoardCont.BoardSearchTargetType.UserName">
+            <summary>
+            유저 이름
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostDeleteCallModel">
+            <summary>
+            게시물 삭제 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostDeleteCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostDeleteResultModel">
+            <summary>
+            게시물 삭제 요청 결과 모델
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel">
+            <summary>
+            게시물 수정 요청 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Title">
+            <summary>
+            제목
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.Contents">
+            <summary>
+            게시물 내용
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyResultModel">
+            <summary>
+            게시물 수정 요청 결과 모델
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditViewCallModel">
+            <summary>
+            게시물 수정을 위한 내용 요청할때 모델
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.idBoard">
+            <summary>
+            게시판 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.idBoardPost">
+            <summary>
+            게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewCallModel.Password">
+            <summary>
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
+            </summary>
+        </member>
+        <member name="T:WordSwell.ApiModels.BoardCont.PostEditViewResultModel">
+            <summary>
+            게시물 수정용 보기 요청
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.Post">
+            <summary>
+            게시물
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.PostContents">
+            <summary>
+            게시물의 내용물
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostListCallModel">
             <summary>
             게시물 리스트를 요청할때 모델
@@ -89,39 +219,44 @@
             게시물의 내용물
             </summary>
         </member>
-        <member name="T:WordSwell.ApiModels.BoardCont.SearchTargetType">
+        <member name="T:WordSwell.ApiModels.BoardCont.PostWriteCallModel">
             <summary>
-            검색 대상
+            게시물 작성 요청 모델
             </summary>
         </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.None">
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.idBoard">
             <summary>
-            없음
+            게시판 고유 번호
             </summary>
         </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.PostIndex">
-            <summary>
-            게시물 고유번호
-            </summary>
-        </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Title">
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.Title">
             <summary>
             제목
             </summary>
         </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.Contents">
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.Password">
             <summary>
-            내용
+            비밀번호 - 비회원이 글쓴 경우 넣는다.
             </summary>
         </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.TitleAndContents">
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.Contents">
             <summary>
-            제목 + 내용
+            게시물 내용
             </summary>
         </member>
-        <member name="F:WordSwell.ApiModels.BoardCont.SearchTargetType.UserName">
+        <member name="T:WordSwell.ApiModels.BoardCont.PostWriteResultModel">
             <summary>
-            유저 이름
+            게시물 작성 결과
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteResultModel.idBoard">
+            <summary>
+            게시판
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteResultModel.idBoardPost">
+            <summary>
+            생성된 게시물 고유 번호
             </summary>
         </member>
         <member name="T:WordSwell.ApiModels.TestCont.TestCallModel">

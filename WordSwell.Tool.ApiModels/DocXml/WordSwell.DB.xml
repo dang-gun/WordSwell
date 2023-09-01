@@ -155,6 +155,11 @@
             연결된 소속 게시판 정보
             </summary>
         </member>
+        <member name="P:ModelsDB.Board.BoardPost.PostState">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:ModelsDB.Board.BoardPost.Title">
             <summary>
             제목
@@ -162,7 +167,7 @@
         </member>
         <member name="P:ModelsDB.Board.BoardPost.idUser">
             <summary>
-            유저 아이디
+            작성자 고유번호
             </summary>
             <remarks>
             0 = 비회원
@@ -172,6 +177,15 @@
             <summary>
             작성 시간
             </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPost.idUser_Edit">
+            <summary>
+            마지막으로 수정한 유저 번호
+            </summary>
+            <remarks>
+            0 = 비회원<br />
+            관리자에 의한 삭제, 수정, 블럭의 경우 다른 사람의 고유번호가 들어갈 수 있다.
+            </remarks>
         </member>
         <member name="P:ModelsDB.Board.BoardPost.EditTime">
             <summary>
@@ -432,6 +446,49 @@
         <member name="F:ModelsDB_partial.Board.BoardUserType.BoardAdmin">
             <summary>
             이 게시판 관리자
+            </summary>
+        </member>
+        <member name="T:ModelsDB_partial.Board.PostStateType">
+            <summary>
+            게시물 상태
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.WaitingApproval">
+            <summary>
+            승인 대기
+            </summary>
+            <remarks>
+            승인 후 개시되는 게시판의 경우 사용함
+            </remarks>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.Normal">
+            <summary>
+            정상 상태
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.Block_Temp">
+            <summary>
+            임시 차단
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.Block">
+            <summary>
+            완전 차단
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.Delete">
+            <summary>
+            정상 삭제 - 유저가 삭제한 경우
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.Board.PostStateType.Delete_Admin">
+            <summary>
+            관리자 권한이 있는 유저가 삭제
             </summary>
         </member>
     </members>

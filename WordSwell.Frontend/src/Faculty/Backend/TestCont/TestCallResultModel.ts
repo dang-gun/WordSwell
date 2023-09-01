@@ -1,6 +1,4 @@
-﻿
-
-import { TestCallModel } from '@/Faculty/Backend/TestCont/TestCallModel';
+﻿import { TestCallModel } from '@/Faculty/Backend/TestCont/TestCallModel';
 import { TestResultModel } from '@/Faculty/Backend/TestCont/TestResultModel';
 
 /** 테스트용 결과 모델 */

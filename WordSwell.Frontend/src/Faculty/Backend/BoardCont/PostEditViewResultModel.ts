@@ -1,8 +1,8 @@
 ﻿import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
 import { BoardPostContents } from '@/Faculty/Backend/ModelsDB/Board/BoardPostContents';
 
-/** 지정한 게시판의 지정한 게시물을 보기 결과 리스트 */
-export interface PostViewResultModel 
+/** 게시물 수정용 보기 요청 */
+export interface PostEditViewResultModel 
 {
     /** 게시물 */
     Post: BoardPost,

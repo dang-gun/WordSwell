@@ -1,6 +1,4 @@
-﻿
-
-import { BoardStateType } from '@/Faculty/Backend/ModelsDB_partial/Board/BoardStateType';
+﻿import { BoardStateType } from '@/Faculty/Backend/ModelsDB_partial/Board/BoardStateType';
 import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
 
 /** 게시판 */

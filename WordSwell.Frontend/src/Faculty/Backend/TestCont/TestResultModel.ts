@@ -1,7 +1,4 @@
-﻿
-
-
-/** 테스트용 결과 모델 */
+﻿/** 테스트용 결과 모델 */
 export interface TestResultModel 
 {
     /** 숫자 */

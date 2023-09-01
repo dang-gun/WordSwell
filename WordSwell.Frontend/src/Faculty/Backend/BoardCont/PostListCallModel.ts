@@ -1,6 +1,4 @@
-﻿
-
-import { BoardSearchTargetType } from '@/Faculty/Backend/BoardCont/BoardSearchTargetType';
+﻿import { BoardSearchTargetType } from '@/Faculty/Backend/BoardCont/BoardSearchTargetType';
 
 /** 게시물 리스트를 요청할때 모델 */
 export interface PostListCallModel 

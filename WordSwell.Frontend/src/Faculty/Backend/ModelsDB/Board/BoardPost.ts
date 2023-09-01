@@ -1,6 +1,5 @@
-﻿
-
-import { Board } from '@/Faculty/Backend/ModelsDB/Board/Board';
+﻿import { Board } from '@/Faculty/Backend/ModelsDB/Board/Board';
+import { PostStateType } from '@/Faculty/Backend/ModelsDB_partial/Board/PostStateType';
 import { BoardPostContents } from '@/Faculty/Backend/ModelsDB/Board/BoardPostContents';
 
 /** 게시판의 게시물 */
@@ -12,12 +11,15 @@ export interface BoardPost
     idBoard: number,
     /** 연결된 소속 게시판 정보 */
     Board?: Board,
+    PostState: PostStateType,
     /** 제목 */
     Title: string,
-    /** 유저 아이디 */
+    /** 작성자 고유번호 */
     idUser: number,
     /** 작성 시간 */
     WriteTime: Date,
+    /** 마지막으로 수정한 유저 번호 */
+    idUser_Edit?: number,
     /** 수정 시간 */
     EditTime?: Date,
     /** 다른 개체에서 이 개체로 연결된 리스트.

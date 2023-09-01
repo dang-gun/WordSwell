@@ -2,7 +2,7 @@
   "profiles": {
     "WordSwell.Tool.ApiModels": {
       "commandName": "Project",
-      "commandLineArgs": ""
+      "commandLineArgs": "..\\WordSwell.Tool.ApiModels.exe -outputfolder ..\\..\\..\\..\\WordSwell.Frontend\\src\\Faculty\\Backend -clear -outputtype ts -Importroot @/Faculty/Backend/\r\n\r\npause"
     }
   }
 }

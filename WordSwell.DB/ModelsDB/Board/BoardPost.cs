@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ModelsDB_partial.Board;
 //using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
@@ -28,6 +29,10 @@ public class BoardPost
     [JsonIgnore]
     public Board? Board { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public PostStateType PostState { get; set; }
 
     /// <summary>
     /// 제목
@@ -35,7 +40,7 @@ public class BoardPost
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
-    /// 유저 아이디
+    /// 작성자 고유번호
     /// </summary>
     /// <remarks>
     /// 0 = 비회원
@@ -46,6 +51,15 @@ public class BoardPost
     /// 작성 시간
     /// </summary>
     public DateTime WriteTime { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+
+    /// <summary>
+    /// 마지막으로 수정한 유저 번호
+    /// </summary>
+    /// <remarks>
+    /// 0 = 비회원<br />
+    /// 관리자에 의한 삭제, 수정, 블럭의 경우 다른 사람의 고유번호가 들어갈 수 있다.
+    /// </remarks>
+    public long? idUser_Edit { get; set; }
     /// <summary>
     /// 수정 시간
     /// </summary>
