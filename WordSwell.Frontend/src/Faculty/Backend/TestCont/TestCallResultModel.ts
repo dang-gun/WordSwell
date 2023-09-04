@@ -5,7 +5,7 @@ import { TestResultModel } from '@/Faculty/Backend/TestCont/TestResultModel';
 export interface TestCallResultModel 
 {
     /** 개체 테스트 1 */
-    Call: TestCallModel,
+    Call?: TestCallModel,
     /** 개체 테스트 2 */
-    Result: TestResultModel,
+    Result?: TestResultModel,
 }

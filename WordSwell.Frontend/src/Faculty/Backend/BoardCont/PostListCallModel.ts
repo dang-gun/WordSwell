@@ -6,7 +6,7 @@ export interface PostListCallModel
     /** 게시판 고유 번호 */
     idBoard: number,
     /** 검색어 */
-    Search: string,
+    Search?: string,
     /** 검색 대상 */
     SearchTargetType?: BoardSearchTargetType,
     /** 한 페이지 표시 개수 */

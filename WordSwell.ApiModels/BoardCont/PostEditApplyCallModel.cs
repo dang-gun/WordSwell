@@ -21,7 +21,7 @@ public class PostEditApplyCallModel
     /// <summary>
     /// 제목
     /// </summary>
-    public string Title { get; set; } = string.Empty;
+    public string? Title { get; set; } = string.Empty;
 
     /// <summary>
     /// 비밀번호 - 비회원이 글쓴 경우 넣는다.
@@ -31,7 +31,7 @@ public class PostEditApplyCallModel
     /// <summary>
     /// 게시물 내용
     /// </summary>
-    public string Contents { get; set; } = string.Empty;
+    public string? Contents { get; set; } = string.Empty;
 
     /// <summary>
     /// 첨부 파일 리스트

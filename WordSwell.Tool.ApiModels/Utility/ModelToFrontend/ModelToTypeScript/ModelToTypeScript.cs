@@ -1,5 +1,6 @@
 ﻿using DGU_ModelToOutFiles.Global.Attributes;
 using DGUtility.ProjectXml;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 
@@ -158,6 +159,12 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 		{
 			if (null != item)
 			{
+				//중단점 잡을 개체
+				if (item.Name == "String2")
+				{
+					Debug.WriteLine(item.Name);
+				}
+
 				//변수 타입 이름
 				string sType = item.PropertyType.Name;
 				string sNameFull = null != item.PropertyType.FullName ? item.PropertyType.FullName : string.Empty;
@@ -585,6 +592,7 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
     /// <param name="item"></param>
     /// <param name="bNullableAttribute"></param>
     /// <param name="bModelOutputNoAttribute"></param>
+	/// <param name="sVarTypeEnforce"></param>
     private void CustomAttributesFind(
 		PropertyInfo item
 		, ref bool bNullableAttribute
@@ -592,12 +600,28 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 		, ref string sVarTypeEnforce)
 	{
 
-		if(null != item.CustomAttributes
-						.Where(w => w.AttributeType.Name == "NullableAttribute")
-						.FirstOrDefault())
-		{//널 속성이 있다.
-			bNullableAttribute = true;
+        //원래를 커스텀 속성을 읽어서 NullableAttribute를 찾으면 되는데
+        //이유를 모르겠지만 특정조건에서 계속 NullableAttribute를 못찾는 현상이 있다.
+        //널을 허용하지 않는 다른 string가 있으면 이 현상이 없는것으로 보아 버그가 아닌가 싶다.
+        //그래서 아래 코드를 변경했다.
+
+        //      if (null != item.CustomAttributes
+        //				.Where(w => w.AttributeType.Name == "NullableAttribute")
+        //				.FirstOrDefault())
+        //{//널 속성이 있다.
+        //	bNullableAttribute = true;
+        //      }
+
+        //.net .NET 6 Preview 7 이후 부터 사용할 수 있는 기능
+        //https://devblogs.microsoft.com/dotnet/announcing-net-6-preview-7/#libraries-reflection-apis-for-nullability-information
+        NullabilityInfoContext _nullabilityContext = new NullabilityInfoContext();
+        var nullabilityInfo = _nullabilityContext.Create(item);
+        if (nullabilityInfo.WriteState == NullabilityState.Nullable)
+        {
+            bNullableAttribute = true;
         }
+
+
 
 
         if (null != item.CustomAttributes

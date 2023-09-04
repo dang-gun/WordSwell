@@ -13,7 +13,7 @@ public class PostListCallModel
     /// <summary>
     /// 검색어
     /// </summary>
-    public string? Search { get; set; }
+    public string? Search { get; set; } = string.Empty;
 
     /// <summary>
     /// 검색 대상

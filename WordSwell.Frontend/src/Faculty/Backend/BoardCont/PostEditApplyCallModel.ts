@@ -8,11 +8,11 @@ export interface PostEditApplyCallModel
     /** 게시물 고유 번호 */
     idBoardPost: number,
     /** 제목 */
-    Title: string,
+    Title?: string,
     /** 비밀번호 - 비회원이 글쓴 경우 넣는다. */
     Password: string,
     /** 게시물 내용 */
-    Contents: string,
+    Contents?: string,
     /** 첨부 파일 리스트 */
     FileList?: FileItemModel[],
 }

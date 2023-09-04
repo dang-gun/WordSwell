@@ -6,9 +6,9 @@ import { FileItemModel } from '@/Faculty/Backend/FileDb/FileItemModel';
 export interface PostViewResultModel 
 {
     /** 게시물 */
-    Post: BoardPost,
+    Post?: BoardPost,
     /** 게시물의 내용물 */
-    PostContents: BoardPostContents,
+    PostContents?: BoardPostContents,
     /** 첨부 파일 리스트 */
     FileList?: FileItemModel[],
     InfoCode: string,
