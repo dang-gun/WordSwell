@@ -1,4 +1,6 @@
-﻿namespace WordSwell.ApiModels.BoardCont;
+﻿using WordSwell.ApiModels.FileDb;
+
+namespace WordSwell.ApiModels.BoardCont;
 
 /// <summary>
 /// 게시물 수정 요청 모델
@@ -30,4 +32,9 @@ public class PostEditApplyCallModel
     /// 게시물 내용
     /// </summary>
     public string Contents { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 첨부 파일 리스트
+    /// </summary>
+    public List<FileItemModel>? FileList { get; set; }
 }

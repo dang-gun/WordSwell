@@ -1,4 +1,6 @@
-﻿/** 게시물 작성 요청 모델 */
+﻿import { FileItemModel } from '@/Faculty/Backend/FileDb/FileItemModel';
+
+/** 게시물 작성 요청 모델 */
 export interface PostWriteCallModel 
 {
     /** 게시판 고유 번호 */
@@ -8,7 +10,9 @@ export interface PostWriteCallModel
     /** 비밀번호 - 비회원이 글쓴 경우 넣는다. */
     Password: string,
     /** 비회원일때 유저 이름 */
-    UserName: string,
+    UserName?: string,
     /** 게시물 내용 */
     Contents: string,
+    /** 첨부 파일 리스트 */
+    FileList?: FileItemModel[],
 }

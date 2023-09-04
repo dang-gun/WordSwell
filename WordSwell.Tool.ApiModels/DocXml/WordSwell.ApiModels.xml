@@ -94,6 +94,11 @@
             게시물 내용
             </summary>
         </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditApplyCallModel.FileList">
+            <summary>
+            첨부 파일 리스트
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostEditApplyResultModel">
             <summary>
             게시물 수정 요청 결과 모델
@@ -132,6 +137,11 @@
         <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.PostContents">
             <summary>
             게시물의 내용물
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostEditViewResultModel.FileList">
+            <summary>
+            첨부 파일 리스트
             </summary>
         </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostListCallModel">
@@ -219,6 +229,11 @@
             게시물의 내용물
             </summary>
         </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostViewResultModel.FileList">
+            <summary>
+            첨부 파일 리스트
+            </summary>
+        </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostWriteCallModel">
             <summary>
             게시물 작성 요청 모델
@@ -247,6 +262,11 @@
         <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.Contents">
             <summary>
             게시물 내용
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.BoardCont.PostWriteCallModel.FileList">
+            <summary>
+            첨부 파일 리스트
             </summary>
         </member>
         <member name="T:WordSwell.ApiModels.BoardCont.PostWriteResultModel">

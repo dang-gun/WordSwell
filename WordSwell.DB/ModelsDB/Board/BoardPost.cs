@@ -49,7 +49,7 @@ public class BoardPost
     /// <summary>
     /// 비회원일때 유저 이름
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string? UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// 작성 시간

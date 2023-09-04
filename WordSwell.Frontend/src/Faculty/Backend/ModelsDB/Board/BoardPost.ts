@@ -10,10 +10,10 @@ export interface BoardPost
     /** 소속 게시판 고유번호 - 외래키 */
     idBoard: number,
     /** 연결된 소속 게시판 정보 */
-    Board?: Board,
+    Board: Board,
     PostState: PostStateType,
     /** 제목 */
-    Title: string,
+    Title?: string,
     /** 작성자 고유번호 */
     idUser: number,
     /** 비회원일때 유저 이름 */

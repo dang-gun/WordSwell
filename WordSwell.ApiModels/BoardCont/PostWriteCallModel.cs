@@ -1,4 +1,6 @@
-﻿namespace WordSwell.ApiModels.BoardCont;
+﻿using WordSwell.ApiModels.FileDb;
+
+namespace WordSwell.ApiModels.BoardCont;
 
 /// <summary>
 /// 게시물 작성 요청 모델
@@ -23,10 +25,15 @@ public class PostWriteCallModel
     /// <summary>
     /// 비회원일때 유저 이름
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string? UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// 게시물 내용
     /// </summary>
     public string Contents { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 첨부 파일 리스트
+    /// </summary>
+    public List<FileItemModel>? FileList { get; set; }
 }

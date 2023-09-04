@@ -1,4 +1,6 @@
-﻿/** 게시물 수정 요청 모델 */
+﻿import { FileItemModel } from '@/Faculty/Backend/FileDb/FileItemModel';
+
+/** 게시물 수정 요청 모델 */
 export interface PostEditApplyCallModel 
 {
     /** 게시판 고유 번호 */
@@ -11,4 +13,6 @@ export interface PostEditApplyCallModel
     Password: string,
     /** 게시물 내용 */
     Contents: string,
+    /** 첨부 파일 리스트 */
+    FileList?: FileItemModel[],
 }
