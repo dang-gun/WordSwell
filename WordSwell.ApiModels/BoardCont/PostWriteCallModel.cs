@@ -20,6 +20,10 @@ public class PostWriteCallModel
     /// 비밀번호 - 비회원이 글쓴 경우 넣는다.
     /// </summary>
     public string Password { get; set; } = string.Empty;
+    /// <summary>
+    /// 비회원일때 유저 이름
+    /// </summary>
+    public string UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// 게시물 내용

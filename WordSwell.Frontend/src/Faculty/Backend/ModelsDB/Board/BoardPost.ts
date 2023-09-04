@@ -16,6 +16,8 @@ export interface BoardPost
     Title: string,
     /** 작성자 고유번호 */
     idUser: number,
+    /** 비회원일때 유저 이름 */
+    UserName: string,
     /** 작성 시간 */
     WriteTime: Date,
     /** 마지막으로 수정한 유저 번호 */

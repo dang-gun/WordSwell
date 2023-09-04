@@ -8,6 +8,7 @@ using WordSwell.DB;
 
 using ModelsDB.Board;
 using ModelsDB.User;
+using ModelsDB.FileDb;
 
 namespace ModelsContext;
 
@@ -83,6 +84,13 @@ public class ModelsDbContext : DbContext
     /// 유저
     /// </summary>
     public DbSet<User> User { get; set; }
+
+
+
+    /// <summary>
+    /// 파일DB 처리
+    /// </summary>
+    public DbSet<FileDb> FileDb { get; set; }
 
 
     /// <summary>

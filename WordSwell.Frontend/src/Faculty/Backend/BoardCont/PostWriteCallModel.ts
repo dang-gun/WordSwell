@@ -7,6 +7,8 @@ export interface PostWriteCallModel
     Title: string,
     /** 비밀번호 - 비회원이 글쓴 경우 넣는다. */
     Password: string,
+    /** 비회원일때 유저 이름 */
+    UserName: string,
     /** 게시물 내용 */
     Contents: string,
 }
