@@ -1,4 +1,5 @@
-﻿using DGUtility.ProjectXml;
+﻿using DGU_ModelToOutFiles.Global.Attributes;
+using DGUtility.ProjectXml;
 using System.Reflection;
 using System.Text;
 
@@ -166,6 +167,8 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 				bool bNullable = false;
 				//출력하지 않는 프로퍼티인지 여부
 				bool bModelOutputNo = false;
+				//변수형 강제 지정
+				string sVarTypeEnforce = string.Empty;
 
                 if (item.PropertyType.Name == "List`1")
 				{//리스트 타입이다.
@@ -225,14 +228,16 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
                 this.CustomAttributesFind(
                     item
                     , ref bNullable
-                    , ref bModelOutputNo);
+                    , ref bModelOutputNo
+					, ref sVarTypeEnforce);
 
                 this.ModelMember.Add(new TypeScriptModelMember()
 				{
 					Name = item.Name
 					, NameFull = sNameFull
-                    , Type = sType
-					, ArrayType = sArrayType
+					//강제 변수형이 지정되었다면 사용
+                    , Type = sVarTypeEnforce == string.Empty ? sType : sVarTypeEnforce
+                    , ArrayType = sArrayType
 					, NullableIs = bNullable
 					, ModelOutputNoIs = bModelOutputNo
 				});
@@ -560,6 +565,11 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
 				sReturn = "Date";
 				break;
 
+			case "Bool":
+			case "Boolean":
+                sReturn = "boolean";
+                break;
+
 			default:
 				bReturn = false;
                 break;
@@ -578,7 +588,8 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
     private void CustomAttributesFind(
 		PropertyInfo item
 		, ref bool bNullableAttribute
-        , ref bool bModelOutputNoAttribute)
+        , ref bool bModelOutputNoAttribute
+		, ref string sVarTypeEnforce)
 	{
 
 		if(null != item.CustomAttributes
@@ -594,6 +605,21 @@ public ModelToTs(ProjectXmlAssist projectXmlAssist)
                         .FirstOrDefault())
         {//프로퍼티 출력 안함 속성이 있다.
             bModelOutputNoAttribute = true;
+        }
+
+
+        CustomAttributeData? cadVarTypeEnforce
+                = item.CustomAttributes
+                        .Where(w => w.AttributeType.Name == "VarTypeEnforceAttribute")
+                        .FirstOrDefault();
+        if (null != cadVarTypeEnforce)
+        {//변수형 강제 지정
+
+			object? temp = cadVarTypeEnforce.ConstructorArguments[0].Value;
+			if (null != temp)
+			{
+                sVarTypeEnforce = temp.ToString()!;
+            }
         }
     }
 }

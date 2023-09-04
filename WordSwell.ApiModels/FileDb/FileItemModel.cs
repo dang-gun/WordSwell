@@ -1,4 +1,6 @@
-﻿namespace WordSwell.ApiModels.FileDb;
+﻿using DGU_ModelToOutFiles.Global.Attributes;
+
+namespace WordSwell.ApiModels.FileDb;
 
 /// <summary>
 /// DB에 저장된 파일정보를 주고, 받기위한 모델
@@ -43,7 +45,10 @@ public class FileItemModel
     /// </summary>
     public bool BinaryReadyIs { get; set; }
 
-    /** 로컬파일인 경우 파일의 바이너리 정보 */
+    /// <summary>
+    /// 로컬파일인 경우 파일의 바이너리 정보
+    /// </summary>
+    [VarTypeEnforce("ReadableStream<Uint8Array> | ArrayBuffer | string")]
     public string Binary { get; set; } = string.Empty;
 
     /// <summary>

@@ -5,7 +5,7 @@ namespace WordSwell.ApiModels.TestCont;
 /// <summary>
 /// 출력 안함
 /// </summary>
-[OutputNo]
+[ModelOutputNo]
 public class TestOutputNoModel
 {
     /// <summary>

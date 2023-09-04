@@ -6,7 +6,7 @@ namespace ModelsDB_partial.Board;
 /// 보드 사용자 타입
 /// </summary>
 /// <remarks>
-/// 개시판 사용자를 나누기위한 대분류.
+/// 게시판 사용자를 나누기위한 대분류.
 /// 타입스크립트 - 역참조 해야 한다.
 /// </remarks>
 [EnumType(TypeScript_EnumNoConstIs = true)]

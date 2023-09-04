@@ -154,7 +154,7 @@ internal class NamespaceToClassList
     {
         bool bReturn = false;
 
-        OutputNoAttribute? temp = attrchkON.Check(type);
+        ModelOutputNoAttribute? temp = attrchkON.Check(type);
         if (null != temp)
         {
             bReturn = temp.OutputNoIs;

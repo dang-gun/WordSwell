@@ -332,7 +332,9 @@
             </summary>
         </member>
         <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.Binary">
-            로컬파일인 경우 파일의 바이너리 정보 
+            <summary>
+            로컬파일인 경우 파일의 바이너리 정보
+            </summary>
         </member>
         <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.idFile">
             <summary>
