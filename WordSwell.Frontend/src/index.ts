@@ -7,6 +7,7 @@ import Home from "./Pages/Home/Home";
 import NotFound from "./Pages/NotFound/NotFound";
 import Page from "./Pages/Page";
 import AxeView from "./Utility/AxeView/AxeView";
+import Board from "./Pages/Board/Board";
 
 export default class App
 {
@@ -41,6 +42,13 @@ export default class App
                 Component: Home,
             })
         )
+            .on(
+                "/board/:idBoard",
+                this.Router.ContentRender({
+                    Page,
+                    Component: Board,
+                })
+            )
             .on(
                 "/404",
                 this.Router.ContentRender({

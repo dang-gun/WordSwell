@@ -5,7 +5,7 @@ export interface FileItemInterface
     /** 파일 확장자 */
     Extension: string,
     /** 파일 크기 */
-    Size: number,
+    Length: number,
     /** 파일 타입 정보 */
     Type: string,
     /** 파일에 대한 설명 */
@@ -37,9 +37,8 @@ export interface FileItemInterface
     Url: string,
 
     /** 수정 여부 */
-    Edit: boolean,
+    EditIs: boolean,
 
     /** 삭제 여부 */
-    Delete: boolean,
+    DeleteIs: boolean,
 }
-

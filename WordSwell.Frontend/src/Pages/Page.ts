@@ -3,6 +3,7 @@ import "./Page.css";
 import PageComponent from "../Faculty/Base/PageComponent";
 import Footer from "./PageLayout/Footer/Footer";
 import Header from "./PageLayout/Header/Header";
+import Aside from "./PageLayout/Aside/Aside";
 
 export default class Page extends PageComponent
 {
@@ -14,6 +15,7 @@ export default class Page extends PageComponent
         /** 베이스가 되는 부모 Class인 PageComponent 상속 */
         super([
             { position: "divHeader", component: new Header() },
+            { position: "divAside", component: new Aside() },
             { position: "divFooter", component: new Footer() },
         ]);
 
