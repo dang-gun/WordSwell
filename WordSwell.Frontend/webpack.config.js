@@ -164,7 +164,9 @@ module.exports = (env, argv) =>
             /** 핫리로드 사용여부 */
             hot: true,
             /** 라이브 리로드 사용여부 */
-            liveReload: true
+            liveReload: true,
+            /** 라우터 히스토리 모드 사용여부 */
+            historyApiFallback: true,
         },
     };
 
