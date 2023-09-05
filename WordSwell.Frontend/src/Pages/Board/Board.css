@@ -1,106 +1,60 @@
 #divBoard {
     display: flex;
     flex-direction: column;
-}
-
-#divBoard .app-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 0 1.25rem;
-}
-
-#divBoard .app-wrapper .left-box {
-    display: flex;
-    flex-direction: column;
-    gap: 20px 0;
-    width: 300px;
-    min-width: 300px;
-}
-
-#divBoard .app-wrapper .left-box .sidebar .sidebar-title {
-    font-size: 1.125rem;
-    font-weight: 500;
-    padding: 1rem;
-}
-
-#divBoard .app-wrapper .left-box .sidebar .sidebar-menu {
-    padding: 1rem;
-    border-top: 1px solid var(--bs-gray-200);
-    list-style: none;
-    gap: 2px;
-}
-
-#divBoard .app-wrapper .left-box .sidebar .sidebar-menu a {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 8px 12px 7px;
-    text-decoration: none;
-    color: var(--bs-dark);
-    border-radius: 2px;
-}
-
-#divBoard .app-wrapper .left-box .sidebar .sidebar-menu a:hover {
-    background: var(--bs-gray-100);
-}
-
-#divBoard .app-wrapper .left-box .sidebar .sidebar-menu a.active {
-    background: var(--bs-gray-100);
-    font-weight: 500;
-    color: var(--bs-primary);
-}
-
-#divBoard .app-wrapper .right-box {
-    display: flex;
-    flex-direction: column;
     flex: 1;
     gap: 20px 0;
-    min-width: 976px;
 }
 
-#divBoard .app-wrapper .right-box .board-top {
+#divBoard .board-top {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.25rem;
+
 }
 
-#divBoard .app-wrapper .right-box .board-top .board-title h5 {
+#divBoard .board-top .board-title h5 {
     margin: 0;
 }
 
-#divBoard .app-wrapper .right-box .board-top .board-actions {
+#divBoard .board-top .board-actions {
     display: flex;
     align-items: center;
     gap: 0 1rem;
 }
 
-#divBoard .app-wrapper .right-box .board-top .board-actions .form-inline {
+#divBoard .board-top .board-actions .form-inline {
     display: flex;
     align-items: center;
     gap: 0 0.5rem;
 }
 
-#divBoard .app-wrapper .right-box .board-top .board-actions .form-inline .form-control {
+#divBoard .board-top .board-actions .form-inline .form-control {
     min-width: 240px;
+    font-size: 0.875rem;
 }
 
-#divBoard .app-wrapper .right-box .board-top .board-actions button {
+#divBoard .board-top .board-actions .form-inline .form-select {
+    font-size: 0.875rem;
+}
+
+#divBoard .board-top .board-actions .btn {
     white-space: nowrap;
+    font-size: 0.875rem;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper table {
+#divBoard .board-list .board-table-wrapper table {
     border-collapse: collapse;
     border-spacing: 0px;
     width: 100%;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper thead tr {
+#divBoard .board-list .board-table-wrapper thead tr {
     margin: 0;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper thead th {
+#divBoard .board-list .board-table-wrapper thead th {
     height: 50px;
     color: #A6A8AD;
     font-size: 13px;
@@ -109,7 +63,7 @@
     text-align: center;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td {
+#divBoard .board-list .board-table-wrapper tbody tr td {
     height: 56px;
     color: var(--bs-gray-400);
     font-size: 14px;
@@ -118,52 +72,89 @@
     padding: 0 8px;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-title {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title {
     display: flex;
     align-items: center;
     gap: 0 6px;
     text-align: left;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-title .board-data-category {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title .board-data-category {
     color: var(--bs-primary);
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-title a {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title a {
     color: var(--bs-dark);
     text-decoration: none;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-title a:hover {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title a:hover {
     text-decoration: underline;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-writer {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-writer {
     display: flex;
     align-items: center;
     text-align: left;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-table-wrapper tbody tr td .board-data-user {
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-user {
     color: var(--bs-dark);
 }
 
-#divBoard .app-wrapper .right-box .board-list .empty-list-box {
+#divBoard .board-list .empty-list-box {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 30px;
 }
 
-#divBoard .app-wrapper .right-box .board-list .empty-list-box h1 {
+#divBoard .board-list .empty-list-box h1 {
     color: var(--bs-gray-400);
     font-size: 1.25rem;
     font-weight: 500;
 }
 
-#divBoard .app-wrapper .right-box .board-list .board-pagination-wrapper {
+#divBoard .board-list .pagination_wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 30px 0px 40px;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container {
+    display: flex;
+    align-items: center;
+    gap: 0 0.25rem;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid var(--bs-gray-200);
+    color: var(--bs-dark);
+    text-decoration: none;
+    transition: background 0.125s ease-in-out;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container button.pagination_prev, button.pagination_next {
+    width: 48px;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a:hover {
+    background: var(--bs-gray-100);
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a.pagination_button-active {
+    background: var(--bs-primary);
+    color: var(--bs-white);
+    border: none;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a.pagination_button-prev, a.pagination_button-next {
+    width: 48px;
 }

@@ -1,9 +1,9 @@
 import EditorBase from "@/Faculty/CustomEditor/EditorBase/EditorBase";
 import GlobalStatic from "@/Global/GlobalStatic";
-import {CustomUploadAdapterPlugin} from "../MyUploadAdapter/MyUploadAdapter";
+import { CustomUploadAdapterPlugin } from "../MyUploadAdapter/MyUploadAdapter";
 import DG_jsFileSelector2 from "@/Utility/FileSelector/DG_jsFileSelector2";
-import {marked} from "marked";
-import {FileItemInterface} from "@/Utility/FileSelector/FileItemInterface";
+import { marked } from "marked";
+import { FileItemInterface } from "@/Utility/FileSelector/FileItemInterface";
 
 interface EditorWriteData
 {
@@ -26,7 +26,7 @@ export default class Editor
         EditorWrapper.classList.add("editor-wrapper");
 
         const EditorBox = document.createElement("div");
-        EditorBox.classList.add("card");
+        EditorBox.classList.add("app-card");
         EditorBox.classList.add("editor-box");
 
         const EditorElement = document.createElement("div");
@@ -73,7 +73,7 @@ export default class Editor
     private SetImageUploadEditing(editor: EditorBase): void
     {
         const ImageUploadEditing = editor.plugins.get("ImageUploadEditing");
-        ImageUploadEditing.on("uploadComplete", (event, {data, imageElement}) =>
+        ImageUploadEditing.on("uploadComplete", (event, { data, imageElement }) =>
         {
             console.log(event);
             // data.default = '123'
@@ -200,7 +200,7 @@ export default class Editor
     private WriteButtonEvent = (event: MouseEvent): void =>
     {
         const EditorInstance = GlobalStatic.Editor;
-        const {EditorMode} = GlobalStatic;
+        const { EditorMode } = GlobalStatic;
         const data = marked(EditorInstance.getData(), {
             mangle: false,
             headerIds: false
@@ -236,7 +236,7 @@ export default class Editor
     public GetData(): EditorWriteData
     {
         const EditorInstance = GlobalStatic.Editor;
-        const {EditorMode} = GlobalStatic;
+        const { EditorMode } = GlobalStatic;
         const data = marked(EditorInstance.getData(), {
             mangle: false,
             headerIds: false
@@ -262,7 +262,7 @@ export default class Editor
 
     private UpdatePreview(): void
     {
-        const {EditorMode, Editor: EditorInstance} = GlobalStatic;
+        const { EditorMode, Editor: EditorInstance } = GlobalStatic;
         const data = EditorInstance.getData();
         const PreviewIframe = document.querySelector(
             ".preview-iframe"
@@ -271,7 +271,7 @@ export default class Editor
 
         if (EditorMode === "wysiwyg")
         {
-            PreviewContent = marked(data, {mangle: false, headerIds: false});
+            PreviewContent = marked(data, { mangle: false, headerIds: false });
         }
         else
         {

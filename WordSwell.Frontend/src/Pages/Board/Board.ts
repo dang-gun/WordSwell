@@ -151,8 +151,9 @@ export default class Board extends ContentComponent
     {
         const PostList = await this.GetBoardPostList(page || 1);
 
-        if (!PostList.PostList || PostList.PostList.length <= 0)
+        if (!PostList || !PostList.PostList || PostList.PostList.length <= 0)
         {
+
             const searchQuery = this.AxeSelectorByName("searchQuery");
             searchQuery.data = this.Search;
 

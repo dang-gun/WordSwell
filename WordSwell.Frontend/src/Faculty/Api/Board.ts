@@ -57,7 +57,7 @@ export async function FetchPostView(params: PostViewCallModel): Promise<PostView
  * @param { PostEditViewCallModel } params 게시글 정보 모델
  * @returns { PostWriteResultModel }
  */
-export async function FetchPostEditView(params: PostEditApplyResultModel): Promise<PostEditViewResultModel>
+export async function FetchPostEditView(params: PostEditViewCallModel): Promise<PostEditViewResultModel>
 {
     const response = await client.get<PostEditViewResultModel>(Endpoint.Board.PostEditView, {
         params,

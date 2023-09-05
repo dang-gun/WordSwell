@@ -1,5 +1,5 @@
-﻿import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/main.css";
+﻿import "./css/main.css";
+import "@/Utility/DG_MessageBox2/DG_MessageBox2.css";
 
 import NavigoProvider from "./Faculty/Router/Providers/Navigo/NavigoProvider";
 import GlobalStatic from "./Global/GlobalStatic";
@@ -8,6 +8,8 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Page from "./Pages/Page";
 import AxeView from "./Utility/AxeView/AxeView";
 import Board from "./Pages/Board/Board";
+import Detail from "./Pages/Detail/Detail";
+import Write from "./Pages/Write/Write";
 
 export default class App
 {
@@ -47,6 +49,20 @@ export default class App
                 this.Router.ContentRender({
                     Page,
                     Component: Board,
+                })
+            )
+            .on(
+                "/board/:idBoard/write",
+                this.Router.ContentRender({
+                    Page,
+                    Component: Write
+                })
+            )
+            .on(
+                "/board/:idBoard/:idBoardPost",
+                this.Router.ContentRender({
+                    Page,
+                    Component: Detail
                 })
             )
             .on(
