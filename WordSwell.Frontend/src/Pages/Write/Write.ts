@@ -175,7 +175,7 @@ export default class Write extends ContentComponent
         }
     }
 
-    private async CreateBoardPost({
+    private async CreatePost({
         idBoard,
         Title,
         Contents,
@@ -268,10 +268,10 @@ export default class Write extends ContentComponent
         const EditorContainer = this.DomThis.querySelector(".editor-container") as HTMLElement;
         this.Editor.CreateEditor(EditorContainer, async (data) =>
         {
-            console.log(data.Files);
-            await this.CreateBoardPost({
+            console.log(data);
+            await this.CreatePost({
                 idBoard: this.idBoard,
-                Title: this.InputValue.Title,
+                Title: this.InputValue.Title.trim(),
                 Contents: data.Content,
                 UserName: this.InputValue.UserName,
                 Password: this.InputValue.Password,

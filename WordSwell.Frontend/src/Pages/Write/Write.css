@@ -63,6 +63,7 @@
 
 #divWrite .write-title-wrapper .non-member-box .form-group input {
     background: white;
+    font-size: 14px;
 }
 
 #divWrite .back-action-box button {
@@ -92,6 +93,12 @@
 .editor-box .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
 .editor-box .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
     border-radius: 0 !important;
+    padding: 1rem;
+}
+
+.editor-box .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
+.editor-box .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners p:first-of-type {
+    margin-top: 0 !important;
 }
 
 .editor-box .ck-editor__editable {
@@ -208,22 +215,24 @@
     -webkit-box-orient: vertical;
 }
 
-.file-selector-wrapper.file-view-mode-none .file-dnd-box {
+/* 초기 상태 */
+.file-selector-wrapper .file-view-mode-none  {
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-big .file-dnd-box {
+/* 큰 아이콘으로 보기 */
+.file-selector-wrapper .file-view-mode-big {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
 
-.file-selector-wrapper.file-view-mode-big .preview-wrap {
+.file-selector-wrapper .file-view-mode-big .preview-wrap {
     width: 25%;
     padding: 0.5rem;
 }
 
-.file-selector-wrapper.file-view-mode-big .preview-box {
+.file-selector-wrapper .file-view-mode-big .preview-box {
     position: relative;
     display: flex;
     align-items: center;
@@ -236,17 +245,17 @@
     border-radius: 6px;
 }
 
-.file-selector-wrapper.file-view-mode-big .preview-box .preview-info img {
+.file-selector-wrapper .file-view-mode-big .preview-box .preview-info img {
     width: 100px;
     height: 100px;
 }
 
-.file-selector-wrapper.file-view-mode-big .preview-box > .actions-box {
+.file-selector-wrapper .file-view-mode-big .preview-box > .actions-box {
     display: flex;
     align-items: center;
 }
 
-.file-selector-wrapper.file-view-mode-big .file-name {
+.file-selector-wrapper .file-view-mode-big .file-name {
     font-size: 14px;
     max-width: 100px;
     min-height: 32px;
@@ -254,22 +263,22 @@
     color: #666;
 }
 
-.file-selector-wrapper.file-view-mode-big .file-size {
+.file-selector-wrapper .file-view-mode-big .file-size {
     display: none;
 }
 
-.file-selector-wrapper.file-view-mode-tile .file-dnd-box {
+.file-selector-wrapper .file-view-mode-tile .file-dnd-box {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-wrap {
+.file-selector-wrapper .file-view-mode-tile .preview-wrap {
     padding: 0.5rem;
     width: 25%;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-box {
+.file-selector-wrapper .file-view-mode-tile .preview-box {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -280,49 +289,49 @@
     border-radius: 6px;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-box .preview-info {
+.file-selector-wrapper .file-view-mode-tile .preview-box .preview-info {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-box .preview-info .file-info {
+.file-selector-wrapper .file-view-mode-tile .preview-box .preview-info .file-info {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-box .preview-info img {
+.file-selector-wrapper .file-view-mode-tile .preview-box .preview-info img {
     width: 64px;
     height: 64px;
 }
 
-.file-selector-wrapper.file-view-mode-tile .preview-box > .actions-box {
+.file-selector-wrapper .file-view-mode-tile .preview-box > .actions-box {
     display: flex;
     align-items: center;
 }
 
-.file-selector-wrapper.file-view-mode-tile .file-name {
+.file-selector-wrapper .file-view-mode-tile .file-name {
     font-size: 14px;
     max-width: 120px;
     word-break: break-all;
     color: #666;
 }
 
-.file-selector-wrapper.file-view-mode-tile .file-size {
+.file-selector-wrapper .file-view-mode-tile .file-size {
     display: block;
     font-size: 14px;
     color: #999;
 }
 
-.file-selector-wrapper.file-view-mode-detail {
+.file-selector-wrapper .file-view-mode-detail {
     align-items: self-start;
     flex-direction: column;
     justify-content: flex-start;
     max-height: 200px;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-wrap {
+.file-selector-wrapper .file-view-mode-detail .preview-wrap {
     position: relative;
     display: flex;
     align-items: center;
@@ -330,40 +339,40 @@
     padding: 0.5rem 0.5rem 0;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-wrap:last-of-type {
+.file-selector-wrapper .file-view-mode-detail .preview-wrap:last-of-type {
     padding-bottom: 0.5rem;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-box {
+.file-selector-wrapper .file-view-mode-detail .preview-box {
     display: flex;
     width: 100%;
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-box .preview-info {
+.file-selector-wrapper .file-view-mode-detail .preview-box .preview-info {
     display: flex;
     align-items: center;
     flex: 1;
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-box .preview-info img {
+.file-selector-wrapper .file-view-mode-detail .preview-box .preview-info img {
     width: 24px;
     height: 24px;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-box .preview-info .file-info {
+.file-selector-wrapper .file-view-mode-detail .preview-box .preview-info .file-info {
     width: 100%;
     display: flex;
     gap: 8px;
 }
 
-.file-selector-wrapper.file-view-mode-detail .preview-box > .actions-box {
+.file-selector-wrapper .file-view-mode-detail .preview-box > .actions-box {
     display: flex;
     align-items: center;
 }
 
-.file-selector-wrapper.file-view-mode-detail .file-name {
+.file-selector-wrapper .file-view-mode-detail .file-name {
     display: flex;
     align-items: center;
     width: 100%;
@@ -371,7 +380,7 @@
     color: #666;
 }
 
-.file-selector-wrapper.file-view-mode-detail .file-size {
+.file-selector-wrapper .file-view-mode-detail .file-size {
     display: block;
     white-space: nowrap;
     font-size: 14px;

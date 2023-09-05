@@ -25,7 +25,7 @@ export default class GlobalStatic
     /** 에디터 Instance */
     static Editor: EditorBase;
     /** 에디터 Placholder */
-    static EditorPlaceholder: string = "내용을 입력해주세요...";
+    static EditorPlaceholder: string = "";
     /** 에디터 Mode */
     static EditorMode: 'wysiwyg' | 'markdown' = 'wysiwyg';
     /** 파일 셀렉터 */

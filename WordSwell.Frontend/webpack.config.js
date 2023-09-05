@@ -131,6 +131,25 @@ module.exports = (env, argv) =>
                             return `${sOutDir}`;
                         },
                     },
+                    {
+                        //모든 이미지 파일
+                        from: './src/Assets/Images/**/*.(png|jpg|gif|svg|webp)',
+                        to({ context, absoluteFilename }) {
+                            //'src/'를 제거
+                            let sOutDir = path.relative(
+                                context,
+                                absoluteFilename
+                            );
+                            sOutDir = sOutDir.substring(4);
+
+                            console.log('sOutDir : ' + sOutDir);
+                            return `${sOutDir}`;
+                        },
+                    },
+                    {
+                        //에디터 이미지 파일
+                        from: './wwwroot/data/editor/**/*.(png|jpg|gif|svg|webp)',
+                    },
                 ]
             }),
             new MiniCssExtractPlugin({

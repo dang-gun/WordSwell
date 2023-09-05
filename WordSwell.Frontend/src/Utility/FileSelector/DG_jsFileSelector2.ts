@@ -27,10 +27,10 @@ export default class DG_jsFileSelector2
         //ExtAllow: [".bmp", ".dib", ".jpg", ".jpeg", ".jpe", ".gif", ".png", ".tif", ".tiff", ".raw"],
 
         /** 로딩 이미지에 사용할 이미지 */
-        LoadingSrc: "./Image/Rolling-2.1s-65px.gif",
+        LoadingSrc: "/Assets/Images/Rolling-2.1s-65px.gif",
 
         /** 별도 처리 없는(확장자 검사에서 빈값) 이미지에 사용할 이미지 */
-        NoneFileImgUrl: "./Image/checkmark_3440877.png",
+        NoneFileImgUrl: "/Assets/Images/checkmark_3440877.png",
 
         /** 파일 사이즈를 문자열로 바꿀때 SI(국제단위계)사용여부 */
         FileSizeToStringUseSI: true,

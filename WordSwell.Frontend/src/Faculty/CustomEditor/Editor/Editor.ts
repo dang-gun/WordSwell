@@ -58,7 +58,6 @@ export default class Editor
                 // this.UpdatePreview();
             });
 
-            this.SetImageUploadEditing(editor);
         });
 
         EditorBox.appendChild(EditorElement);
@@ -68,62 +67,6 @@ export default class Editor
         // EditorWrapper.appendChild(PreviewElement);
 
         element.appendChild(EditorWrapper);
-    }
-
-    private SetImageUploadEditing(editor: EditorBase): void
-    {
-        const ImageUploadEditing = editor.plugins.get("ImageUploadEditing");
-        ImageUploadEditing.on("uploadComplete", (event, { data, imageElement }) =>
-        {
-            console.log(event);
-            // data.default = '123'
-
-            // editor.model.change(writer =>
-            // {
-            //     writer.setAttribute('src', 'image', imageElement);
-            // })
-
-            // console.log(data);
-
-            // data.dataType = 'image';
-
-            // editor.model.change(writer =>
-            // {
-            //     writer.setAttribute('dataType', data.dataType, imageElement);
-            //     writer.setAttribute('class', 'image-block', imageElement);
-            // })
-
-            // editor.model.schema.extend('imageBlock', { allowAttributes: 'dataType' });
-
-            // editor.conversion.for('upcast').attributeToAttribute({
-            //     view: 'data-type',
-            //     model: 'dataType'
-            // })
-
-            // editor.conversion.for('downcast').add(dispatcher =>
-            // {
-            //     dispatcher.on('attribute:dataType:imageBlock', (evt, data, conversionApi) =>
-            //     {
-            //         if (!conversionApi.consumable.consume(data.item, evt.name))
-            //         {
-            //             return;
-            //         }
-
-            //         const viewWriter = conversionApi.writer;
-            //         const figure = conversionApi.mapper.toViewElement(data.item);
-            //         const img = figure.getChild(0);
-
-            //         if (data.attributeNewValue !== null)
-            //         {
-            //             viewWriter.setAttribute('data-type', data.attributeNewValue, img);
-            //         }
-            //         else
-            //         {
-            //             viewWriter.removeAttribute('data-type', img);
-            //         }
-            //     })
-            // })
-        });
     }
 
     private CreatePreviewElement(): HTMLElement
