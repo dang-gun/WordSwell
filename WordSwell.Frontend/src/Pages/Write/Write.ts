@@ -1,3 +1,4 @@
+import { User } from './../../Faculty/Backend/ModelsDB/User/User';
 import ContentComponent from "@/Faculty/Base/ContentComponent";
 import "./Write.css";
 import GlobalStatic from "@/Global/GlobalStatic";
@@ -5,16 +6,20 @@ import dayjs from "dayjs";
 import { OverwatchingOutputType, OverwatchingType } from "@/Utility/AxeView/OverwatchingType";
 import Editor from "@/Faculty/CustomEditor/Editor/Editor";
 import { PostEditViewResultModel } from "@/Faculty/Backend/BoardCont/PostEditViewResultModel";
-import { FetchPostEditView, FetchPostWrite } from "@/Faculty/Api/Board";
+import { FetchPostEdit, FetchPostEditView, FetchPostWrite } from "@/Faculty/Api/Board";
 import { PostWriteCallModel } from "@/Faculty/Backend/BoardCont/PostWriteCallModel";
 
 import "@ckeditor/ckeditor5-build-classic/build/translations/ko";
+import { PostEditApplyCallModel } from "@/Faculty/Backend/BoardCont/PostEditApplyCallModel";
 
 interface InputValue
 {
     Title: string;
     UserName?: string;
     Password?: string;
+    Update: {
+        Password: string;
+    }
 }
 
 /**
@@ -35,7 +40,10 @@ export default class Write extends ContentComponent
     private InputValue: InputValue = {
         Title: "",
         UserName: "",
-        Password: ""
+        Password: "",
+        Update: {
+            Password: ""
+        }
     };
 
     constructor()
@@ -52,7 +60,14 @@ export default class Write extends ContentComponent
     private AddOverwatchState(): void
     {
         this.UseOverwatchMonitoringString("boardName", "");
-        this.UseOverwatchMonitoringString("boardTableId", this.idBoard.toString());
+        this.UseOverwatchMonitoringString("idBoard", this.idBoard.toString());
+
+        this.UseOverwatchMonitoringString("idBoardPost", this.idBoardPost.toString());
+
+        this.UseOverwatchMonitoringString("onHidePostEditValidateForm", "d-none");
+        this.UseOverwatchMonitoringString("isValidate", "d-none");
+
+        this.UseOverwatchMonitoringString("isEditMode", "false");
 
         /** 목록으로 버튼 클릭 이벤트 */
         this.UseOverwatchAll({
@@ -67,16 +82,8 @@ export default class Write extends ContentComponent
         // 게시글 정보들
 
         // 게시글 제목
-        this.UseOverwatchMonitoringString("boardPostTitle", "");
-
-        // 게시글 작성자
-        this.UseOverwatchMonitoringString("boardPostWriter", "");
-
-        // 게시글 카테고리
-        this.UseOverwatchMonitoringString("boardPostCategory", "");
-
-        // 게시글 작성일
-        this.UseOverwatchMonitoringString("boardPostDate", "");
+        this.UseOverwatchMonitoringString("postEditTitle", "");
+        this.UseOverwatchMonitoringString("postEditUserName", "");
 
         /** 게시글 제목 인풋 감시 이벤트 */
         this.UseOverwatchAll({
@@ -107,7 +114,35 @@ export default class Write extends ContentComponent
             OverwatchingType: OverwatchingType.Monitoring,
             OverwatchingOneIs: true
         });
+
+        /** 게시글 수정 비밀번호 인풋 감시 이벤트 */
+        this.UseOverwatchAll({
+            Name: "onChangeUpdatePasswordInput",
+            FirstData: this.onChangeUpdatePasswordInput,
+            OverwatchingOutputType:
+                OverwatchingOutputType.Function_NameRemoveOn,
+            OverwatchingType: OverwatchingType.Monitoring,
+            OverwatchingOneIs: true
+        });
+
+        /** 게시글 수정 진행 버튼 클릭 이벤트 */
+        this.UseOverwatchAll({
+            Name: "onClickUpdateButton",
+            FirstData: this.onClickUpdateButton,
+            OverwatchingOutputType:
+                OverwatchingOutputType.Function_NameRemoveOn,
+            OverwatchingType: OverwatchingType.Monitoring,
+            OverwatchingOneIs: true
+        });
     }
+
+    private onChangeUpdatePasswordInput = (
+        event: Event
+    ): void =>
+    {
+        const Input = event.target as HTMLInputElement;
+        this.InputValue.Update.Password = Input.value;
+    };
 
     private onClickBackButton = async (): Promise<void> =>
     {
@@ -120,6 +155,7 @@ export default class Write extends ContentComponent
     ): void =>
     {
         const Input = event.target as HTMLTextAreaElement;
+        // 작성 모드
         this.InputValue.Title = Input.value;
     };
 
@@ -128,6 +164,8 @@ export default class Write extends ContentComponent
     ): void =>
     {
         const Input = event.target as HTMLTextAreaElement;
+
+        // 작성 모드
         this.InputValue.UserName = Input.value;
     };
 
@@ -136,21 +174,67 @@ export default class Write extends ContentComponent
     ): void =>
     {
         const Input = event.target as HTMLTextAreaElement;
-        this.InputValue.Password = Input.value;
+        if (this.idBoardPost)
+        {
+            // 수정 모드
+            this.InputValue.Update.Password = Input.value;
+        }
+        else
+        {
+            // 작성 모드
+            this.InputValue.Password = Input.value;
+        }
     };
 
-    private async GetBoardPostDetail(): Promise<PostEditViewResultModel>
+    private onClickUpdateButton = async (): Promise<void> =>
+    {
+        await this.SetPostEditView();
+
+        const onHidePostEditValidateForm = this.AxeSelectorByName("onHidePostEditValidateForm");
+        const isValidate = this.AxeSelectorByName("isValidate");
+
+        onHidePostEditValidateForm.data = "d-none";
+        isValidate.data = "temp";
+
+    }
+
+    private async SetPostEditView(): Promise<void>
+    {
+        const EditViewData = await this.GetPostEditView();
+
+        if (!EditViewData || !EditViewData.Post || !EditViewData.PostContents)
+        {
+            GlobalStatic.app.Router.navigate('/404');
+            return;
+        }
+
+        const postEditTitle = this.AxeSelectorByName("postEditTitle");
+        postEditTitle.data = EditViewData.Post.Title;
+        this.InputValue.Title = EditViewData.Post.Title;
+
+        const postEditUserName = this.AxeSelectorByName("postEditUserName");
+        postEditUserName.data = EditViewData.Post.UserName;
+        this.InputValue.UserName = EditViewData.Post.UserName;
+
+        this.Editor.SetData(EditViewData.PostContents.Contents);
+
+        this.Editor.FileAdd(EditViewData.FileList);
+
+    }
+
+    private async GetPostEditView(): Promise<PostEditViewResultModel>
     {
         try
         {
             const response = await FetchPostEditView({
                 idBoard: this.idBoard,
                 idBoardPost: this.idBoardPost,
-                Password: this.InputValue.Password
+                Password: this.InputValue.Update.Password
             });
 
             if (response.InfoCode === "0")
             {
+                console.log(response)
                 return response;
             }
             else
@@ -254,6 +338,77 @@ export default class Write extends ContentComponent
         }
     }
 
+    private async EditPost({
+        idBoard,
+        idBoardPost,
+        Title,
+        Contents,
+        Password,
+        FileList
+    }: PostEditApplyCallModel): Promise<void>
+    {
+        if (!Title)
+        {
+            GlobalStatic.MessageBox_Error({
+                sTitle: "오류",
+                sMsg: "제목을 입력해주세요."
+            });
+
+            return;
+        }
+
+        if (!Contents)
+        {
+            GlobalStatic.MessageBox_Error({
+                sTitle: "오류",
+                sMsg: "내용을 입력해주세요."
+            });
+
+            return;
+        }
+
+        if (!Password)
+        {
+            GlobalStatic.MessageBox_Error({
+                sTitle: "오류",
+                sMsg: "비밀번호를 입력해주세요."
+            });
+
+            return;
+        }
+
+        try
+        {
+            const response = await FetchPostEdit({
+                idBoard,
+                idBoardPost,
+                Title,
+                Contents,
+                Password,
+                FileList
+            });
+
+            if (response.InfoCode === "0")
+            {
+                console.log(response);
+                GlobalStatic.app.Router.navigate(
+                    `/board/${this.idBoard}/${this.idBoardPost}`
+                );
+            }
+        }
+        catch (e)
+        {
+            GlobalStatic.MessageBox_Error({
+                sTitle: "오류",
+                sMsg: "게시글을 작성하는데 실패하였습니다."
+            });
+
+            console.error(e);
+        }
+
+
+    }
+
     /**
      * Dom이 생성되고 나서 실행되는 함수
      * @returns {void}
@@ -264,20 +419,46 @@ export default class Write extends ContentComponent
         // {
         //     GlobalStatic.app.Router.navigate('/404');
         // }
-
+        const onHidePostEditValidateForm = this.AxeSelectorByName("onHidePostEditValidateForm");
+        const isValidate = this.AxeSelectorByName("isValidate");
+        const isEditMode = this.AxeSelectorByName("isEditMode");
         const EditorContainer = this.DomThis.querySelector(".editor-container") as HTMLElement;
-        this.Editor.CreateEditor(EditorContainer, async (data) =>
+
+        if (this.idBoardPost)
         {
-            console.log(data);
-            await this.CreatePost({
-                idBoard: this.idBoard,
-                Title: this.InputValue.Title.trim(),
-                Contents: data.Content,
-                UserName: this.InputValue.UserName,
-                Password: this.InputValue.Password,
-                FileList: data.Files
+            // 수정 모드
+            isEditMode.data = "true";
+            onHidePostEditValidateForm.data = "temp";
+            this.Editor.CreateEditor(EditorContainer, async (data) =>
+            {
+                await this.EditPost({
+                    idBoard: this.idBoard,
+                    idBoardPost: this.idBoardPost,
+                    Title: this.InputValue.Title.trim(),
+                    Contents: data.Content,
+                    Password: this.InputValue.Update.Password,
+                    FileList: data.Files
+                });
+            })
+        }
+        else
+        {
+            // 작성 모드
+            isEditMode.data = "false";
+            isValidate.data = "temp";
+            this.Editor.CreateEditor(EditorContainer, async (data) =>
+            {
+                await this.CreatePost({
+                    idBoard: this.idBoard,
+                    Title: this.InputValue.Title.trim(),
+                    Contents: data.Content,
+                    UserName: this.InputValue.UserName,
+                    Password: this.InputValue.Password,
+                    FileList: data.Files
+                });
             });
-        });
+        }
+
 
     }
 }

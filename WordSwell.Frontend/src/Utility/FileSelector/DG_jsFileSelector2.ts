@@ -393,7 +393,7 @@ export default class DG_jsFileSelector2
             Length: file.size,
             Type: file.type,
             Description: "",
-            EditorDivision: file.name + "/" + this.EditorDivCount,
+            EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
             BinaryIs: true,
             BinaryReadyIs: false,
             Binary: file.stream(),
@@ -461,12 +461,12 @@ export default class DG_jsFileSelector2
             const FileType = file.type.split("/")[0];
             if ('image' === FileType)
             {
-                this.InsertImageToEditor(file, newItem.idLocal.toString());
+                this.InsertImageToEditor(file, newItem.EditorDivision);
                 this.EditorInsertedList.push(file.name);
             }
             else
             {
-                this.InsertFileToEditor(file, newItem.idLocal.toString());
+                this.InsertFileToEditor(file, newItem.EditorDivision);
                 this.EditorInsertedList.push(file.name);
             }
         })
@@ -553,23 +553,28 @@ export default class DG_jsFileSelector2
         this.ItemList.push(newItem);
         this.LoadCompleteFileList.push(file);
 
-        const FileType = file.type.split("/")[0];
+        const FileType = file?.type.split("/")[0] ?? item.Type.split("/")[0];
 
         if ("image" === FileType)
         {
             // 파일 타입이 이미지 파일이라면
-            this.InsertImageToEditor(file, newItem.idLocal.toString());
+            this.InsertImageToEditor(file, newItem.EditorDivision);
         }
 
         console.log(this.ItemList)
         this.FileLocalId++;
     }
 
-    private InsertImageToEditor(file: File, fileId: string): void
+    private InsertImageToEditor(file: File, EditorDivision: string): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
+            if (!file)
+            {
+                return;
+            }
+
             const Reader = new FileReader();
             Reader.onload = () =>
             {
@@ -579,7 +584,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const ImageUtils = EditorInstance.plugins.get('ImageUtils');
-                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${fileId}` });
+                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${EditorDivision}` });
                 })
 
             }
@@ -588,11 +593,16 @@ export default class DG_jsFileSelector2
         }
     }
 
-    private InsertFileToEditor(file: File, fileId: string): void
+    private InsertFileToEditor(file: File, EditorDivision: string): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
+            if (!file)
+            {
+                return;
+            }
+
             const Reader = new FileReader();
             Reader.onload = () =>
             {
@@ -602,7 +612,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const Position = EditorInstance.model.document.selection.getFirstPosition();
-                    const TextElement = writer.createText(`![file, ${fileId}]`);
+                    const TextElement = writer.createText(`![file, ${EditorDivision}]`);
 
                     // TextElement를 굵게 처리
                     writer.setAttribute('bold', true, TextElement);
@@ -781,7 +791,7 @@ export default class DG_jsFileSelector2
                 Length: file.size,
                 Type: file.type,
                 Description: "",
-                EditorDivision: file.name + "/" + this.EditorDivCount,
+                EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
                 BinaryIs: true,
                 BinaryReadyIs: false,
                 Binary: file.stream(),
@@ -796,5 +806,18 @@ export default class DG_jsFileSelector2
         }
 
         return ReturnList;
+    }
+
+    private getCurrentDateTimeString(): string
+    {
+        const now = new Date();
+        const year = now.getFullYear().toString();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        return year + month + day + hours + minutes + seconds;
     }
 }

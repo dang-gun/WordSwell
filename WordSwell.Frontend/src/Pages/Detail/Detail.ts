@@ -164,7 +164,7 @@ export default class Detail extends ContentComponent
     private onClickBackButton = async (): Promise<void> =>
     {
         // 뒤로가기
-        window.history.back();
+        GlobalStatic.app.Router.navigate(`/board/${this.idBoard}`);
     };
 
     private onClickFilesToggle = (
@@ -236,6 +236,13 @@ export default class Detail extends ContentComponent
             if (response.InfoCode === "0")
             {
                 GlobalStatic.app.Router.navigate(`/board/${this.idBoard}`);
+            }
+            else
+            {
+                GlobalStatic.MessageBox_Error({
+                    sTitle: "오류",
+                    sMsg: response.Message
+                });
             }
         }
         catch (e)

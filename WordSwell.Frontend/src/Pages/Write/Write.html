@@ -2,7 +2,34 @@
     <div class="back-action-box">
         <button class="btn back-btn" onclick="{{onClickBackButton}}">목록으로</button>
     </div>
-    <div class="write-box">
+    <div class="update-form-container {{onHidePostEditValidateForm}}">
+        <div class="app-card">
+            <div class="card-body update-form-wrapper">
+                <div class="update-form">
+                    <div class="update-form-title">
+                        <h2>게시글 수정</h2>
+                        <p>이전 데이터는 복구할 수 없습니다. <br/> 정말로 수정 하시겠습니까?</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-password">비밀번호</label>
+                        <input
+                                type="password"
+                                class="form-control"
+                                id="update-password"
+                                onchange="{{onChangeUpdatePasswordInput}}"
+                                placeholder="비밀번호를 입력해주세요.">
+                    </div>
+                    <div class="actions-box">
+                        <a class="btn cancel-btn" href="/board/{{idBoard}}/{{idBoardPost}}">
+                            취소
+                        </a>
+                        <button class="btn btn-danger" onclick="{{onClickUpdateButton}}">수정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="write-box {{isValidate}}">
         <div class="write-title-wrapper">
             <div class="non-member-box">
                 <div class="form-group">
@@ -10,6 +37,8 @@
                         type="text"
                         placeholder="닉네임을 입력해주세요"
                         onchange="{{onChangeUserNameInput}}"
+                        value="{{postEditUserName}}"
+                        disabled="{{isEditMode}}"
                         class="form-control" />
                     <input
                         type="password"
@@ -22,6 +51,7 @@
                 type="text"
                 placeholder="제목을 입력하세요"
                 onchange="{{onChangeTitleInput}}"
+                value="{{postEditTitle}}"
                 class="form-control write-title" />
         </div>
         <div class="file-selector-wrapper">

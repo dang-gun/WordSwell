@@ -147,6 +147,23 @@ export default class Board extends ContentComponent
         }
     }
 
+    private SetBoardName(): void
+    {
+        const boardName = this.AxeSelectorByName("boardName");
+        const CurrentUrl = GlobalStatic.app.Router.getMatch().url;
+        const HeaderNavElement = document.querySelector("ul.navbar-nav") as HTMLUListElement;
+        const LinkElements = HeaderNavElement.querySelectorAll("li.nav-item a.nav-link") as NodeListOf<HTMLAnchorElement>;
+
+        LinkElements.forEach((item) =>
+        {
+            const href = item.getAttribute("href");
+            if (href === `/${CurrentUrl}`)
+            {
+                boardName.data = item.textContent;
+            }
+        })
+    }
+
     private async SetBoardList(page?: number): Promise<void>
     {
         const PostList = await this.GetBoardPostList(page || 1);
@@ -252,6 +269,7 @@ export default class Board extends ContentComponent
      */
     public async RenderingComplete(): Promise<void>
     {
+        this.SetBoardName();
         await this.SetBoardList(this.PageNumber);
 
     }

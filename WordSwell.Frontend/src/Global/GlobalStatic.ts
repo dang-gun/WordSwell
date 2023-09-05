@@ -33,25 +33,26 @@ export default class GlobalStatic
 
     static ImageToSeparator = (data: string): string =>
     {
-        const regex = /<img\s+src="([^"]*)"\s+alt="([^\/]+)\/(\d+)"/g;
+        const regex = /\<img\s+src="([^"]*)"\s+alt="([^"]*)"/g;
         const matches = [];
+
         let match;
         while ((match = regex.exec(data)) !== null)
         {
             const src = match[1];
-            const fileName = match[2];
-            const fileId = match[3];
-            matches.push([src, fileName, fileId]);
+            const fileName = (match[2] as string).split('/')[0];
+            const editorDivision = (match[2] as string).split('/')[1];
+            matches.push([src, fileName, editorDivision]);
         }
 
         // 변환된 문자열 생성
         let convertedHtmlString = data;
-        for (const [src, fileName, fileId] of matches)
+        for (const [src, fileName, editorDivision] of matches)
         {
-            const replacement = `![${fileName}, ${fileId}]`;
+            const replacement = `![${fileName}, ${editorDivision}]`;
 
             convertedHtmlString = convertedHtmlString.replace(
-                `<img src="${src}" alt="${fileName}/${fileId}">`,
+                `<img src="${src}" alt="${fileName}/${editorDivision}">`,
                 replacement
             );
         }

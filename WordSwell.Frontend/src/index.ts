@@ -59,6 +59,13 @@ export default class App
                 })
             )
             .on(
+                "/board/:idBoard/:idBoardPost/edit",
+                this.Router.ContentRender({
+                    Page,
+                    Component: Write
+                })
+            )
+            .on(
                 "/board/:idBoard/:idBoardPost",
                 this.Router.ContentRender({
                     Page,
