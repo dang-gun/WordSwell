@@ -23,8 +23,14 @@
 	  <Reference Include="DGU_EnumToClass_SummaryAssist">
 	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_EnumToClass_SummaryAssist.dll</HintPath>
 	  </Reference>
+	  <Reference Include="DGU_FileAssist">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_FileAssist.dll</HintPath>
+	  </Reference>
 	  <Reference Include="DGU_ModelToOutFiles.Global">
 	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ModelToOutFiles.Global.dll</HintPath>
+	  </Reference>
+	  <Reference Include="DGU_ModelToOutFiles.Library">
+	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ModelToOutFiles.Library.dll</HintPath>
 	  </Reference>
 	  <Reference Include="DGU_ProjectXmlAssist">
 	    <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ProjectXmlAssist.dll</HintPath>
@@ -47,6 +53,10 @@
     <None Update="OutFiles\TestBat.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Faculty\" />
   </ItemGroup>
 
 </Project>

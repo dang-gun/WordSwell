@@ -1,5 +1,6 @@
-﻿using DGU_ModelToOutFiles.App.Faculty;
+﻿using DGUtility.ModelToOutFiles.Library.ObjectToOut;
 using DGUtility.ProjectXml;
+using DGUtility.XmlFileAssist;
 
 namespace WordSwell.Tool.ApiModels;
 
@@ -113,7 +114,10 @@ internal class Program
         switch(sOutputType)
         {
             case "typescript":
-                otoTemp = new ObjectToOut_Typescript(sOutputPath, xml, sImportRootDir);
+                otoTemp 
+                    = new ObjectToOut_Typescript(
+                        new string[] { sOutputPath }.ToList()
+                        , xml, sImportRootDir);
                 break;
 
             default:
