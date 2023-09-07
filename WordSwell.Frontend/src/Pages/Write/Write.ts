@@ -316,7 +316,7 @@ export default class Write extends ContentComponent
                 Contents,
                 UserName,
                 Password,
-                FileList
+                FileList: FileList || null
             });
 
             if (response.InfoCode === "0")

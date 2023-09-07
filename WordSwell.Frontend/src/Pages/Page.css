@@ -1,4 +1,5 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css');
+/* @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css'); */
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 #divPage {
 
@@ -81,8 +82,10 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-    font-family: 'Pretendard', sans-serif;
+    /* font-family: 'Pretendard', sans-serif; */
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 0.875rem;
+    font-weight: 500;
     background: var(--bs-gray-100);
 }
 
