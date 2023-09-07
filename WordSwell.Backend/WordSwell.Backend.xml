@@ -95,6 +95,23 @@
             <param name="TestCallModel"></param>
             <returns></returns>
         </member>
+        <member name="T:WordSwell.Backend.Faculty.FileDb.FileDbProcess">
+            <summary>
+            파일DB를 관리하기위한 기능
+            </summary>
+        </member>
+        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.#ctor">
+            <summary>
+            개체 생성
+            </summary>
+        </member>
+        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Save(System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel})">
+            <summary>
+            
+            </summary>
+            <param name="FileData"></param>
+            <returns></returns>
+        </member>
         <member name="T:WordSwell.Backend.Program">
             <summary>
             

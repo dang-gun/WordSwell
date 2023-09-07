@@ -1,6 +1,9 @@
-﻿using DGUtility.ModelToOutFiles.Library.ObjectToOut;
+﻿using DGUtility.ModelToFrontend;
+using DGUtility.ModelToOutFiles.Library.ObjectToOut;
 using DGUtility.ProjectXml;
 using DGUtility.XmlFileAssist;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace WordSwell.Tool.ApiModels;
 
@@ -96,7 +99,6 @@ internal class Program
         {//IDE에서 실행중이다.
 
             xmlFA.XmlFilesCopy();
-            Console.WriteLine("====== End XML Files copy ======");
         }
 
         //xml 파일 패스 읽기
@@ -126,7 +128,58 @@ internal class Program
 
         }
 
-        if(true == bOutputPathClear)
+
+        //디버깅 정보 ****************************
+        otoTemp.OnDebug
+            += (sCommand, objModel1, objModel2)
+            =>
+            {
+                switch (sCommand)
+                {
+                    case "ModelToTs-Reset-Parent":
+                        {
+                            Type typeTemp = (Type)objModel1!;
+
+                            //중단점 잡을 개체
+                            if (typeTemp.Name == "PostEditApplyCallModel")
+                            {
+                                Debug.WriteLine(typeTemp.Name);
+                            }
+                        }
+                        break;
+
+                    case "ModelToTs-Reset-Member":
+                        {
+                            PropertyInfo piTemp = (PropertyInfo)objModel1!;
+
+                            //중단점 잡을 개체
+                            if (piTemp.Name == "FileList")
+                            {
+                                Debug.WriteLine(piTemp.Name);
+                            }
+                        }
+                        break;
+
+                    case "ModelToTs-ToTypeScriptString-ModelMember":
+                        {
+                            string sParentName = (string)objModel1!;
+                            TypeScriptModelMember tsmmTemp
+                                = (TypeScriptModelMember)objModel2!;
+
+                            //중단점 잡을 개체
+                            if (sParentName == "PostEditApplyCallModel" 
+                                && tsmmTemp.Name == "FileList")
+                            {
+                                Debug.WriteLine(tsmmTemp.Name);
+                            }
+                        }
+                        break;
+                }
+            };
+
+
+        //**********************************
+        if (true == bOutputPathClear)
         {//출력 폴더 지우기
 
             DirectoryInfo diOutP = new DirectoryInfo(sOutputPath);

@@ -173,6 +173,11 @@
             0 = 비회원
             </remarks>
         </member>
+        <member name="P:ModelsDB.Board.BoardPost.UserName">
+            <summary>
+            비회원일때 유저 이름
+            </summary>
+        </member>
         <member name="P:ModelsDB.Board.BoardPost.WriteTime">
             <summary>
             작성 시간
@@ -234,6 +239,95 @@
             게시물 내용
             </summary>
         </member>
+        <member name="T:ModelsDB.FileDb.FileDb">
+            <summary>
+            파일DB 처리
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.idFileDb">
+            <summary>
+            파일DB 고유번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.NameOri">
+            <summary>
+            원본 이름
+            </summary>
+            <remarks>
+            리눅스의 파일 이름 최대크기는 255이다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.LengthOri">
+            <summary>
+            원본 파일 용량
+            </summary>
+            <remarks>
+            나중에 파일의 가로세로 크기를 따로 저장할때 size로 이름을 붙이면
+            혼란이 있을거 같아 길이(length)로 정함
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.Type">
+            <summary>
+            파일 타입
+            </summary>
+            <remarks>
+            확장자를 말하는게 아니라 자바스크립트에서 판단된 파일의 종류를 말한다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.Description">
+            <summary>
+            파일 설명
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.ThumbnailName">
+            <summary>
+            썸네일로 사용할 주소.
+            파일 크기별로 다른 이미지를 사용할 경우 
+            이 이름을 기반으로 크기 이름을 정해 사용한다.
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.Url">
+            <summary>
+            최종 생성된 주소.
+            이미지인경우 표시 주소, 파일인 경우 다운로드 주소가 된다.
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.Location">
+            <summary>
+            최종 저장된 파일의 물리위치
+            </summary>
+            <remarks>
+            프론트엔드의 root를 기준으로 작성되어야 한다.
+            그래야 나중에 프론트엔드의 위치가 변경되도 바로 적용할 수 있다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.CreateDate">
+            <summary>
+            파일 생성 날짜
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.FileDbState">
+            <summary>
+            파일 상태
+            </summary>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.idUser_Edit">
+            <summary>
+            마지막으로 수정한 유저 번호
+            </summary>
+            <remarks>
+            0 = 비회원<br />
+            관리자에 의한 삭제, 수정, 블럭의 경우 다른 사람의 고유번호가 들어갈 수 있다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.FileDb.FileDb.EditTime">
+            <summary>
+            수정 시간
+            </summary>
+            <remarks>
+            파일은 수정개념이 없으므로 이건 상태변경을 의미한다.
+            </remarks>
+        </member>
         <member name="T:ModelsDB.User.User">
             <summary>
             유저
@@ -286,6 +380,11 @@
             유저
             </summary>
         </member>
+        <member name="P:ModelsContext.ModelsDbContext.FileDb">
+            <summary>
+            파일DB 처리
+            </summary>
+        </member>
         <member name="M:ModelsContext.ModelsDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
             게시판
@@ -297,7 +396,7 @@
              mssql전용 컨텍스트
              </summary>
             <remarks>
-             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
+             Add-Migration InitialCreate -Context ModelsDbContext_Mariadb -OutputDir Migrations/Mariadb 
              Remove-Migration -Context ModelsDB.ModelsDbContext_Mariadb
              Update-Database -Context ModelsDbContext_Mariadb
              Update-Database -Context ModelsDbContext_Mariadb -Migration 0
@@ -365,7 +464,7 @@
              Postgresql전용 컨텍스트
              </summary>
             <remarks>
-             Add-Migration InitialCreate -Context ModelsDB.ModelsDbContext_Postgresql -OutputDir Migrations/Postgresql
+             Add-Migration InitialCreate -Context ModelsDbContext_Postgresql -OutputDir Migrations/Postgresql
              Remove-Migration -Context ModelsDB.ModelsDbContext_Postgresql
              Update-Database -Context ModelsDbContext_Postgresql
              Update-Database -Context ModelsDbContext_Postgresql -Migration 0
@@ -419,7 +518,7 @@
             보드 사용자 타입
             </summary>
             <remarks>
-            개시판 사용자를 나누기위한 대분류.
+            게시판 사용자를 나누기위한 대분류.
             타입스크립트 - 역참조 해야 한다.
             </remarks>
         </member>
@@ -487,6 +586,49 @@
             </summary>
         </member>
         <member name="F:ModelsDB_partial.Board.PostStateType.Delete_Admin">
+            <summary>
+            관리자 권한이 있는 유저가 삭제
+            </summary>
+        </member>
+        <member name="T:ModelsDB_partial.FileDb.FileDbStateType">
+            <summary>
+            파일DB 상태
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.None">
+            <summary>
+            상태 없음
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.WaitingApproval">
+            <summary>
+            승인 대기
+            </summary>
+            <remarks>
+            승인 후 개시되는 경우 연결된 게시물의 상태가 변경될때까지 파일의 접근을 제한한다.
+            </remarks>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.Normal">
+            <summary>
+            정상 상태
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.Block_Temp">
+            <summary>
+            임시 차단
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.Block">
+            <summary>
+            완전 차단
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.Delete">
+            <summary>
+            정상 삭제 - 유저가 삭제한 경우
+            </summary>
+        </member>
+        <member name="F:ModelsDB_partial.FileDb.FileDbStateType.Delete_Admin">
             <summary>
             관리자 권한이 있는 유저가 삭제
             </summary>
