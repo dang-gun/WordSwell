@@ -67,8 +67,6 @@ export default class Write extends ContentComponent
         this.UseOverwatchMonitoringString("onHidePostEditValidateForm", "d-none");
         this.UseOverwatchMonitoringString("isValidate", "d-none");
 
-        this.UseOverwatchMonitoringString("isEditMode", "false");
-
         /** 목록으로 버튼 클릭 이벤트 */
         this.UseOverwatchAll({
             Name: "onClickBackButton",
@@ -190,12 +188,6 @@ export default class Write extends ContentComponent
     {
         await this.SetPostEditView();
 
-        const onHidePostEditValidateForm = this.AxeSelectorByName("onHidePostEditValidateForm");
-        const isValidate = this.AxeSelectorByName("isValidate");
-
-        onHidePostEditValidateForm.data = "d-none";
-        isValidate.data = "temp";
-
     }
 
     private async SetPostEditView(): Promise<void>
@@ -204,9 +196,14 @@ export default class Write extends ContentComponent
 
         if (!EditViewData || !EditViewData.Post || !EditViewData.PostContents)
         {
-            GlobalStatic.app.Router.navigate('/404');
             return;
         }
+
+        const onHidePostEditValidateForm = this.AxeSelectorByName("onHidePostEditValidateForm");
+        const isValidate = this.AxeSelectorByName("isValidate");
+
+        onHidePostEditValidateForm.data = "d-none";
+        isValidate.data = "temp";
 
         const postEditTitle = this.AxeSelectorByName("postEditTitle");
         postEditTitle.data = EditViewData.Post.Title;
@@ -218,7 +215,10 @@ export default class Write extends ContentComponent
 
         this.Editor.SetData(EditViewData.PostContents.Contents);
 
-        this.Editor.FileAdd(EditViewData.FileList);
+        if (EditViewData.FileList && EditViewData.FileList.length > 0)
+        {
+            this.Editor.FileAdd(EditViewData.FileList);
+        }
 
     }
 
@@ -421,13 +421,13 @@ export default class Write extends ContentComponent
         // }
         const onHidePostEditValidateForm = this.AxeSelectorByName("onHidePostEditValidateForm");
         const isValidate = this.AxeSelectorByName("isValidate");
-        const isEditMode = this.AxeSelectorByName("isEditMode");
         const EditorContainer = this.DomThis.querySelector(".editor-container") as HTMLElement;
 
         if (this.idBoardPost)
         {
+            const UserNameInput = this.DomThis.querySelector('.username-input') as HTMLInputElement;
+            UserNameInput.disabled = true;
             // 수정 모드
-            isEditMode.data = "true";
             onHidePostEditValidateForm.data = "temp";
             this.Editor.CreateEditor(EditorContainer, async (data) =>
             {
@@ -444,7 +444,6 @@ export default class Write extends ContentComponent
         else
         {
             // 작성 모드
-            isEditMode.data = "false";
             isValidate.data = "temp";
             this.Editor.CreateEditor(EditorContainer, async (data) =>
             {
