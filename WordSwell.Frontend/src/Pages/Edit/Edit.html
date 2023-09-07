@@ -1,0 +1,90 @@
+<div id="divEdit">
+    <div class="row">
+        <div class="back-action-box">
+            <button class="btn back-btn" onclick="{{onClickBackButton}}">목록으로</button>
+        </div>
+    </div>
+    <div class="row {{onHideBoardPostUpdateForm}}">
+        <div class="update-form-container">
+            <div class="card">
+                <div class="card-body update-form-wrapper">
+                    <div class="update-form">
+                        <div class="update-form-title">
+                            <h2>게시글 수정</h2>
+                            <p>이전 데이터는 복구할 수 없습니다 <br/> 정말로 수정하시겠습니까?</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-password">비밀번호</label>
+                            <input
+                                    type="password"
+                                    class="form-control"
+                                    id="update-password"
+                                    onchange="{{onChangeUpdateAuthPasswordInput}}"
+                                    placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                        <div class="actions-box">
+                            <a class="btn cancel-btn"
+                                href="/board/{{idBoard}}/{{idBoardPost}}?c={{idCategory}}">
+                                취소
+                            </a>
+                            <button class="btn btn-danger" onclick="{{onClickUpdateButton}}">수정</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row {{onHideWriteEditor}}">
+        <div class="write-box">
+            <div class="write-title-wrapper">
+                <div class="non-member-box">
+                    <div class="form-group">
+                        <input
+                                type="text"
+                                placeholder="닉네임을 입력해주세요"
+                                value="{{loadDisplayName}}"
+                                onchange="{{onChangeDisplayNameInput}}"
+                                class="form-control"/>
+                        <input
+                                type="password"
+                                placeholder="비밀번호를 입력해주세요"
+                                onchange="{{onChangeNewPasswordInput}}"
+                                class="form-control"/>
+                    </div>
+                </div>
+                <input
+                        type="text"
+                        placeholder="제목을 입력하세요"
+                        value="{{loadTitle}}"
+                        onchange="{{onChangeTitleInput}}"
+                        class="form-control write-title"/>
+            </div>
+            <div class="file-selector-wrapper">
+                <div class="file-actions-box">
+                    <div class="left">
+                        <input type="file" id="file-open" multiple="multiple"/>
+                        <label for="file-open" class="btn btn-dark btn-sm">파일 열기</label>
+                    </div>
+                    <div class="right">
+                        <button type="button" class="btn btn-sm file-view-mode-change-big">큰 아이콘</button>
+                        <button type="button" class="btn btn-sm file-view-mode-change-tile">타일</button>
+                        <button type="button" class="btn btn-sm file-view-mode-change-detail">자세히 보기
+                        </button>
+                    </div>
+                </div>
+                <div class="card file-dnd-box file-view-mode-detail">
+                    <div class="file-dnd-box-default-item">
+                        <svg fill="#999" width="24px" height="24px" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.213 6.639c-.276 0-.546.025-.809.068C13.748 4.562 11.716 3 9.309 3c-2.939 0-5.32 2.328-5.32 5.199 0 .256.02.508.057.756a3.567 3.567 0 0 0-.429-.027C1.619 8.928 0 10.51 0 12.463S1.619 16 3.617 16H8v-4H5.5L10 7l4.5 5H12v4h3.213C17.856 16 20 13.904 20 11.32c0-2.586-2.144-4.681-4.787-4.681z"/>
+                        </svg>
+                        <div class="texts-box">
+                            <p>파일을 드래그 또는 드랍으로 업로드</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="editor-container"></div>
+        </div>
+    </div>
+</div>

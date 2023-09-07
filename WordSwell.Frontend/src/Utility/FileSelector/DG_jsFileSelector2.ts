@@ -1,5 +1,5 @@
-import {FileItemInterface} from "./FileItemInterface";
-import {FileSelectorOptionInterface} from "./FileSelectorOptionInterface";
+import { FileItemInterface } from "./FileItemInterface";
+import { FileSelectorOptionInterface } from "./FileSelectorOptionInterface";
 
 export default class DG_jsFileSelector2
 {
@@ -18,7 +18,7 @@ export default class DG_jsFileSelector2
 
         Editor: null,
 
-        /**
+        /** 
          *  허용된 확장자 리스트(소문자로 입력).
          *  전체허용은 "*.*"
          *  이미지 : ".bmp", ".dib", ".jpg", ".jpeg", ".jpe", ".gif", ".png", ".tif", ".tiff", ".raw"
@@ -27,10 +27,10 @@ export default class DG_jsFileSelector2
         //ExtAllow: [".bmp", ".dib", ".jpg", ".jpeg", ".jpe", ".gif", ".png", ".tif", ".tiff", ".raw"],
 
         /** 로딩 이미지에 사용할 이미지 */
-        LoadingSrc: "/Assets/Image/Rolling-2.1s-65px.gif",
+        LoadingSrc: "/Assets/Images/Rolling-2.1s-65px.gif",
 
         /** 별도 처리 없는(확장자 검사에서 빈값) 이미지에 사용할 이미지 */
-        NoneFileImgUrl: "/Assets/Image/checkmark_3440877.png",
+        NoneFileImgUrl: "/Assets/Images/checkmark_3440877.png",
 
         /** 파일 사이즈를 문자열로 바꿀때 SI(국제단위계)사용여부 */
         FileSizeToStringUseSI: true,
@@ -51,18 +51,18 @@ export default class DG_jsFileSelector2
             const thresh = bSI ? 1000 : 1024;
             if (Math.abs(nSizeLength) < thresh)
             {
-                return nSizeLength + " B";
+                return nSizeLength + ' B';
             }
             const units = bSI
-                ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
-                : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+                ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+                : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
             let u = -1;
             do
             {
                 nSizeLength /= thresh;
                 ++u;
             } while (Math.abs(nSizeLength) >= thresh && u < units.length - 1);
-            return nSizeLength.toFixed(1) + " " + units[u];
+            return nSizeLength.toFixed(1) + ' ' + units[u];
         },
 
         /**
@@ -133,7 +133,7 @@ export default class DG_jsFileSelector2
                             <p>파일을 드래그 또는 드랍으로 업로드</p>
                         </div>
                     </div>
-                `;
+                `
             }
         }
     };
@@ -155,7 +155,7 @@ export default class DG_jsFileSelector2
     private DomInputFile: HTMLInputElement | null = null;
     /** 에디터에 추가된 항목들 */
     private EditorInsertedList: string[] = [];
-    private FileLocalId: number = 1;
+    private FileLocalId: number = 0;
 
     constructor(jsonOptions: FileSelectorOptionInterface)
     {
@@ -181,7 +181,6 @@ export default class DG_jsFileSelector2
         {
             event.preventDefault();
             const target = event.target as HTMLInputElement;
-
             this.OnChangeFile(target);
         });
 
@@ -204,7 +203,7 @@ export default class DG_jsFileSelector2
             this.jsonOptionDefault.Area.classList.remove("dragover");
         });
 
-        const FileActionsBox = document.querySelector(".file-actions-box");
+        const FileActionsBox = document.querySelector('.file-actions-box');
         FileActionsBox.addEventListener("click", (event: Event) =>
         {
             if (this.ItemList.length <= 0)
@@ -214,23 +213,23 @@ export default class DG_jsFileSelector2
             }
 
             const Target = event.target as HTMLElement;
-            const FileDnDBox = document.querySelector(".file-dnd-box");
+            const FileDnDBox = document.querySelector('.file-dnd-box');
 
             if (Target.classList.contains("file-view-mode-change-big"))
             {
-                FileDnDBox.className = "card file-dnd-box file-view-mode-big";
+                FileDnDBox.className = "file-dnd-box file-view-mode-big";
             }
 
             if (Target.classList.contains("file-view-mode-change-tile"))
             {
-                FileDnDBox.className = "card file-dnd-box file-view-mode-tile";
+                FileDnDBox.className = "file-dnd-box file-view-mode-tile";
             }
 
             if (Target.classList.contains("file-view-mode-change-detail"))
             {
-                FileDnDBox.className = "card file-dnd-box file-view-mode-detail";
+                FileDnDBox.className = "file-dnd-box file-view-mode-detail";
             }
-        });
+        })
 
         this.ItemList = [];
     }
@@ -292,7 +291,7 @@ export default class DG_jsFileSelector2
 
     /**
      * 파일 추가
-     * @param { FileList, File[] } arrFile 브라우저에서 넘어온 파일 정보 배열
+     * @param { FileList | File[] }  파일 정보 배열
      */
     public AddFile(arrFile: FileList | File[]): void
     {
@@ -302,7 +301,7 @@ export default class DG_jsFileSelector2
     /**
      * 파일 추가 - 리스트
      * @param { FileList | FileItemInterface } arrFile 브라우저에서 넘어온 파일 정보 배열
-     * @param {boolean} bFileCountIgnore 파일 갯수 제한 무시여부
+     * @param {bool} bFileCountIgnore 파일 갯수 제한 무시여부
      */
     private FileAdd_JsonList(arrFile: FileList | File[], bFileCountIgnore?: boolean): void
     {
@@ -391,18 +390,18 @@ export default class DG_jsFileSelector2
         const item: FileItemInterface = {
             Name: file.name,
             Extension: file.name.match(patternExt)[0].toLowerCase(),
-            Size: file.size,
+            Length: file.size,
             Type: file.type,
             Description: "",
-            EditorDivision: file.name + "/" + this.EditorDivCount,
+            EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
             BinaryIs: true,
             BinaryReadyIs: false,
             Binary: file.stream(),
             idFile: 0,
             idLocal: this.FileLocalId,
             Url: "",
-            Edit: false,
-            Delete: false
+            EditIs: false,
+            DeleteIs: false,
         };
 
         let sExt = this.jsonOptionDefault.ExtAllow.find((element) => element === "*.*");
@@ -459,38 +458,18 @@ export default class DG_jsFileSelector2
         domBtnEditorAdd.textContent = "에디터에 추가";
         domBtnEditorAdd.addEventListener("click", (event: Event) =>
         {
-            const FileType = newItem.Type.split("/")[0];
-            if ("image" === FileType)
+            const FileType = file.type.split("/")[0];
+            if ('image' === FileType)
             {
-                this.InsertImageToEditor(file, newItem.idLocal.toString(), newItem);
-
-                if (newItem.idFile > 0)
-                {
-                    // 디비에 저장된 파일
-                    this.EditorInsertedList.push(newItem.Name);
-                }
-                else
-                {
-                    // 로컬 파일 ( 새로 추가한 파일 )
-                    this.EditorInsertedList.push(file.name);
-                }
+                this.InsertImageToEditor(file, newItem.EditorDivision);
+                this.EditorInsertedList.push(file.name);
             }
             else
             {
-                this.InsertFileToEditor(file, newItem.idLocal.toString(), newItem);
-
-                if (newItem.idFile > 0)
-                {
-                    // 디비에 저장된 파일
-                    this.EditorInsertedList.push(newItem.Name);
-                }
-                else
-                {
-                    // 로컬 파일 ( 새로 추가한 파일 )
-                    this.EditorInsertedList.push(file.name);
-                }
+                this.InsertFileToEditor(file, newItem.EditorDivision);
+                this.EditorInsertedList.push(file.name);
             }
-        });
+        })
 
         domActionsBox.appendChild(domBtnEditorAdd);
         domActionsBox.appendChild(domBtnDelete);
@@ -554,7 +533,7 @@ export default class DG_jsFileSelector2
 
         const domFileSize = document.createElement("p");
         domFileSize.classList.add("file-size");
-        domFileSize.textContent = this.jsonOptionDefault.FileSizeToString(newItem.Size, this.jsonOptionDefault.FileSizeToStringUseSI);
+        domFileSize.textContent = this.jsonOptionDefault.FileSizeToString(newItem.Length, this.jsonOptionDefault.FileSizeToStringUseSI);
         domFileInfo.appendChild(domFileSize);
 
         domPrivewInfo.appendChild(domFileInfo);
@@ -574,107 +553,78 @@ export default class DG_jsFileSelector2
         this.ItemList.push(newItem);
         this.LoadCompleteFileList.push(file);
 
-        const FileType = newItem.Type.split("/")[0];
+        const FileType = file?.type.split("/")[0] ?? item.Type.split("/")[0];
 
         if ("image" === FileType)
         {
             // 파일 타입이 이미지 파일이라면
-            this.InsertImageToEditor(file, newItem.idLocal.toString(), newItem);
+            this.InsertImageToEditor(file, newItem.EditorDivision);
         }
 
-        if (newItem.idLocal !== 0)
-        {
-            // 수정 상태의 파일이라면
-            this.FileLocalId = newItem.idLocal;
-        }
-
+        console.log(this.ItemList)
         this.FileLocalId++;
     }
 
-    private InsertImageToEditor(file: File, fileId: string, fileItem: FileItemInterface): void
+    private InsertImageToEditor(file: File, EditorDivision: string): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
-            if (fileItem.idFile <= 0)
+            if (!file)
             {
-                const Reader = new FileReader();
-                Reader.onload = () =>
+                return;
+            }
+
+            const Reader = new FileReader();
+            Reader.onload = () =>
+            {
+                const Base64URL = Reader.result as string;
+                const EditorInstance = this.jsonOptionDefault.Editor;
+
+                EditorInstance.model.change(writer =>
                 {
-                    const Base64URL = Reader.result as string;
-                    const EditorInstance = this.jsonOptionDefault.Editor;
+                    const ImageUtils = EditorInstance.plugins.get('ImageUtils');
+                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${EditorDivision}` });
+                })
 
-                    EditorInstance.model.change(writer =>
-                    {
-                        const ImageUtils = EditorInstance.plugins.get("ImageUtils");
-                        ImageUtils.insertImage({src: Base64URL, alt: `${file.name}/${fileId}`});
-                    });
-
-                };
-
-                Reader.readAsDataURL(file);
             }
-            else
-            {
-                // const EditorInstance = this.jsonOptionDefault.Editor;
-                //
-                // EditorInstance.model.change(writer =>
-                // {
-                //     const ImageUtils = EditorInstance.plugins.get("ImageUtils");
-                //     ImageUtils.insertImage({src: `/File/Download/${fileItem.idFile}`, alt: `${fileItem.Name}/${fileId}`});
-                // });
-            }
+
+            Reader.readAsDataURL(file);
         }
     }
 
-    private InsertFileToEditor(file: File, fileId: string, fileItem: FileItemInterface): void
+    private InsertFileToEditor(file: File, EditorDivision: string): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
-            if (fileItem.idFile <= 0)
+            if (!file)
             {
-                const Reader = new FileReader();
-                Reader.onload = () =>
-                {
-                    const Base64URL = Reader.result as string;
-                    const EditorInstance = this.jsonOptionDefault.Editor;
-
-                    EditorInstance.model.change(writer =>
-                    {
-                        const Position = EditorInstance.model.document.selection.getFirstPosition();
-                        const TextElement = writer.createText(`![file:${file.name}, ${fileId}]`);
-
-                        // TextElement를 굵게 처리
-                        writer.setAttribute("bold", true, TextElement);
-                        // TextElement를 밑줄 처리
-                        writer.setAttribute("underline", true, TextElement);
-
-                        EditorInstance.model.insertContent(TextElement, Position);
-                    });
-
-                };
-
-                Reader.readAsDataURL(file);
+                return;
             }
-            else
+
+            const Reader = new FileReader();
+            Reader.onload = () =>
             {
+                const Base64URL = Reader.result as string;
                 const EditorInstance = this.jsonOptionDefault.Editor;
 
                 EditorInstance.model.change(writer =>
                 {
                     const Position = EditorInstance.model.document.selection.getFirstPosition();
-                    const TextElement = writer.createText(`![file:${fileItem.Name}, ${fileId}]`);
+                    const TextElement = writer.createText(`![file, ${EditorDivision}]`);
 
                     // TextElement를 굵게 처리
-                    writer.setAttribute("bold", true, TextElement);
+                    writer.setAttribute('bold', true, TextElement);
                     // TextElement를 밑줄 처리
-                    writer.setAttribute("underline", true, TextElement);
+                    writer.setAttribute('underline', true, TextElement);
 
                     EditorInstance.model.insertContent(TextElement, Position);
-                });
+                })
+
             }
 
+            Reader.readAsDataURL(file);
         }
     }
 
@@ -739,21 +689,18 @@ export default class DG_jsFileSelector2
 
     /**
      * ExtToImg에서 판단한 정보를 가지고 이미지를 출력한다.
-     * @param {HTMLImageElement} domImg 이미지를 출력할 dom
+     * @param {dom} domImg 이미지를 출력할 dom
      * @param {string} sImgUrl ExtToImg에서 판단하여 넘겨받은 정보
-     * @param {ReadableStream<Uint8Array> | ArrayBuffer | string} objImage "IMAGE"일때 출력할 이미지 정보
+     * @param {byte | string} objImage "IMAGE"일때 출력할 이미지 정보
      */
     private ImgDomSet(domImg: HTMLImageElement, sImgUrl: string, objImage: ReadableStream<Uint8Array> | ArrayBuffer | string): void
     {
-        const baseUrl = "http://localhost:3065";
         let Image: any = "";
-
-        console.log(sImgUrl);
 
         if ("IMAGE" === sImgUrl)
         {
             // 지정된 이미지가 있다.
-            Image = baseUrl + objImage;
+            Image = objImage;
         }
         else if ("" === sImgUrl)
         {
@@ -776,11 +723,6 @@ export default class DG_jsFileSelector2
         return this.ItemList;
     }
 
-    // public GetFileList(): File[]
-    // {
-    //     return this.FileList
-    // }
-
     private ClearItemList(): void
     {
         const arrRemove = [];
@@ -788,7 +730,7 @@ export default class DG_jsFileSelector2
         for (let i = 0; i < this.ItemList.length; i++)
         {
             const itemFile = this.ItemList[i];
-            if (true === itemFile.Delete && 0 >= itemFile.idFile)
+            if (true === itemFile.DeleteIs && 0 >= itemFile.idFile)
             {
                 // 삭제 되었는데, 파일 아이디가 없다.
                 // 그렇다는 것은 서버에 알릴 필요가 없는 파일이라는 뜻
@@ -814,7 +756,7 @@ export default class DG_jsFileSelector2
      */
     private ItemListDelete(file: FileItemInterface, dom: HTMLLIElement): void
     {
-        file.Delete = true;
+        file.DeleteIs = true;
         dom.remove();
 
         if (0 >= file.idFile)
@@ -830,21 +772,6 @@ export default class DG_jsFileSelector2
         }
 
         this.jsonOptionDefault.DeleteComplete(file, dom);
-
-        const findNotDeleteItem = this.ItemList.filter((file) => false === file.Delete);
-        {
-            if (findNotDeleteItem.length <= 0)
-            {
-                this.jsonOptionDefault.Area_ItemList.innerHTML = `
-                    <div class="file-dnd-box-default-item">
-                        <svg fill="#999" width="24px" height="24px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.213 6.639c-.276 0-.546.025-.809.068C13.748 4.562 11.716 3 9.309 3c-2.939 0-5.32 2.328-5.32 5.199 0 .256.02.508.057.756a3.567 3.567 0 0 0-.429-.027C1.619 8.928 0 10.51 0 12.463S1.619 16 3.617 16H8v-4H5.5L10 7l4.5 5H12v4h3.213C17.856 16 20 13.904 20 11.32c0-2.586-2.144-4.681-4.787-4.681z"/></svg>
-                        <div class="texts-box">
-                            <p>파일을 드래그 또는 드랍으로 업로드</p>
-                        </div>
-                    </div>
-                `;
-            }
-        }
     };
 
     private FileListToItemList(fileList: FileList | File[]): FileItemInterface[]
@@ -861,23 +788,36 @@ export default class DG_jsFileSelector2
             const item: FileItemInterface = {
                 Name: file.name,
                 Extension: file.name.match(patternExt)[0].toLowerCase(),
-                Size: file.size,
+                Length: file.size,
                 Type: file.type,
                 Description: "",
-                EditorDivision: file.name + "/" + this.EditorDivCount,
+                EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
                 BinaryIs: true,
                 BinaryReadyIs: false,
                 Binary: file.stream(),
                 idFile: 0,
                 idLocal: this.FileLocalId,
                 Url: "",
-                Edit: false,
-                Delete: false
+                EditIs: false,
+                DeleteIs: false,
             };
 
             ReturnList.push(item);
         }
 
         return ReturnList;
+    }
+
+    private getCurrentDateTimeString(): string
+    {
+        const now = new Date();
+        const year = now.getFullYear().toString();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        return year + month + day + hours + minutes + seconds;
     }
 }

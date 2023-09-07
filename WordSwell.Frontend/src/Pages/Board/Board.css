@@ -1,0 +1,160 @@
+#divBoard {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px 0;
+}
+
+#divBoard .board-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+
+}
+
+#divBoard .board-top .board-title h5 {
+    margin: 0;
+}
+
+#divBoard .board-top .board-actions {
+    display: flex;
+    align-items: center;
+    gap: 0 1rem;
+}
+
+#divBoard .board-top .board-actions .form-inline {
+    display: flex;
+    align-items: center;
+    gap: 0 0.5rem;
+}
+
+#divBoard .board-top .board-actions .form-inline .form-control {
+    min-width: 240px;
+    font-size: 0.875rem;
+}
+
+#divBoard .board-top .board-actions .form-inline .form-select {
+    font-size: 0.875rem;
+}
+
+#divBoard .board-top .board-actions .btn {
+    white-space: nowrap;
+    font-size: 0.875rem;
+}
+
+#divBoard .board-list .board-table-wrapper table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 100%;
+}
+
+#divBoard .board-list .board-table-wrapper thead tr {
+    margin: 0;
+}
+
+#divBoard .board-list .board-table-wrapper thead th {
+    height: 50px;
+    color: #A6A8AD;
+    font-size: 13px;
+    font-weight: 400;
+    border-bottom: 1px solid var(--bs-gray-200);
+    text-align: center;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td {
+    height: 56px;
+    color: var(--bs-gray-400);
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #F5F6F7;
+    padding: 0 8px;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title {
+    display: flex;
+    align-items: center;
+    gap: 0 6px;
+    text-align: left;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title .board-data-category {
+    color: var(--bs-primary);
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title a {
+    color: var(--bs-dark);
+    text-decoration: none;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-title a:hover {
+    text-decoration: underline;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-writer {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#divBoard .board-list .board-table-wrapper tbody tr td .board-data-user {
+    color: var(--bs-dark);
+}
+
+#divBoard .board-list .empty-list-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+#divBoard .board-list .empty-list-box h1 {
+    color: var(--bs-gray-400);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+#divBoard .board-list .pagination_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0px 40px;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container {
+    display: flex;
+    align-items: center;
+    gap: 0 0.25rem;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid var(--bs-gray-200);
+    color: var(--bs-dark);
+    text-decoration: none;
+    transition: background 0.125s ease-in-out;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container button.pagination_prev, button.pagination_next {
+    width: 48px;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a:hover {
+    background: var(--bs-gray-100);
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a.pagination_button-active {
+    background: var(--bs-primary);
+    color: var(--bs-white);
+    border: none;
+}
+
+#divBoard .board-list .pagination_wrapper .pagination_container a.pagination_button-prev, a.pagination_button-next {
+    width: 48px;
+}

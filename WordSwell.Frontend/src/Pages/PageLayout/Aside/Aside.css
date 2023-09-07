@@ -1,0 +1,59 @@
+.app-aside {
+    display: none;
+    min-width: 340px;
+}
+
+.app-aside
+.auth-box {
+    width: 100%;
+}
+
+.app-aside
+.auth-box
+.card-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem 0;
+}
+
+.app-aside
+.auth-box
+.welcome-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    width: 100%;
+    text-align: center;
+    color: var(--bs-gray-700);
+}
+
+.app-aside
+.auth-box
+.link-actions-box {
+    width: 100%;
+}
+
+.app-aside
+.auth-box
+.link-actions-box
+a {
+    width: 100%;
+    font-size: 0.875rem;
+    padding: 0.75rem 0;
+}
+
+.app-aside
+.auth-box
+.link-actions-box
+a > i {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 993px) {
+    .app-aside {
+        display: flex;
+    }
+}

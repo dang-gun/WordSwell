@@ -1,0 +1,88 @@
+<div id="divDetail">
+    <div class="row">
+        <div class="top-actions-box">
+            <div class="back-btn-box">
+                <button class="btn back-btn" onclick="{{onClickBackButton}}">목록으로</button>
+            </div>
+            <div class="post-edit-box {{onHideBoardPost}}">
+                <a href="/board/{{idBoard}}/{{idBoardPost}}/edit" class="btn btn-primary">수정</a>
+                <button class="btn btn-danger" onclick="{{onClickDeleteButtonConfirm}}">삭제</button>
+            </div>
+        </div>
+    </div>
+    <div class="row {{onHideBoardPostDeleteForm}}">
+        <div class="delete-form-container">
+            <div class="app-card">
+                <div class="card-body delete-form-wrapper">
+                    <div class="delete-form">
+                        <div class="delete-form-title">
+                            <h2>게시글 삭제</h2>
+                            <p>삭제한 게시글은 다시 복구할 수 없습니다. <br/> 정말로 삭제하시겠습니까?</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="delete-password">비밀번호</label>
+                            <input
+                                    type="password"
+                                    class="form-control"
+                                    id="delete-password"
+                                    onchange="{{onChangeDeletePasswordInput}}"
+                                    placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                        <div class="actions-box">
+                            <button class="btn cancel-btn" onclick="{{onClickCancelDeletePostButton}}">
+                                취소
+                            </button>
+                            <button class="btn btn-danger" onclick="{{onClickDeleteButton}}">삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row {{onHideBoardPost}}">
+        <div class="detail-box">
+            <div class="app-card">
+                <div class="card-body detail-top">
+                    <div class="post-title">
+                        <h2>{{boardPostTitle}}</h2>
+                    </div>
+                    <div class="post-info">
+                        <div class="writer-info">
+                            <span class="writer-name">{{boardPostWriter}}</span>
+                            <span class="separator">·</span>
+                            <span class="writer-date">{{boardPostDate}}</span>
+                        </div>
+                        <div class="actions-box"></div>
+                    </div>
+                </div>
+                <div class="file-info {{hasFileBoard}}">
+                    <button type="button" class="file-info-button" onclick="{{onClickFilesToggle}}">
+                        <span class="file-info-name"><i>{{fileCount}}</i>개의 </span>
+                        <span class="file-info-title">첨부파일</span>
+                    </button>
+                    <ul class="app-card file-list {{toggleFileListElement}}"></ul>
+                </div>
+                <section class="card-body detail-content" {{boardPostContentDom}}>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="row {{onHideBoardPost}}">
+        <div class="col-lg-12">
+            <div class="comment-box">
+                <div class="app-card">
+                    <div class="card-body comment-top">
+                        <div class="comment-title">
+                            <h3>댓글 <em class="comment-count">0</em></h3>
+                        </div>
+                    </div>
+                    <div class="card-body comment-list">
+                        <div class="empty-comment-box">
+                            <p>현재 댓글이 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

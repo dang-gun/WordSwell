@@ -1,0 +1,98 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css');
+
+#divPage {
+
+}
+
+#divBody {
+    flex: 1;
+}
+
+/* Bootstarp Style Override */
+.container {
+    padding: 0 1rem;
+}
+
+.btn {
+    font-size: 14px;
+}
+
+.app-card {
+    --bs-card-spacer-y: 30px;
+    --bs-card-spacer-x: 30px;
+    --bs-card-title-spacer-y: 0.5rem;
+    --bs-card-title-color: #2A3547;
+    --bs-card-subtitle-color: #2A3547;
+    --bs-card-border-width: 0px;
+    --bs-card-border-color: #ebf1f6;
+    --bs-card-border-radius: 8px;
+    --bs-card-box-shadow: 0px 0px 2px 0px rgba(145, 158, 171, 0.2)
+                        , 0px 12px 24px -4px rgba(145, 158, 171, 0.12);
+    --bs-card-inner-border-radius: 8px;
+    --bs-card-cap-padding-y: 15px;
+    --bs-card-cap-padding-x: 30px;
+    --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+    --bs-card-cap-color: ;
+    --bs-card-height: ;
+    --bs-card-color: ;
+    --bs-card-bg: var(--bs-body-bg);
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: 12px;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--bs-card-height);
+    color: var(--bs-body-color);
+    word-wrap: break-word;
+    background-color: var(--bs-card-bg);
+    background-clip: border-box;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: var(--bs-card-border-radius);
+    box-shadow: var(--bs-card-box-shadow);
+}
+
+
+/* Layout Style */
+#divPage > .app-layout-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0 1rem;
+    flex: 1 1;
+    padding-top: 1.25rem;
+    padding-bottom: 4.25rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.875rem;
+    background: var(--bs-gray-100);
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

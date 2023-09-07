@@ -56,19 +56,28 @@ module.exports = (env, argv) =>
             rules: [
                 {
                     test: /\.ts$/,
+                    exclude: /node_modules/,
                     use: "ts-loader",
                 },
                 {
-                    test: /\.css$/,
-                    use: [MiniCssExtractPlugin.loader, "css-loader"],
+                    test: /\.css$/i,
+                    exclude: /node_modules/,
+                    use: [
+                        EnvPrductionIs
+                            ? MiniCssExtractPlugin.loader
+                            : { loader: 'style-loader' },
+                        { loader: 'css-loader' },
+                        { loader: 'sass-loader' },
+                    ],
                 },
-                //CKEditor svg 로더 설정
+                // CKEditor svg 로더 설정
                 {
                     test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
-                    use: ['raw-loader']
+                    use: [ 'raw-loader' ]
                 },
                 {
                     test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+                    exclude: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.css$/,
                     use: [
                         {
                             loader: 'style-loader',
@@ -83,12 +92,12 @@ module.exports = (env, argv) =>
                         {
                             loader: 'postcss-loader',
                             options: {
-                                postcssOptions: styles.getPostCssConfig({
+                                postcssOptions: styles.getPostCssConfig( {
                                     themeImporter: {
-                                        themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+                                        themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
                                     },
                                     minify: true
-                                })
+                                } )
                             }
                         }
                     ]
@@ -121,6 +130,25 @@ module.exports = (env, argv) =>
                             //console.log("sOutDir : " + sOutDir);
                             return `${sOutDir}`;
                         },
+                    },
+                    {
+                        //모든 이미지 파일
+                        from: './src/Assets/Images/**/*.(png|jpg|gif|svg|webp)',
+                        to({ context, absoluteFilename }) {
+                            //'src/'를 제거
+                            let sOutDir = path.relative(
+                                context,
+                                absoluteFilename
+                            );
+                            sOutDir = sOutDir.substring(4);
+
+                            console.log('sOutDir : ' + sOutDir);
+                            return `${sOutDir}`;
+                        },
+                    },
+                    {
+                        //에디터 이미지 파일
+                        from: './wwwroot/data/editor/**/*.(png|jpg|gif|svg|webp)',
                     },
                 ]
             }),
@@ -164,7 +192,9 @@ module.exports = (env, argv) =>
             /** 핫리로드 사용여부 */
             hot: true,
             /** 라이브 리로드 사용여부 */
-            liveReload: true
+            liveReload: true,
+            /** 라우터 히스토리 모드 사용여부 */
+            historyApiFallback: true,
         },
     };
 
