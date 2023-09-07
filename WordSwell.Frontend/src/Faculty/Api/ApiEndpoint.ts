@@ -17,7 +17,8 @@ export const Endpoint: ApiEndpoint = {
     // base
     get Base()
     {
-        return 'http://localhost:3065/api';
+        //return 'http://localhost:3065/api';
+        return 'https://localhost:7250/api';
     },
 
     // board

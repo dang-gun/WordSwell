@@ -8,8 +8,8 @@ using ModelsDB.Board;
 using ModelsDB_partial.Board;
 
 using WordSwell.ApiModels.BoardCont;
-
-
+using Game_Adosaki.Global;
+using WordSwell.Backend.Faculty.FileDb;
 
 namespace WordSwell.Backend.Controllers;
 
@@ -293,11 +293,23 @@ public class BoardController : Controller
 
         if (true == arReturn.IsSuccess())
         {
+            if(null != callData.FileList
+                && 0 < callData.FileList.Count)
+            {//파일 리스트가 있는경우
+
+                using (FileDbProcess fdb = new FileDbProcess())
+                {
+                    fdb.Save(callData.FileList);
+                }//end using
+            }
+            
+
             //게시물 작성
             BoardPost newBP = new BoardPost();
             newBP.idBoard = callData.idBoard;
             newBP.PostState = ModelsDB_partial.Board.PostStateType.Normal;
             newBP.Title = callData.Title!;
+            newBP.UserName = callData.UserName;
             newBP.WriteTime = dtNow;
 
             //게시물 내용 작성

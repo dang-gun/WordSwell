@@ -1,4 +1,6 @@
 ﻿using DbAssist.Faculty;
+using DGUtility.FileAssist.FileCopy;
+using DGUtility.XmlFileAssist;
 using Game_Adosaki.Global;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -18,6 +20,11 @@ public class Startup
 	public IConfiguration Configuration { get; }
 
     /// <summary>
+    /// 프로젝트 XML 파일 관리
+    /// </summary>
+    public XmlFileAssist? XmlFA { get; }
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="configuration"></param>
@@ -33,6 +40,7 @@ public class Startup
         string sConnectStringSelect = Configuration["DB_select"]!;
         string sSettingInfo_gitignoreDir = "SettingInfo_gitignore.json";
 
+        #region DB 설정
         DbInitialSetting dbInitialSetting;
         if (true == File.Exists(sSettingInfo_gitignoreDir))
         {//sSettingInfo_gitignoreDir파일이 있다.
@@ -56,36 +64,65 @@ public class Startup
                     Configuration[sConnectStringSelect + ":DBType"]!
                     , Configuration[sConnectStringSelect + ":ConnectionString"]!);
         }
+        #endregion
 
-        
+
         //로컬 경로 저장
-        GlobalStatic.FileProc.ProjectRootDir = env.ContentRootPath;
+        GlobalStatic.FileProc.ProjectRootPath = env.ContentRootPath;
 
 
         if (true == env.IsDevelopment())
         {//개발모드일때
 
-            GlobalStatic.FileProc.ClientAppSrcDir.Add(
+            GlobalStatic.FileProc.ClientAppSrcPath.Add(
                 Path.GetFullPath(
                     Path.Combine("..", "WordSwell.Frontend", "wwwroot", "production")
-                    , GlobalStatic.FileProc.ProjectRootDir));
+                    , GlobalStatic.FileProc.ProjectRootPath));
 
-            GlobalStatic.FileProc.OutputFileDir
+            GlobalStatic.FileProc.OutputFilePath
                 = Path.GetFullPath(
                     Path.Combine("..", "WordSwell.Frontend", "wwwroot", "production", "UploadFile")
-                    , GlobalStatic.FileProc.ProjectRootDir);
+                    , GlobalStatic.FileProc.ProjectRootPath);
         }
         else
         {//프로덕션일때
-            GlobalStatic.FileProc.ClientAppSrcDir.Add(
-                Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "production"));
+            GlobalStatic.FileProc.ClientAppSrcPath.Add(
+                Path.Combine(GlobalStatic.FileProc.ProjectRootPath, "wwwroot", "production"));
 
-            GlobalStatic.FileProc.OutputFileDir
-                = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "wwwroot", "production", "UploadFile");
+            GlobalStatic.FileProc.OutputFilePath
+                = Path.Combine(GlobalStatic.FileProc.ProjectRootPath, "wwwroot", "production", "UploadFile");
         }
 
 
-        
+
+
+        //복사하고 읽을 프로젝트 파일 지정 ******************
+        this.XmlFA
+            = new XmlFileAssist(
+                GlobalStatic.FileProc.ProjectRootPath
+                , "DocXml");
+
+        //지정된 폴더의 파일 리스트
+        string[] arrFile
+            = Directory.GetFiles(
+                Path.GetFullPath(
+                    Path.Combine("..", "WordSwell.Tool.ApiModels", "DocXml")
+                    , GlobalStatic.FileProc.ProjectRootPath));
+
+
+
+        //읽어들인 경로로 파일 복사
+        foreach (string sItem in arrFile)
+        {
+            this.XmlFA.XmlFilesAdd(
+                Path.GetFileName(sItem)
+                , Path.GetDirectoryName(sItem)!);
+        }
+
+        //xml 파일 패스 읽기
+        this.XmlFA.XmlFilePathReload();
+
+
 
 
         //xml 파일 복사 **********************
@@ -96,36 +133,11 @@ public class Startup
         {//IDE가 연결되어 있고
          //디버그 모드일때만
 
-            //지정된 폴더의 파일 리스트
-            string[] arrFile 
-                = Directory.GetFiles(
-                    Path.GetFullPath(
-                        Path.Combine("..", "WordSwell.Tool.ApiModels", "DocXml")
-                        , GlobalStatic.FileProc.ProjectRootDir));
-
-            
-
-            //읽어들인 경로로 파일 복사
-            foreach (string sItem in arrFile)
-            {
-                string sFileName = Path.GetFileName(sItem);
-                string dest = Path.Combine(sXmlTarget, sFileName);
-                File.Copy(sItem, dest, true);
-            }
+            //XML 파일 복사 **********************
+            this.XmlFA!.XmlFilesCopy();
         }
 
-        //복사된 xml 파일을 모두 지정
-        FileInfo[] arrFI = new DirectoryInfo(sXmlTarget).GetFiles();
-        foreach (FileInfo itemFI in arrFI)
-        {
-            GlobalStatic.FileProc.ProjectXmlDir_Other
-            .Add(new FileCopyDir_OutListModel()
-            {
-                Name = itemFI.FullName
-                , OriginalDir = sXmlTarget
-                , TargetDir = Path.Combine(GlobalStatic.FileProc.ProjectRootDir, "DocXml")
-            });
-        }
+        
         
 
     }
@@ -136,6 +148,20 @@ public class Startup
     /// <param name="services"></param>
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:9501")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed((host) => true)
+                        //.WithMethods("GET", "POST", "PUT")
+                        .AllowCredentials();
+                });
+        });
+
         services.AddControllers()
             //API모델을 파스칼 케이스 유지하기
             .AddNewtonsoftJson(options => { options.SerializerSettings.ContractResolver = new DefaultContractResolver(); });
@@ -158,7 +184,7 @@ public class Startup
                     }
                 });
 
-            foreach (string sItem in GlobalStatic.FileProc.ProjectXmlDir_Other_FullAll)
+            foreach (string sItem in this.XmlFA!.ProjectXmlPathListTarget)
             {
                 c.IncludeXmlComments(sItem);
             }
@@ -203,6 +229,8 @@ public class Startup
 
         //https로 자동 리디렉션
         app.UseHttpsRedirection();
+        //크로스도메인 사용
+        app.UseCors("CorsPolicy");
 
         //3.0 api 라우트
         app.UseRouting();
