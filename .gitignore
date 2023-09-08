@@ -403,3 +403,4 @@ SettingInfo_gitignore.json
 .env.development.local
 /WordSwell.Frontend/.env.development.local
 /UploadFile/
+/WordSwell.Frontend/wwwroot/production/UploadFile/
