@@ -100,21 +100,39 @@
             파일DB를 관리하기위한 기능
             </summary>
         </member>
+        <member name="P:WordSwell.Backend.Faculty.FileDb.FileDbProcess.BoardFileSaveFolderPath">
+            <summary>
+            게시판에 첨부된 파일이 저장될 경로(부분)
+            </summary>
+            <remarks>
+            게시판 첨부 파일 경로 년\월\일\게시물번호
+            날짜로 폴더명을 생성한다
+            </remarks>
+        </member>
+        <member name="P:WordSwell.Backend.Faculty.FileDb.FileDbProcess.BoardFileSaveFolderUrl">
+            <summary>
+            게시판에 첨부된 파일을 읽을 수 있는 URL(부분)
+            </summary>
+        </member>
         <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.#ctor">
             <summary>
             개체 생성
             </summary>
         </member>
-        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Dispose">
+        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.BoardFileSaveFolderPath_Reset">
             <summary>
-            명시적 파괴
+            게시판에 첨부된 파일이 저장될 경로를 다시 생성한다.
             </summary>
-            <exception cref="T:System.NotImplementedException"></exception>
+            <remarks>
+            날짜가 변경되면 호출할것을 권장한다.
+            </remarks>
         </member>
-        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Save(System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel})">
+        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Save(System.Int64,System.DateTime,System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel})">
             <summary>
             파일 저장 시작
             </summary>
+            <param name="idBoardPost">기준이 되는 고유값</param>
+            <param name="dtCallDate">업로드 요청 날짜</param>
             <param name="FileData"></param>
             <returns></returns>
         </member>
@@ -164,16 +182,26 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:WordSwell.Backend.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:WordSwell.Backend.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             
             </summary>
             <param name="app"></param>
             <param name="env"></param>
         </member>
+        <member name="M:WordSwell.Backend.Startup.TimeSked_On1Day">
+            <summary>
+            하루 날짜 변경
+            </summary>
+        </member>
         <member name="T:Game_Adosaki.Global.GlobalStatic">
             <summary>
             프로그램 전역 변수
+            </summary>
+        </member>
+        <member name="F:Game_Adosaki.Global.GlobalStatic.Log">
+            <summary>
+            로거
             </summary>
         </member>
         <member name="F:Game_Adosaki.Global.GlobalStatic.DebugIs">
@@ -181,10 +209,65 @@
             디버그 모드 여부
             </summary>
         </member>
+        <member name="F:Game_Adosaki.Global.GlobalStatic.TimeSked">
+            <summary>
+            스케줄러 선언
+            </summary>
+        </member>
         <member name="F:Game_Adosaki.Global.GlobalStatic.FileProc">
             <summary>
             파일 변환 관련
             </summary>
+        </member>
+        <member name="F:Game_Adosaki.Global.GlobalStatic.FileDbProc">
+            <summary>
+            파일DB를 관리하기위한 기능
+            </summary>
+        </member>
+        <member name="T:Utility.AspdotnetLogger.ApplicationLogging">
+            <summary>
+            Shared logger
+            </summary>
+            <remarks>
+            https://stackoverflow.com/questions/48676152/asp-net-core-web-api-logging-from-a-static-class
+            </remarks>
+        </member>
+        <member name="P:Utility.AspdotnetLogger.ApplicationLogging.LoggerFactory">
+            <summary>
+            로거 팩토리
+            </summary>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            
+            </summary>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.CreateLogger``1">
+            <summary>
+            로그 생성
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.CreateLogger(System.String)">
+            <summary>
+            로그 생성
+            </summary>
+            <param name="sCategoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.LogError(System.String,System.String)">
+            <summary>
+            에러 로그로 출력
+            </summary>
+            <param name="sCategoryName"></param>
+            <param name="sMessage"></param>
         </member>
         <member name="T:Utility.FileAssist.FileDirType">
             <summary>
@@ -222,6 +305,11 @@
             파일 변환 관련
             </summary>
         </member>
+        <member name="F:Utility.FileAssist.FileProcess.FileSaveAssist">
+            <summary>
+            파일 저장 지원
+            </summary>
+        </member>
         <member name="P:Utility.FileAssist.FileProcess.ProjectRootPath">
             <summary>
             프로젝트 기준 루트 경로
@@ -253,14 +341,29 @@
             </summary>
             <param name="typeFileDir"></param>
             <param name="sFilePath">파일 이름+확장자가 포함된 경로</param>
-            <param name="sContents"></param>
+            <param name="sContents">문자열로된 내용</param>
+        </member>
+        <member name="M:Utility.FileAssist.FileProcess.FileSave(Utility.FileAssist.FileDirType,System.String,System.Byte[])">
+            <summary>
+            지정된 경로 타입 +  파일을 생성하고 내용을 저장한다.
+            </summary>
+            <param name="typeFileDir"></param>
+            <param name="sFilePath">파일 이름+확장자가 포함된 경로</param>
+            <param name="byteContents">바이너리 내용</param>
         </member>
         <member name="M:Utility.FileAssist.FileProcess.FileSave(System.String,System.String)">
             <summary>
-            sFullDir 경로에 파일을 생성하고 내용을 저장한다.
+            경로에 디랙토리와 파일을 생성하고 내용을 저장한다.
             </summary>
             <param name="sFullFilePath"></param>
-            <param name="sContents"></param>
+            <param name="sContents">문자열로된 내용</param>
+        </member>
+        <member name="M:Utility.FileAssist.FileProcess.FileSave(System.String,System.Byte[])">
+            <summary>
+            경로에 디랙토리와 파일을 생성하고 내용을 저장한다.
+            </summary>
+            <param name="sFullFilePath"></param>
+            <param name="byteContents">바이너리 내용</param>
         </member>
     </members>
 </doc>

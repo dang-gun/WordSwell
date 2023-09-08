@@ -43,10 +43,13 @@
       <HintPath>..\lib\DGU_ApiResult\DGU_ApiResult.dll</HintPath>
     </Reference>
     <Reference Include="DGU_FileAssist">
-      <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_FileAssist.dll</HintPath>
+      <HintPath>..\lib\DGU_FileAssist\DGU_FileAssist.dll</HintPath>
     </Reference>
     <Reference Include="DGU_ProjectXmlAssist">
-      <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ProjectXmlAssist.dll</HintPath>
+      <HintPath>..\lib\DGU_ProjectXmlAssist\DGU_ProjectXmlAssist.dll</HintPath>
+    </Reference>
+    <Reference Include="DGU_TimeScheduler">
+      <HintPath>..\lib\DGU_TimeScheduler\DGU_TimeScheduler.dll</HintPath>
     </Reference>
   </ItemGroup>
 

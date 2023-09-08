@@ -66,6 +66,11 @@ public class FileItemModel
     public string Url { get; set; } = string.Empty;
 
     /// <summary>
+    /// 어떤 이유에서든 서버에 파일이 업로드가 실패한 파일이다.
+    /// </summary>
+    public bool ErrorIs { get; set; }
+
+    /// <summary>
     /// 수정 여부
     /// </summary>
     public bool EditIs { get; set; }

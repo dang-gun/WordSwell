@@ -351,6 +351,11 @@
             파일이 업로드 되어 있는 상태에 가지고 있는 url
             </summary>
         </member>
+        <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.ErrorIs">
+            <summary>
+            어떤 이유에서든 서버에 파일이 업로드가 실패한 파일이다.
+            </summary>
+        </member>
         <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.EditIs">
             <summary>
             수정 여부

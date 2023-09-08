@@ -27,6 +27,8 @@ export interface FileItemModel
     idLocal: number,
     /** 파일이 업로드 되어 있는 상태에 가지고 있는 url */
     Url: string,
+    /** 어떤 이유에서든 서버에 파일이 업로드가 실패한 파일이다. */
+    ErrorIs: boolean,
     /** 수정 여부 */
     EditIs: boolean,
     /** 삭제 여부 */

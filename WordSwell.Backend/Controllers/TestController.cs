@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Game_Adosaki.Global;
+using Microsoft.AspNetCore.Mvc;
 using WordSwell.ApiModels.TestCont;
 
 namespace WordSwell.Backend.Controllers;
@@ -20,6 +21,7 @@ public class TestController : Controller
         ObjectResult apiresult = new ObjectResult(200);
 
         apiresult = StatusCode(200, "성공!");
+        GlobalStatic.Log.LoggerFactory.CreateLogger("TestController").LogInformation("sdafadsf");
 
         return apiresult;
     }

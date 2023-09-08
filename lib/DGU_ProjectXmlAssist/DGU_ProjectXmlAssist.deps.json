@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "DGU_ProjectXmlAssist/1.0.0": {
+        "dependencies": {
+          "DGU_FileAssist": "1.0.0"
+        },
+        "runtime": {
+          "DGU_ProjectXmlAssist.dll": {}
+        }
+      },
+      "DGU_FileAssist/1.0.0": {
+        "runtime": {
+          "DGU_FileAssist.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DGU_ProjectXmlAssist/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DGU_FileAssist/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,6 +1,5 @@
 ﻿using DGUtility.FileAssist.FileCopy;
-using System.Text;
-
+using DGUtility.FileAssist.FileSave;
 
 namespace Utility.FileAssist;
 
@@ -9,6 +8,11 @@ namespace Utility.FileAssist;
 /// </summary>
 public class FileProcess
 {
+	/// <summary>
+	/// 파일 저장 지원
+	/// </summary>
+	private FileSaveAssist FileSaveAssist = new FileSaveAssist();
+
     /// <summary>
     /// 프로젝트 기준 루트 경로
     /// </summary>
@@ -40,7 +44,7 @@ public class FileProcess
     /// </summary>
     /// <param name="typeFileDir"></param>
     /// <param name="sFilePath">파일 이름+확장자가 포함된 경로</param>
-    /// <param name="sContents"></param>
+    /// <param name="sContents">문자열로된 내용</param>
     public void FileSave(
 		FileDirType typeFileDir
 		, string sFilePath
@@ -51,47 +55,67 @@ public class FileProcess
 			case FileDirType.ClientAppSrcDir:
 				foreach (string sItem in this.ClientAppSrcPath)
 				{
-					this.FileSave(string.Format(@"{0}\{1}", sItem, sFilePath) 
-									, sContents);
+					this.FileSave(@$"{sItem}\{sFilePath}", sContents);
 				}
 				break;
 
 			case FileDirType.OutputFileDir:
-				this.FileSave(string.Format(@"{0}\{1}", this.OutputFilePath, sFilePath) 
-								, sContents);
+				this.FileSave(@$"{this.OutputFilePath}\{sFilePath}", sContents);
 				break;
 
 			default:
-				this.FileSave(string.Format(@"{0}\{1}", this.ProjectRootPath, sFilePath)
-								, sContents);
+				this.FileSave(@$"{this.ProjectRootPath}\{sFilePath}", sContents);
 				break;
 		}
-
-		
 	}
 
-	/// <summary>
-	/// sFullDir 경로에 파일을 생성하고 내용을 저장한다.
-	/// </summary>
-	/// <param name="sFullFilePath"></param>
-	/// <param name="sContents"></param>
-	private void FileSave(string sFullFilePath, string sContents)
+    /// <summary>
+    /// 지정된 경로 타입 +  파일을 생성하고 내용을 저장한다.
+    /// </summary>
+    /// <param name="typeFileDir"></param>
+    /// <param name="sFilePath">파일 이름+확장자가 포함된 경로</param>
+    /// <param name="byteContents">바이너리 내용</param>
+    public void FileSave(
+        FileDirType typeFileDir
+        , string sFilePath
+        , byte[] byteContents)
+    {
+        switch (typeFileDir)
+        {
+            case FileDirType.ClientAppSrcDir:
+                foreach (string sItem in this.ClientAppSrcPath)
+                {
+                    this.FileSave(@$"{sItem}\{sFilePath}", byteContents);
+                }
+                break;
+
+            case FileDirType.OutputFileDir:
+                this.FileSave(@$"{this.OutputFilePath}\{sFilePath}", byteContents);
+                break;
+
+            default:
+                this.FileSave(@$"{this.ProjectRootPath}\{sFilePath}", byteContents);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 경로에 디랙토리와 파일을 생성하고 내용을 저장한다.
+    /// </summary>
+    /// <param name="sFullFilePath"></param>
+    /// <param name="sContents">문자열로된 내용</param>
+    public void FileSave(string sFullFilePath, string sContents)
 	{
-		string? sdirectoryPath = Path.GetDirectoryName(sFullFilePath);
-		if (sdirectoryPath != null)
-		{
-			if (false == Directory.Exists(sdirectoryPath))
-			{//디랙토리가 없다.
+        this.FileSaveAssist.FileSave(sFullFilePath, sContents);
+    }
 
-				//디랙토리 생성
-				Directory.CreateDirectory(sdirectoryPath);
-			}
-		}
-
-		using (StreamWriter stream = new(sFullFilePath, false, Encoding.UTF8))
-		{
-			//파일 저장
-			stream.Write(sContents);
-		}//end using stream
-	}
+    /// <summary>
+    /// 경로에 디랙토리와 파일을 생성하고 내용을 저장한다.
+    /// </summary>
+    /// <param name="sFullFilePath"></param>
+    /// <param name="byteContents">바이너리 내용</param>
+    public void FileSave(string sFullFilePath, byte[] byteContents)
+    {
+        this.FileSaveAssist.FileSave(sFullFilePath, byteContents);
+    }
 }

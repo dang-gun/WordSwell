@@ -293,17 +293,6 @@ public class BoardController : Controller
 
         if (true == arReturn.IsSuccess())
         {
-            if(null != callData.FileList
-                && 0 < callData.FileList.Count)
-            {//파일 리스트가 있는경우
-
-                using (FileDbProcess fdb = new FileDbProcess())
-                {
-                    fdb.Save(callData.FileList);
-                }//end using
-            }
-            
-
             //게시물 작성
             BoardPost newBP = new BoardPost();
             newBP.idBoard = callData.idBoard;
@@ -335,6 +324,25 @@ public class BoardController : Controller
             //전달할 데이터
             rmReturn.idBoard = newBP.idBoard;
             rmReturn.idBoardPost = newBP.idBoardPost;
+
+            if (null != callData.FileList
+                && 0 < callData.FileList.Count)
+            {//파일 리스트가 있는경우
+
+                int nSuccess 
+                    = GlobalStatic.FileDbProc
+                        .Save(
+                            rmReturn.idBoardPost
+                            , dtNow
+                            , callData.FileList);
+
+                if(nSuccess != callData.FileList.Count)
+                {
+                    arReturn.ApiResultInfoSet(
+                        "0"
+                        , "일부 첨부파일을 저장하는데 실패 했습니다.");
+                }
+            }
         }
 
 

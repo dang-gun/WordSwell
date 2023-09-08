@@ -5,6 +5,7 @@ using Game_Adosaki.Global;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Utility.AspdotnetLogger;
 using Utility.FileAssist;
 
 namespace WordSwell.Backend;
@@ -24,15 +25,17 @@ public class Startup
     /// </summary>
     public XmlFileAssist? XmlFA { get; }
 
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="configuration"></param>
     /// <param name="env"></param>
-    public Startup(IConfiguration configuration, IHostEnvironment env)
+    public Startup(
+        IConfiguration configuration
+        , IHostEnvironment env)
     {
         this.Configuration = configuration;
-
 
         //DB 정보 읽기 ******************
         //DB정보 받으려는 타겟
@@ -137,9 +140,6 @@ public class Startup
             this.XmlFA!.XmlFilesCopy();
         }
 
-        
-        
-
     }
 
     /// <summary>
@@ -190,6 +190,7 @@ public class Startup
             }
         });
 
+
         //로그 파일 설정
         services.AddLogging(loggingBuilder => {
             loggingBuilder.AddFile("Logs/app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts => {
@@ -198,6 +199,7 @@ public class Startup
                 };
             });
         });
+
     }
 
     /// <summary>
@@ -205,10 +207,17 @@ public class Startup
     /// </summary>
     /// <param name="app"></param>
     /// <param name="env"></param>
+    /// <param name="LoggerFactory"></param>
     public void Configure(
         IApplicationBuilder app
-        , IWebHostEnvironment env)
+        , IWebHostEnvironment env
+        , ILoggerFactory LoggerFactory)
     {
+        //로그 팩토리 지정 ************************
+        GlobalStatic.Log.LoggerFactory = LoggerFactory;
+
+
+
         // Configure the HTTP request pipeline.
         if (env.IsDevelopment())
         {//개발 버전에서만 스웨거 사용
@@ -239,5 +248,23 @@ public class Startup
             endpoints.MapControllers();
         });
 
+
+        //스케줄러 진행 *****************************
+        GlobalStatic.TimeSked.On1Day -= TimeSked_On1Day;
+        GlobalStatic.TimeSked.On1Day += TimeSked_On1Day;
+
+        //프로그램이 시작하면 하루 처리 돌려야함
+        this.TimeSked_On1Day();
+        //스케줄러 시작
+        GlobalStatic.TimeSked.Start();
+    }
+
+    /// <summary>
+    /// 하루 날짜 변경
+    /// </summary>
+    private void TimeSked_On1Day()
+    {
+        //하루가 지나면 
+        GlobalStatic.FileDbProc.BoardFileSaveFolderPath_Reset();
     }
 }

@@ -98,6 +98,25 @@ internal class Program
         if (true == System.Diagnostics.Debugger.IsAttached)
         {//IDE에서 실행중이다.
 
+            //□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□
+            //가급적 비주얼 스튜디오상 프로젝트 정렬에 맞출것!
+            //□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□
+
+            //WordSwell.ApiModels
+            xmlFA.XmlFilesAdd(
+                "WordSwell.ApiModels.xml"
+                , Path.Combine("..", "WordSwell.ApiModels"));
+
+            //WordSwell.DB
+            xmlFA.XmlFilesAdd(
+                "WordSwell.DB.xml"
+                , Path.Combine("..", "WordSwell.DB"));
+
+            //WordSwell.Backend
+            xmlFA.XmlFilesAdd(
+                "WordSwell.Backend.xml"
+                , Path.Combine("..", "WordSwell.Backend"));
+
             xmlFA.XmlFilesCopy();
         }
 

@@ -6,6 +6,7 @@ namespace WordSwell.Backend;
 /// </summary>
 public class Program
 {
+    public static IServiceProvider ServiceProvider { get; private set; }
 
     /// <summary>
     /// 
@@ -13,7 +14,10 @@ public class Program
     /// <param name="args"></param>
     public static void Main(string[] args)
     {
-        CreateHostBuilder(args).Build().Run();
+        IHost build = CreateHostBuilder(args).Build();
+        ServiceProvider = build.Services;
+        build.Run();
+        //CreateHostBuilder(args).Build().Run();
     }
 
     /// <summary>

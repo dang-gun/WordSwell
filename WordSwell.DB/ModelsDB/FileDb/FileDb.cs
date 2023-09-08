@@ -1,10 +1,7 @@
-﻿using ModelsDB_partial.FileDb;
-using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using ModelsDB_partial.FileDb;
 
 namespace ModelsDB.FileDb;
 
@@ -18,6 +15,11 @@ public class FileDb
     /// </summary>
     [Key]
     public long idFileDb { get; set; }
+
+    /// <summary>
+    /// 종속된 게시물의 고유 번호
+    /// </summary>
+    public long idBoardPost { get; set; }
 
     /// <summary>
     /// 원본 이름
@@ -40,7 +42,7 @@ public class FileDb
     /// 파일 타입
     /// </summary>
     /// <remarks>
-    /// 확장자를 말하는게 아니라 자바스크립트에서 판단된 파일의 종류를 말한다.
+    /// 확장자를 말하는게 아니라 프론트엔드에서 판단된 파일의 종류를 말한다.
     /// </remarks>
     public string Type { get; set; } = string.Empty;
 
@@ -58,12 +60,12 @@ public class FileDb
     public string ThumbnailName { get; set; } = string.Empty;
 
     /// <summary>
-    /// 최종 생성된 주소.
+    /// 최종 생성된 주소.(상대 주소)
     /// 이미지인경우 표시 주소, 파일인 경우 다운로드 주소가 된다.
     /// </summary>
     public string Url { get; set; } = string.Empty;
     /// <summary>
-    /// 최종 저장된 파일의 물리위치
+    /// 최종 저장된 파일의 물리위치(상대 주소)
     /// </summary>
     /// <remarks>
     /// 프론트엔드의 root를 기준으로 작성되어야 한다.
@@ -81,7 +83,13 @@ public class FileDb
     /// </summary>
     public FileDbStateType FileDbState { get; set; } = FileDbStateType.None;
 
-
+    /// <summary>
+    /// 어떤 이유에서든 서버에 파일이 업로드가 실패한 파일이다.
+    /// </summary>
+    /// <remarks>
+    /// 자동으로 삭제할지 여부는 나중에 판단한다.
+    /// </remarks>
+    public bool ErrorIs { get; set; }
 
     /// <summary>
     /// 마지막으로 수정한 유저 번호
