@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelsContext;
 
@@ -11,9 +12,10 @@ using ModelsContext;
 namespace WordSwell.DB.Migrations.Mssql
 {
     [DbContext(typeof(ModelsDbContext_Mssql))]
-    partial class ModelsDbContext_MssqlModelSnapshot : ModelSnapshot
+    [Migration("20230908074239_FileInfo_Edit003")]
+    partial class FileInfo_Edit003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +98,7 @@ namespace WordSwell.DB.Migrations.Mssql
                             PostState = 0,
                             Title = "프로젝트에서 생성한 게시물",
                             UserName = "",
-                            WriteTime = new DateTime(2023, 9, 8, 17, 13, 9, 799, DateTimeKind.Local).AddTicks(192),
+                            WriteTime = new DateTime(2023, 9, 8, 16, 42, 39, 456, DateTimeKind.Local).AddTicks(7588),
                             idBoard = 1L,
                             idUser = 0L
                         },
@@ -106,7 +108,7 @@ namespace WordSwell.DB.Migrations.Mssql
                             PostState = 0,
                             Title = "프로젝트에서 생성한 게시물2",
                             UserName = "",
-                            WriteTime = new DateTime(2023, 9, 8, 17, 13, 9, 799, DateTimeKind.Local).AddTicks(198),
+                            WriteTime = new DateTime(2023, 9, 8, 16, 42, 39, 456, DateTimeKind.Local).AddTicks(7617),
                             idBoard = 1L,
                             idUser = 0L
                         });
@@ -182,10 +184,6 @@ namespace WordSwell.DB.Migrations.Mssql
                         .HasColumnType("bigint");
 
                     b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

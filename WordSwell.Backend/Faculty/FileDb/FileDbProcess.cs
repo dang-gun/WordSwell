@@ -45,13 +45,13 @@ public class FileDbProcess
     {
         //날짜를 기준으로 폴더를 생성
         this.BoardFileSaveFolderPath
-            = Path.Combine(GlobalStatic.TimeSked.Today.Year.ToString()
-                            , GlobalStatic.TimeSked.Today.Month.ToString()
-                            , GlobalStatic.TimeSked.Today.Day.ToString());
+            = Path.Combine(GlobalStatic.TimeSked.Today.Year.ToString("0000")
+                            , GlobalStatic.TimeSked.Today.Month.ToString("00")
+                            , GlobalStatic.TimeSked.Today.Day.ToString("00"));
 
         //날짜를 기준으로 url 생성
         this.BoardFileSaveFolderUrl
-            = string.Format("{0}/{1}/{2}/"
+            = string.Format("{0:0000}/{1:00}/{2:00}/"
                 , GlobalStatic.TimeSked.Today.Year
                 , GlobalStatic.TimeSked.Today.Month
                 , GlobalStatic.TimeSked.Today.Day);
@@ -61,11 +61,13 @@ public class FileDbProcess
     /// 파일 저장 시작
     /// </summary>
     /// <param name="idBoardPost">기준이 되는 고유값</param>
+    /// <param name="idBoardPostContents">기준이 되는 연결된 게시물 내용 번호</param>
     /// <param name="dtCallDate">업로드 요청 날짜</param>
     /// <param name="FileData"></param>
     /// <returns></returns>
     public int Save(
         long idBoardPost
+        , long idBoardPostContents
         , DateTime dtCallDate
         , List<FileItemModel> FileData)
     {
@@ -99,7 +101,9 @@ public class FileDbProcess
             try
             {
                 //base64문자열로 넘어온 바이너리 정보를 바이너리로 변환한다.
-                byte[] bytes = Convert.FromBase64String(item.Binary);
+                //첫 콤마 위치 찾기
+                int nComaIdx = item.Binary.IndexOf(",") + 1;
+                byte[] bytes = Convert.FromBase64String(item.Binary.Substring(nComaIdx));
 
                 //파일 저장 시작
                 GlobalStatic.FileProc.FileSave(
@@ -121,8 +125,10 @@ public class FileDbProcess
             //db에 정보 추가
             using (ModelsDbContext db1 = new ModelsDbContext())
             {
-                ModelsDB.FileDb.FileDb newFile = new ModelsDB.FileDb.FileDb();
+                FileDbInfo newFile = new FileDbInfo();
                 newFile.idBoardPost = idBoardPost;
+                newFile.idBoardPostContents = idBoardPostContents;
+
                 newFile.NameOri = item.Name;
                 newFile.LengthOri = item.Length;
                 newFile.Type = item.Type;
@@ -133,8 +139,11 @@ public class FileDbProcess
                 else
                 {//파일 저장 실패
                     newFile.Description += "(저장 실패)";
+                    item.ErrorIs = true;
                 }
-                
+
+                //생성된 고유이름 넣기
+                newFile.Name = sNewFileName;
 
                 //생성된 url 연결
                 newFile.Url = sSaveFolderUrl + sNewFileName;
@@ -145,8 +154,13 @@ public class FileDbProcess
                 newFile.FileDbState = ModelsDB_partial.FileDb.FileDbStateType.Normal;
 
                 //테이블에 추가
-                db1.FileDb.Add(newFile);
+                db1.FileDbInfo.Add(newFile);
                 db1.SaveChanges();
+
+
+                //새로 생성된 정보 전달.
+                item.idFileInfo = newFile.idFileInfo;
+                item.FileInfoName = sNewFileName;
             }//end using db1
         }//end foreach item
 

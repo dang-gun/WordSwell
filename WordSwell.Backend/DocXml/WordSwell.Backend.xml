@@ -127,11 +127,12 @@
             날짜가 변경되면 호출할것을 권장한다.
             </remarks>
         </member>
-        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Save(System.Int64,System.DateTime,System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel})">
+        <member name="M:WordSwell.Backend.Faculty.FileDb.FileDbProcess.Save(System.Int64,System.Int64,System.DateTime,System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel})">
             <summary>
             파일 저장 시작
             </summary>
             <param name="idBoardPost">기준이 되는 고유값</param>
+            <param name="idBoardPostContents">기준이 되는 연결된 게시물 내용 번호</param>
             <param name="dtCallDate">업로드 요청 날짜</param>
             <param name="FileData"></param>
             <returns></returns>
@@ -188,6 +189,7 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+            <param name="LoggerFactory"></param>
         </member>
         <member name="M:WordSwell.Backend.Startup.TimeSked_On1Day">
             <summary>

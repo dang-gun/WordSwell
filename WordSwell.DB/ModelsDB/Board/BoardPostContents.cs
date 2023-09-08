@@ -2,6 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
+using ModelsDB;
+using ModelsDB.FileDb;
+
 namespace ModelsDB.Board;
 
 /// <summary>
@@ -18,7 +21,7 @@ public class BoardPostContents
     /// <summary>
     /// 게시판의 게시물 고유 번호 - 외래키
     /// </summary>
-    [ForeignKey("idBoard")]
+    [ForeignKey("idBoardPost")]
     public long idBoardPost { get; set; }
     /// <summary>
     /// 연결된 게시물
@@ -41,5 +44,10 @@ public class BoardPostContents
     /// 게시물 내용
     /// </summary>
     public string Contents { get; set; } = string.Empty;
-   
+
+
+    [ForeignKey("idBoardPostContents")]
+    [JsonIgnore]
+    public ICollection<FileDbInfo>? FileList { get; set; }
+
 }

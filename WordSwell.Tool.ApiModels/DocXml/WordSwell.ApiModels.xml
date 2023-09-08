@@ -336,14 +336,20 @@
             로컬파일인 경우 파일의 바이너리 정보
             </summary>
         </member>
-        <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.idFile">
-            <summary>
-            파일이 업로드되어 있을때 고유 번호
-            </summary>
-        </member>
         <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.idLocal">
             <summary>
-            로컬 고유 번호
+            로컬 고유 번호. 
+            프론트앤드에서 업로드되지 않은 파일을 구분하기위한 고유값
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.idFileInfo">
+            <summary>
+            파일이 업로드되어 있을때 고유 번호(idFileInfo, 업로드된 파일이 아니면 0)
+            </summary>
+        </member>
+        <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.FileInfoName">
+            <summary>
+            파일을 업로드하기위해 생성한 고유 이름
             </summary>
         </member>
         <member name="P:WordSwell.ApiModels.FileDb.FileItemModel.Url">

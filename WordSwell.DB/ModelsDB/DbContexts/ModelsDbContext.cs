@@ -90,7 +90,7 @@ public class ModelsDbContext : DbContext
     /// <summary>
     /// 파일DB 처리
     /// </summary>
-    public DbSet<FileDb> FileDb { get; set; }
+    public DbSet<FileDbInfo> FileDbInfo { get; set; }
 
 
     /// <summary>

@@ -52,18 +52,25 @@ public class FileItemModel
     public string Binary { get; set; } = string.Empty;
 
     /// <summary>
-    /// 파일이 업로드되어 있을때 고유 번호
-    /// </summary>
-    public long idFile { get; set; }
-    /// <summary>
-    /// 로컬 고유 번호
+    /// 로컬 고유 번호. 
+    /// 프론트앤드에서 업로드되지 않은 파일을 구분하기위한 고유값
     /// </summary>
     public long idLocal { get; set; }
+
+    /// <summary>
+    /// 파일이 업로드되어 있을때 고유 번호(idFileInfo, 업로드된 파일이 아니면 0)
+    /// </summary>
+    public long idFileInfo { get; set; }
+    /// <summary>
+    /// 파일을 업로드하기위해 생성한 고유 이름
+    /// </summary>
+    public string FileInfoName { get; set; } = string.Empty;
 
     /// <summary>
     /// 파일이 업로드 되어 있는 상태에 가지고 있는 url
     /// </summary>
     public string Url { get; set; } = string.Empty;
+
 
     /// <summary>
     /// 어떤 이유에서든 서버에 파일이 업로드가 실패한 파일이다.

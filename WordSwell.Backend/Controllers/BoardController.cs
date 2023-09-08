@@ -10,6 +10,8 @@ using ModelsDB_partial.Board;
 using WordSwell.ApiModels.BoardCont;
 using Game_Adosaki.Global;
 using WordSwell.Backend.Faculty.FileDb;
+using ModelsDB;
+using ModelsDB.FileDb;
 
 namespace WordSwell.Backend.Controllers;
 
@@ -188,6 +190,9 @@ public class BoardController : Controller
         BoardPost? findPost = null;
         //지정된 게시물의 내용
         BoardPostContents? findPostContents = null;
+        //첨부된 파일 리스트
+        List<FileDbInfo>? findFileList = null;
+
 
         using (ModelsDbContext db1 = new ModelsDbContext())
         {
@@ -236,6 +241,15 @@ public class BoardController : Controller
                     else
                     {//게시물 내용이 있다.
                         findPostContents = findPost.Contents.First();
+                        findPostContents.FileList 
+                            = db2.FileDbInfo
+                                .Where(w=>w.idBoardPostContents == findPostContents.idBoardPostContents)
+                                .ToList();
+
+                        if (null != findPostContents.FileList)
+                        {
+                            findFileList = findPostContents.FileList.ToList();
+                        }
                     }
                 }
 
@@ -248,6 +262,7 @@ public class BoardController : Controller
             //결과 넣기
             rmReturn.Post = findPost;
             rmReturn.PostContents = findPostContents;
+            rmReturn.FileList = findFileList;
         }
 
 
@@ -333,6 +348,7 @@ public class BoardController : Controller
                     = GlobalStatic.FileDbProc
                         .Save(
                             rmReturn.idBoardPost
+                            , newBPC.idBoardPostContents
                             , dtNow
                             , callData.FileList);
 
@@ -342,6 +358,10 @@ public class BoardController : Controller
                         "0"
                         , "일부 첨부파일을 저장하는데 실패 했습니다.");
                 }
+
+                
+                //내용물에서 고유번호로 바꿔야 하는 대상을 찾아 바꾼다.
+
             }
         }
 

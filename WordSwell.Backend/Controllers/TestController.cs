@@ -23,6 +23,26 @@ public class TestController : Controller
         apiresult = StatusCode(200, "성공!");
         GlobalStatic.Log.LoggerFactory.CreateLogger("TestController").LogInformation("sdafadsf");
 
+
+        //string sss = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAgAB8DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD90fi58b/CvwJ0CHU/FWrQ6TZ3EvkxExvK8r4zhUjVmOAOSBgd8V8cfBP4lfFb4v8A7eevePfDem+M7z4a6lfRaZZQy3DW+iy2ETpby3uJgqu22OaRY49siySckhWjkj/aU+BnxQ/bT/ae1SC00fUNG8MeH5G02xvdWRreyjjTcHmj4zN5siMQYwx2mIMQACPsT9n74L2P7Pnwj0fwnp9zPew6Wjb7mYBXuJHdndiB0G5jgEkhQASxGT8rluaY7HY+rF0uXDwuoyaacpJ2ur7x36dtb6HvcccC5XDK8BUWNksYpqpKFNxcVHllZSdm1JXV03rd+7ZJnZUUUV9UeCFFFFABRRRQB//Z";
+        //int nComaIdx = sss.IndexOf(",") + 1;
+        //byte[] bytes = Convert.FromBase64String(sss.Substring(nComaIdx));
+
+
+        //날짜를 기준으로 폴더를 생성
+        string BoardFileSaveFolderPath
+            = Path.Combine(GlobalStatic.TimeSked.Today.Year.ToString("0000")
+                            , GlobalStatic.TimeSked.Today.Month.ToString("00")
+                            , GlobalStatic.TimeSked.Today.Day.ToString("00"));
+
+        //날짜를 기준으로 url 생성
+        string BoardFileSaveFolderUrl
+            = string.Format("{0:0000}/{1:00}/{2:00}/"
+                , GlobalStatic.TimeSked.Today.Year
+                , GlobalStatic.TimeSked.Today.Month
+                , GlobalStatic.TimeSked.Today.Day);
+
+
         return apiresult;
     }
 

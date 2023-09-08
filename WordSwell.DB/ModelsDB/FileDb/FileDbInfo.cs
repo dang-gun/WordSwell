@@ -1,5 +1,5 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using ModelsDB_partial.FileDb;
 
@@ -8,17 +8,30 @@ namespace ModelsDB.FileDb;
 /// <summary>
 /// 파일DB 처리
 /// </summary>
-public class FileDb
+public class FileDbInfo
 {
     /// <summary>
     /// 파일DB 고유번호
     /// </summary>
     [Key]
-    public long idFileDb { get; set; }
+    public long idFileInfo { get; set; }
+
+    /// <summary>
+    /// 종속된 게시물의 고유 번호 - 외래키
+    /// </summary>
+    /// <remarks>
+    /// 검색 속도를 위해 연결한 FK
+    /// </remarks>
+    [ForeignKey("idBoardPostContents")]
+    public long idBoardPostContents { get; set; }
 
     /// <summary>
     /// 종속된 게시물의 고유 번호
     /// </summary>
+    /// <remarks>
+    /// idBoardPostContents가 아니라 idBoardPost를 따라가는 이유는 
+    /// 게시판은 idBoardPost를 기준으로 동작하기 때문이다.
+    /// </remarks>
     public long idBoardPost { get; set; }
 
     /// <summary>
@@ -58,6 +71,11 @@ public class FileDb
     /// 이 이름을 기반으로 크기 이름을 정해 사용한다.
     /// </summary>
     public string ThumbnailName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// DB에 저장하기위해 생성된 고유 이름(확장자 포함)
+    /// </summary>
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// 최종 생성된 주소.(상대 주소)

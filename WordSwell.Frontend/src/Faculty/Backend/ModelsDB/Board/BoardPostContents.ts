@@ -1,4 +1,5 @@
 ﻿import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
+import { FileDbInfo } from '@/Faculty/Backend/ModelsDB/FileDb/FileDbInfo';
 
 /** 게시판의 게시물의 내용물 */
 export interface BoardPostContents 
@@ -13,4 +14,5 @@ export interface BoardPostContents
     Password: string,
     /** 게시물 내용 */
     Contents: string,
+    FileList?: FileDbInfo[],
 }

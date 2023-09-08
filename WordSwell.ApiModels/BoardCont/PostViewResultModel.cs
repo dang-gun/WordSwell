@@ -1,5 +1,6 @@
 ﻿using DGUtility.ApiResult;
 using ModelsDB.Board;
+using ModelsDB.FileDb;
 using WordSwell.ApiModels.FileDb;
 
 namespace WordSwell.ApiModels.BoardCont;
@@ -22,5 +23,5 @@ public class PostViewResultModel : ApiResultBaseModel
     /// <summary>
     /// 첨부 파일 리스트
     /// </summary>
-    public List<FileItemModel>? FileList { get; set; }
+    public List<FileDbInfo>? FileList { get; set; }
 }
