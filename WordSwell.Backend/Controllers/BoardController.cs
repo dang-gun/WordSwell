@@ -12,6 +12,7 @@ using Game_Adosaki.Global;
 using WordSwell.Backend.Faculty.FileDb;
 using ModelsDB;
 using ModelsDB.FileDb;
+using WordSwell.ApiModels.FileDb;
 
 namespace WordSwell.Backend.Controllers;
 
@@ -361,7 +362,34 @@ public class BoardController : Controller
 
                 
                 //내용물에서 고유번호로 바꿔야 하는 대상을 찾아 바꾼다.
+                for(int i = 0; i < callData.FileList.Count; ++i)
+                {
+                    FileItemModel item = callData.FileList[i];
 
+                    //변경에 사용될 추가 문자열
+                    string sAddData = string.Empty;
+
+                    switch(item.Type)
+                    {
+
+                        case "image":
+                            sAddData = string.Empty;
+                            break;
+
+                        default:
+                            sAddData = "file:";
+                            break;
+                    }
+
+                    //추가 문자열에 새로 생성된 이름 붙이기
+                    sAddData += item.FileInfoName;
+
+                    newBPC.Contents
+                        = newBPC.Contents
+                            .Replace(
+                                $"![{item.idLocal}]"
+                                , $"![{sAddData}]");
+                }
             }
         }
 
