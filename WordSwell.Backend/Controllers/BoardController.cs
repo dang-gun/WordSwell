@@ -390,6 +390,20 @@ public class BoardController : Controller
                                 $"![{item.idLocal}]"
                                 , $"![{sAddData}]");
                 }
+
+                using (ModelsDbContext db2 = new ModelsDbContext())
+                {
+                    //수정할 대상을 다시 찾고
+                    BoardPostContents findBPC
+                        = db2.BoardPostContents
+                            .Where(w => w.idBoardPostContents == newBPC.idBoardPostContents)
+                            .First();
+
+                    //수정할 데이터 저장
+                    findBPC.Contents = newBPC.Contents;
+                    db2.SaveChanges();
+
+                }//end using db2
             }
         }
 
