@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using DGUtility.FileAssist.FileCopy;
+using System.Text;
 
 
 namespace Utility.FileAssist;
@@ -8,60 +9,30 @@ namespace Utility.FileAssist;
 /// </summary>
 public class FileProcess
 {
-	/// <summary>
-	/// 프로젝트 기준 루트 경로
-	/// </summary>
-	public string ProjectRootDir { get; set; } = string.Empty;
+    /// <summary>
+    /// 프로젝트 기준 루트 경로
+    /// </summary>
+    public string ProjectRootPath { get; set; } = string.Empty;
 
-	/// <summary>
-	/// 프로젝트 밑의 ClientApp/src 폴더 경로
-	/// </summary>
-	/// <remarks>
-	/// 플록시 프로젝트의 경우 플로시 프로젝트의 ClientApp 폴더를 지정한다.<br />
-	/// 이 프로젝트를 배포할때는 wwwroot아래의 배포 폴더를 지정한다.<br />
-	/// 여러폴더에 배포해야하는 경우(예> 홈과 어드민이 별도의 프론트엔드로 나눠있는 경우)
-	/// 이 리스트에 지정된 폴더에 모두 배포된다.<br />
-	/// </remarks>
-	public List<string> ClientAppSrcDir { get; set; } = new List<string>();
+    /// <summary>
+    /// 프로젝트 밑의 ClientApp/src 폴더 경로
+    /// </summary>
+    /// <remarks>
+    /// 플록시 프로젝트의 경우 플로시 프로젝트의 ClientApp 폴더를 지정한다.<br />
+    /// 이 프로젝트를 배포할때는 wwwroot아래의 배포 폴더를 지정한다.<br />
+    /// 여러폴더에 배포해야하는 경우(예> 홈과 어드민이 별도의 프론트엔드로 나눠있는 경우)
+    /// 이 리스트에 지정된 폴더에 모두 배포된다.<br />
+    /// </remarks>
+    public List<string> ClientAppSrcPath { get; set; } = new List<string>();
 
-	/// <summary>
-	/// 파일을 저장하고 출력할 폴더
-	/// </summary>
-	/// <remarks>
-	/// 배포 버전과 상관없이 파일이 출력되는 위치이다.<br />
-	/// 업로드된 파일과 같이 유저가 직접올린 파일이 있는 위치이다.
-	/// </remarks>
-	public string OutputFileDir { get; set; } = string.Empty;
-
-	/// <summary>
-	/// 다른 프로젝트의 Xml 파일 경로.
-	/// </summary>
-	/// <remarks>
-	/// 다른 프로젝트의 Xml 정보가 필요하다면 넣는다.
-	/// </remarks>
-	public List<FileCopyDir_OutListModel> ProjectXmlDir_Other { get; set; } 
-		= new List<FileCopyDir_OutListModel>();
-
-	/// <summary>
-	/// 가지고 있는 다른 프로젝트 xml 파일의 전체 경로 전부
-	/// </summary>
-	public List<string> ProjectXmlDir_Other_FullAll
-	{
-		get
-		{
-			List<string> listReturn = new List<string>();
-
-			foreach(FileCopyDir_OutListModel item in this.ProjectXmlDir_Other)
-			{
-				listReturn.Add(item.TargetDirFull);
-				listReturn.AddRange(item.TargetDirListFull);
-                listReturn.AddRange(item.TargetDirListFull_Separate);
-            }
-
-			return listReturn;
-        }
-		
-	}
+    /// <summary>
+    /// 파일을 저장하고 출력할 폴더
+    /// </summary>
+    /// <remarks>
+    /// 배포 버전과 상관없이 파일이 출력되는 위치이다.<br />
+    /// 업로드된 파일과 같이 유저가 직접올린 파일이 있는 위치이다.
+    /// </remarks>
+    public string OutputFilePath { get; set; } = string.Empty;
 
 
     /// <summary>
@@ -78,7 +49,7 @@ public class FileProcess
 		switch (typeFileDir)
 		{
 			case FileDirType.ClientAppSrcDir:
-				foreach (string sItem in this.ClientAppSrcDir)
+				foreach (string sItem in this.ClientAppSrcPath)
 				{
 					this.FileSave(string.Format(@"{0}\{1}", sItem, sFilePath) 
 									, sContents);
@@ -86,12 +57,12 @@ public class FileProcess
 				break;
 
 			case FileDirType.OutputFileDir:
-				this.FileSave(string.Format(@"{0}\{1}", this.OutputFileDir, sFilePath) 
+				this.FileSave(string.Format(@"{0}\{1}", this.OutputFilePath, sFilePath) 
 								, sContents);
 				break;
 
 			default:
-				this.FileSave(string.Format(@"{0}\{1}", this.ProjectRootDir, sFilePath)
+				this.FileSave(string.Format(@"{0}\{1}", this.ProjectRootPath, sFilePath)
 								, sContents);
 				break;
 		}

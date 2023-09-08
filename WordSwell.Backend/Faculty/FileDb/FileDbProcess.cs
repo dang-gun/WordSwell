@@ -6,7 +6,7 @@ namespace WordSwell.Backend.Faculty.FileDb;
 /// <summary>
 /// 파일DB를 관리하기위한 기능
 /// </summary>
-public class FileDbProcess
+public class FileDbProcess : IDisposable
 {
     /// <summary>
     /// 개체 생성
@@ -16,7 +16,16 @@ public class FileDbProcess
     }
 
     /// <summary>
-    /// 
+    /// 명시적 파괴
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// 파일 저장 시작
     /// </summary>
     /// <param name="FileData"></param>
     /// <returns></returns>
@@ -24,7 +33,7 @@ public class FileDbProcess
     {
         foreach (FileItemModel item in FileData)
         {
-
+            //item.
         }
 
 

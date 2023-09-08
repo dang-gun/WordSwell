@@ -42,6 +42,12 @@
     <Reference Include="DGU_ApiResult">
       <HintPath>..\lib\DGU_ApiResult\DGU_ApiResult.dll</HintPath>
     </Reference>
+    <Reference Include="DGU_FileAssist">
+      <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_FileAssist.dll</HintPath>
+    </Reference>
+    <Reference Include="DGU_ProjectXmlAssist">
+      <HintPath>..\lib\DGU_ModelToOutFiles.App\DGU_ProjectXmlAssist.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
