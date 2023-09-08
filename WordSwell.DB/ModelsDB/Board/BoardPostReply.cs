@@ -1,43 +1,51 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ModelsDB_partial.Board;
+
 //using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace ModelsDB.Board;
 
 /// <summary>
-/// 게시판의 게시물
+/// 게시판의 댓글
 /// </summary>
-public class BoardPost
+public class BoardPostReply
 {
     /// <summary>
     /// 게시판의 게시물 고유 번호
     /// </summary>
     [Key]
+    public long idBoardPostReply { get; set; }
+
+    /// <summary>
+    /// 종속된 게시물의 고유 번호 - 외래키
+    /// </summary>
+    /// <remarks>
+    /// 검색 속도를 위해 연결한 FK
+    /// </remarks>
+    [ForeignKey("idBoardPostContents")]
+    public long idBoardPostContents { get; set; }
+
+    /// <summary>
+    /// 종속된 게시물의 고유 번호
+    /// </summary>
+    /// <remarks>
+    /// idBoardPostContents가 아니라 idBoardPost를 따라가는 이유는 
+    /// 게시판은 idBoardPost를 기준으로 동작하기 때문이다.
+    /// </remarks>
     public long idBoardPost { get; set; }
 
 
     /// <summary>
-    /// 소속 게시판 고유번호 - 외래키
+    /// 대상 댓글의 번호(최상위이면 0)
     /// </summary>
-    [ForeignKey("idBoard")]
-    public long idBoard { get; set; }
-    /// <summary>
-    /// 연결된 소속 게시판 정보
-    /// </summary>
-    [JsonIgnore]
-    public Board? Board { get; set; }
+    public long idBoardPostReply_Target { get; set; }
 
     /// <summary>
     /// 게시물 상태
     /// </summary>
     public PostStateType PostState { get; set; }
-
-    /// <summary>
-    /// 제목
-    /// </summary>
-    public string Title { get; set; } = string.Empty;
 
     /// <summary>
     /// 작성자 고유번호
@@ -51,6 +59,21 @@ public class BoardPost
     /// </summary>
     [MaxLength(32)]
     public string? UserName { get; set; } = string.Empty;
+    /// <summary>
+    /// 비밀번호
+    /// </summary>
+    /// <remarks>
+    /// 비회원이 글쓴 경우 넣는다.
+    /// </remarks>
+    [MaxLength(32)]
+    [JsonIgnore]
+    public string? Password { get; set; }
+
+
+    /// <summary>
+    /// 게시물 내용
+    /// </summary>
+    public string Contents { get; set; } = string.Empty;
 
     /// <summary>
     /// 작성 시간
@@ -69,18 +92,4 @@ public class BoardPost
     /// 수정 시간
     /// </summary>
     public DateTime? EditTime { get; set; }
-
-
-    /// <summary>
-    /// 다른 개체에서 이 개체로 연결된 리스트.
-    /// 리스트로 표현되어 있지만 1:1구조이다.
-    /// </summary>
-    /// <remarks>
-    /// 이 개체에게 연결된 외래키
-    /// </remarks>
-    [ForeignKey("idBoardPost")]
-    [JsonIgnore]
-    public ICollection<BoardPostContents>? Contents { get; set; }
-
-
 }

@@ -13,6 +13,7 @@ using WordSwell.Backend.Faculty.FileDb;
 using ModelsDB;
 using ModelsDB.FileDb;
 using WordSwell.ApiModels.FileDb;
+using WordSwell.Backend.Global;
 
 namespace WordSwell.Backend.Controllers;
 
@@ -65,7 +66,7 @@ public class BoardController : Controller
             if(null == findBoard)
             {
                 arReturn.ApiResultInfoSet(
-                    "B1-100001"
+                    GlobalInfo.BoardCont.PostList_Board_NotFound
                     , "게시판을 찾을 수 없습니다");
             }
         }//end using db1
@@ -206,7 +207,7 @@ public class BoardController : Controller
             if (null == findBoard)
             {
                 arReturn.ApiResultInfoSet(
-                    "B1-200001"
+                    GlobalInfo.BoardCont.PostView_Board_NotFound
                     , "게시판을 찾을 수 없습니다");
             }
         }//end using db1
@@ -227,7 +228,7 @@ public class BoardController : Controller
                 if (null == findPost)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-200010"
+                        GlobalInfo.BoardCont.PostView_BoardPost_NotFound
                         , "게시물이 없습니다");
                 }
                 else
@@ -236,7 +237,7 @@ public class BoardController : Controller
                         || 0 >= findPost!.Contents.Count)
                     {//게시물 내용이 없다.
                         arReturn.ApiResultInfoSet(
-                        "B1-200011"
+                        GlobalInfo.BoardCont.PostView_BoardPostContents_NotFound
                         , "게시물의 내용이 없습니다");
                     }
                     else

@@ -507,5 +507,30 @@
             날짜
             </summary>
         </member>
+        <member name="T:WordSwell.Global.InfoMessage.InfoMessage_BoardCont">
+            <summary>
+            인포 메시지 - BoardController = B1
+            </summary>
+        </member>
+        <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostList_Board_NotFound">
+            <summary>
+            게시판을 찾을 수 없습니다
+            </summary>
+        </member>
+        <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostView_Board_NotFound">
+            <summary>
+            게시판을 찾을 수 없습니다
+            </summary>
+        </member>
+        <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostView_BoardPost_NotFound">
+            <summary>
+            게시물이 없습니다
+            </summary>
+        </member>
+        <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostView_BoardPostContents_NotFound">
+            <summary>
+            게시물의 내용이 없습니다
+            </summary>
+        </member>
     </members>
 </doc>

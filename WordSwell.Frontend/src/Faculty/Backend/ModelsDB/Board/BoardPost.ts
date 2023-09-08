@@ -11,6 +11,7 @@ export interface BoardPost
     idBoard: number,
     /** 연결된 소속 게시판 정보 */
     Board?: Board,
+    /** 게시물 상태 */
     PostState: PostStateType,
     /** 제목 */
     Title: string,

@@ -157,7 +157,7 @@
         </member>
         <member name="P:ModelsDB.Board.BoardPost.PostState">
             <summary>
-            
+            게시물 상태
             </summary>
         </member>
         <member name="P:ModelsDB.Board.BoardPost.Title">
@@ -237,6 +237,98 @@
         <member name="P:ModelsDB.Board.BoardPostContents.Contents">
             <summary>
             게시물 내용
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostContents.ReplyList">
+            <summary>
+            댓글 릴스트
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostContents.FileList">
+            <summary>
+            첨부파일 리스트
+            </summary>
+        </member>
+        <member name="T:ModelsDB.Board.BoardPostReply">
+            <summary>
+            게시판의 댓글
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idBoardPostReply">
+            <summary>
+            게시판의 게시물 고유 번호
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idBoardPostContents">
+            <summary>
+            종속된 게시물의 고유 번호 - 외래키
+            </summary>
+            <remarks>
+            검색 속도를 위해 연결한 FK
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idBoardPost">
+            <summary>
+            종속된 게시물의 고유 번호
+            </summary>
+            <remarks>
+            idBoardPostContents가 아니라 idBoardPost를 따라가는 이유는 
+            게시판은 idBoardPost를 기준으로 동작하기 때문이다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idBoardPostReply_Target">
+            <summary>
+            대상 댓글의 번호(최상위이면 0)
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.PostState">
+            <summary>
+            게시물 상태
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idUser">
+            <summary>
+            작성자 고유번호
+            </summary>
+            <remarks>
+            0 = 비회원
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.UserName">
+            <summary>
+            비회원일때 유저 이름
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.Password">
+            <summary>
+            비밀번호
+            </summary>
+            <remarks>
+            비회원이 글쓴 경우 넣는다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.Contents">
+            <summary>
+            게시물 내용
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.WriteTime">
+            <summary>
+            작성 시간
+            </summary>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.idUser_Edit">
+            <summary>
+            마지막으로 수정한 유저 번호
+            </summary>
+            <remarks>
+            0 = 비회원<br />
+            관리자에 의한 삭제, 수정, 블럭의 경우 다른 사람의 고유번호가 들어갈 수 있다.
+            </remarks>
+        </member>
+        <member name="P:ModelsDB.Board.BoardPostReply.EditTime">
+            <summary>
+            수정 시간
             </summary>
         </member>
         <member name="T:ModelsDB.FileDb.FileDbInfo">
