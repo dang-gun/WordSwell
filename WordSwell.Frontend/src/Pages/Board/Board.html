@@ -8,10 +8,11 @@
                 <select
                     onchange="{{onChangeSearchTarget}}"
                     class="form-select search-target-select">
-                    <option value="title" selected>제목</option>
-                    <option value="content">내용</option>
-                    <option value="title_content">제목 + 내용</option>
-                    <option value="writer">작성자</option>
+                    <option value="1">ID</option>
+                    <option value="2" selected>제목</option>
+                    <option value="3">내용</option>
+                    <option value="4">제목 + 내용</option>
+                    <option value="5">작성자</option>
                 </select>
                 <input
                     class="form-control mr-sm-2"
@@ -46,8 +47,11 @@
                 <tbody></tbody>
             </table>
         </div>
-        <div class="empty-list-box search-list {{isEmptyList}}">
+        <div class="empty-list-box search-list {{isSearchEmptyList}}">
             <h1>"{{searchQuery}}"에 대한 검색 결과가 없습니다.</h1>
+        </div>
+        <div class="empty-list-box {{isBoardEmptyList}}">
+            <h1>게시글이 없습니다.</h1>
         </div>
         <div id="pagination" class="pagination_wrapper">
         </div>

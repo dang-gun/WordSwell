@@ -31,7 +31,7 @@ export default class Board extends ContentComponent
     private readonly Search: string = GlobalStatic.app.Router.getParams("q") || "";
 
     private InputValue: InputValue = {
-        SearchTargetType: BoardSearchTargetType.None,
+        SearchTargetType: BoardSearchTargetType.Title,
         Search: ""
     };
 
@@ -54,7 +54,8 @@ export default class Board extends ContentComponent
         this.UseOverwatchMonitoringString("idBoard", this.idBoard.toString());
 
         this.UseOverwatchMonitoringString("searchQuery", "temp");
-        this.UseOverwatchMonitoringString("isEmptyList", "d-none");
+        this.UseOverwatchMonitoringString("isSearchEmptyList", "d-none");
+        this.UseOverwatchMonitoringString("isBoardEmptyList", "d-none");
 
         /** 검색 인풋 감시 이벤트 */
         this.UseOverwatchAll({
@@ -170,12 +171,21 @@ export default class Board extends ContentComponent
 
         if (!PostList || !PostList.PostList || PostList.PostList.length <= 0)
         {
+            if (this.Search && this.SearchTargetType)
+            {
+                // 검색 결과가 없을 경우
+                const searchQuery = this.AxeSelectorByName("searchQuery");
+                searchQuery.data = this.Search;
 
-            const searchQuery = this.AxeSelectorByName("searchQuery");
-            searchQuery.data = this.Search;
-
-            const isEmptyList = this.AxeSelectorByName("isEmptyList");
-            isEmptyList.data = "temp";
+                const isSearchEmptyList = this.AxeSelectorByName("isSearchEmptyList");
+                isSearchEmptyList.data = "temp";
+            }
+            else
+            {
+                // 게시글이 없을 경우
+                const isBoardEmptyList = this.AxeSelectorByName("isBoardEmptyList");
+                isBoardEmptyList.data = "temp";
+            }
 
             return;
         }
@@ -208,9 +218,10 @@ export default class Board extends ContentComponent
 
             const titleLinkElement = document.createElement("a");
 
-            if (this.Search && this.SearchTargetType)
+            const QueryString = GlobalStatic.app.Router.getMatch().queryString;
+            if (QueryString)
             {
-                titleLinkElement.setAttribute("href", `/board/${this.idBoard}/${item.idBoardPost}?t=${this.SearchTargetType}&q=${this.Search}`);
+                titleLinkElement.setAttribute("href", `/board/${this.idBoard}/${item.idBoardPost}?${QueryString}`);
             }
             else
             {

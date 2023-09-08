@@ -1,4 +1,4 @@
-import {HtmlContent, HtmlContentOptions, LoaderFunction, LoaderOptions} from "./async-html-loader.type";
+import { HtmlContent, HtmlContentOptions, LoaderFunction, LoaderOptions } from "./async-html-loader.type";
 
 /**
  * HTML 파일을 비동기적으로 불러와 조작할 수 있도록 도와주는 Class
@@ -78,7 +78,7 @@ class AsyncHtmlLoader
         // onError 함수에 대한 콜백을 받지 않았으면 실행하지 않는다.
         if (undefined === this.htmlContentFunction.onError)
         {
-            console.error(error);
+            // console.error(error);
             return;
         }
 
