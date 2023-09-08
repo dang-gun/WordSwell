@@ -65,8 +65,8 @@
 
 #divBoard .board-list .board-table-wrapper tbody tr td {
     height: 56px;
-    color: var(--bs-gray-400);
-    font-size: 14px;
+    color: var(--bs-gray-600);
+    font-size: 13px;
     text-align: center;
     border-bottom: 1px solid #F5F6F7;
     padding: 0 8px;
@@ -77,6 +77,8 @@
     align-items: center;
     gap: 0 6px;
     text-align: left;
+    font-weight: 700;
+    font-size: 14px;
 }
 
 #divBoard .board-list .board-table-wrapper tbody tr td .board-data-title .board-data-category {
@@ -96,6 +98,7 @@
     display: flex;
     align-items: center;
     text-align: left;
+    font-size: 14px;
 }
 
 #divBoard .board-list .board-table-wrapper tbody tr td .board-data-user {
