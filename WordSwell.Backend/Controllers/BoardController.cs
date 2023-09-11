@@ -688,10 +688,7 @@ public class BoardController : Controller
 
                     }
                 }//end using db4
-                
-
-                List<FileItemModel> listTemp 
-                    = callData.FileList.Where(w=>w.DeleteIs == true)
+               
 
             }
 
