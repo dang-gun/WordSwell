@@ -18,9 +18,11 @@
 
   <ItemGroup>
     <None Remove="ProjectFiles\DbMigration.txt" />
+    <None Remove="ProjectFiles\컬럼 크기 규칙.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ProjectFiles\컬럼 크기 규칙.txt" />
     <Content Include="ProjectFiles\DbMigration.txt" />
   </ItemGroup>
 

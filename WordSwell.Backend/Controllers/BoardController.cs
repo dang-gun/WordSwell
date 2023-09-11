@@ -12,6 +12,8 @@ using Game_Adosaki.Global;
 using WordSwell.Backend.Faculty.FileDb;
 using ModelsDB;
 using ModelsDB.FileDb;
+using WordSwell.ApiModels.FileDb;
+using WordSwell.Backend.Global;
 
 namespace WordSwell.Backend.Controllers;
 
@@ -64,7 +66,7 @@ public class BoardController : Controller
             if(null == findBoard)
             {
                 arReturn.ApiResultInfoSet(
-                    "B1-100001"
+                    GlobalInfo.BoardCont.PostList_Board_NotFound
                     , "게시판을 찾을 수 없습니다");
             }
         }//end using db1
@@ -205,7 +207,7 @@ public class BoardController : Controller
             if (null == findBoard)
             {
                 arReturn.ApiResultInfoSet(
-                    "B1-200001"
+                    GlobalInfo.BoardCont.PostView_Board_NotFound
                     , "게시판을 찾을 수 없습니다");
             }
         }//end using db1
@@ -226,7 +228,7 @@ public class BoardController : Controller
                 if (null == findPost)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-200010"
+                        GlobalInfo.BoardCont.PostView_BoardPost_NotFound
                         , "게시물이 없습니다");
                 }
                 else
@@ -235,7 +237,7 @@ public class BoardController : Controller
                         || 0 >= findPost!.Contents.Count)
                     {//게시물 내용이 없다.
                         arReturn.ApiResultInfoSet(
-                        "B1-200011"
+                        GlobalInfo.BoardCont.PostView_BoardPostContents_NotFound
                         , "게시물의 내용이 없습니다");
                     }
                     else
@@ -288,21 +290,21 @@ public class BoardController : Controller
             || string.Empty == callData.Password)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-300001"
+                    GlobalInfo.BoardCont.PostWrite_PasswordRequired_NonMember
                     , "비회원 작성에서 비밀번호는 필수 있습니다.");
         }
         else if(null == callData.Title
             || string.Empty == callData.Title)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-300020"
+                    GlobalInfo.BoardCont.PostWrite_PleaseEnterTitle
                     , "제목을 넣어 주세요");
         }
         else if (null == callData.Contents
             || string.Empty == callData.Contents)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-300021"
+                    GlobalInfo.BoardCont.PostWrite_PleaseEnterContents
                     , "내용을 넣어 주세요");
         }
 
@@ -355,13 +357,54 @@ public class BoardController : Controller
                 if(nSuccess != callData.FileList.Count)
                 {
                     arReturn.ApiResultInfoSet(
-                        "0"
-                        , "일부 첨부파일을 저장하는데 실패 했습니다.");
+                        GlobalInfo.BoardCont.PostWrite_FileSave_Fail
+                        , "일부 첨부파일을 저장하는데 실패 했습니다.(글 저장은 성공)");
                 }
 
                 
                 //내용물에서 고유번호로 바꿔야 하는 대상을 찾아 바꾼다.
+                for(int i = 0; i < callData.FileList.Count; ++i)
+                {
+                    FileItemModel item = callData.FileList[i];
 
+                    //변경에 사용될 추가 문자열
+                    string sAddData = string.Empty;
+
+                    switch(item.Type)
+                    {
+
+                        case "image":
+                            sAddData = string.Empty;
+                            break;
+
+                        default:
+                            sAddData = "file:";
+                            break;
+                    }
+
+                    //추가 문자열에 새로 생성된 이름 붙이기
+                    sAddData += item.FileInfoName;
+
+                    newBPC.Contents
+                        = newBPC.Contents
+                            .Replace(
+                                $"![{item.idLocal}]"
+                                , $"![{sAddData}]");
+                }
+
+                using (ModelsDbContext db2 = new ModelsDbContext())
+                {
+                    //수정할 대상을 다시 찾고
+                    BoardPostContents findBPC
+                        = db2.BoardPostContents
+                            .Where(w => w.idBoardPostContents == newBPC.idBoardPostContents)
+                            .First();
+
+                    //수정할 데이터 저장
+                    findBPC.Contents = newBPC.Contents;
+                    db2.SaveChanges();
+
+                }//end using db2
             }
         }
 
@@ -395,7 +438,7 @@ public class BoardController : Controller
             || string.Empty == callData.Password)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-400001"
+                    GlobalInfo.BoardCont.PostEditView_PasswordRequired_NonMember
                     , "비회원 작성에서 비밀번호는 필수 있습니다.");
         }
 
@@ -413,7 +456,7 @@ public class BoardController : Controller
                 if (null == findBoard)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-400100"
+                        GlobalInfo.BoardCont.PostEditView_Board_NotFound
                         , "게시판을 찾을 수 없습니다");
                 }
             }//end using db1
@@ -434,7 +477,7 @@ public class BoardController : Controller
                 if (null == findPost)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-400101"
+                        GlobalInfo.BoardCont.PostEditView_BoardPost_NotFound
                         , "게시물이 없습니다");
                 }
                 else
@@ -443,13 +486,13 @@ public class BoardController : Controller
                         || 0 >= findPost!.Contents.Count)
                     {//게시물 내용이 없다.
                         arReturn.ApiResultInfoSet(
-                            "B1-400102"
+                            GlobalInfo.BoardCont.PostEditView_BoardPostContents_NotFound
                             , "게시물의 내용이 없습니다");
                     }
                     else if (findPost!.Contents.First().Password != callData.Password)
                     {
                         arReturn.ApiResultInfoSet(
-                            "B1-400103"
+                            GlobalInfo.BoardCont.PostEditView_PasswordIncorrect
                             , "비밀 번호가 틀렸습니다.");
                     }
                     else
@@ -497,21 +540,21 @@ public class BoardController : Controller
             || string.Empty == callData.Password)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-500001"
+                    GlobalInfo.BoardCont.PostEditApply_PasswordRequired_NonMember
                     , "비회원 글에서 비밀번호는 필수 있습니다.");
         }
         else if (null == callData.Title
             || string.Empty == callData.Title)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-500020"
+                    GlobalInfo.BoardCont.PostEditApply_PleaseEnterTitle
                     , "제목을 넣어 주세요");
         }
         else if (null == callData.Contents
             || string.Empty == callData.Contents)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-500021"
+                    GlobalInfo.BoardCont.PostEditApply_PleaseEnterContents
                     , "내용을 넣어 주세요");
         }
 
@@ -528,7 +571,7 @@ public class BoardController : Controller
                 if (null == findBoard)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-500100"
+                        GlobalInfo.BoardCont.PostEditApply_Board_NotFound
                         , "게시판을 찾을 수 없습니다");
                 }
             }//end using db1
@@ -549,7 +592,7 @@ public class BoardController : Controller
                 if (null == findPost)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-500101"
+                        GlobalInfo.BoardCont.PostEditApply_BoardPost_NotFound
                         , "게시물이 없습니다");
                 }
                 else
@@ -558,13 +601,13 @@ public class BoardController : Controller
                         || 0 >= findPost!.Contents.Count)
                     {//게시물 내용이 없다.
                         arReturn.ApiResultInfoSet(
-                            "B1-500102"
+                            GlobalInfo.BoardCont.PostEditApply_BoardPostContents_NotFound
                             , "게시물의 내용이 없습니다");
                     }
                     else if (findPost!.Contents.First().Password != callData.Password)
                     {
                         arReturn.ApiResultInfoSet(
-                            "B1-500103"
+                            GlobalInfo.BoardCont.PostEditApply_PasswordIncorrect
                             , "비밀 번호가 틀렸습니다.");
                     }
                     else
@@ -631,7 +674,7 @@ public class BoardController : Controller
             || string.Empty == callData.Password)
         {
             arReturn.ApiResultInfoSet(
-                    "B1-600001"
+                    GlobalInfo.BoardCont.PostDelete_PasswordRequired_NonMember
                     , "비회원 글에서 비밀번호는 필수 있습니다.");
         }
 
@@ -648,7 +691,7 @@ public class BoardController : Controller
                 if (null == findBoard)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-600100"
+                        GlobalInfo.BoardCont.PostDelete_Board_NotFound
                         , "게시판을 찾을 수 없습니다");
                 }
             }//end using db1
@@ -669,7 +712,7 @@ public class BoardController : Controller
                 if (null == findPost)
                 {
                     arReturn.ApiResultInfoSet(
-                        "B1-600101"
+                        GlobalInfo.BoardCont.PostDelete_BoardPost_NotFound
                         , "게시물이 없습니다");
                 }
                 else
@@ -678,13 +721,13 @@ public class BoardController : Controller
                         || 0 >= findPost!.Contents.Count)
                     {//게시물 내용이 없다.
                         arReturn.ApiResultInfoSet(
-                            "B1-600102"
+                            GlobalInfo.BoardCont.PostDelete_BoardPostContents_NotFound
                             , "게시물의 내용이 없습니다");
                     }
                     else if (findPost!.Contents.First().Password != callData.Password)
                     {
                         arReturn.ApiResultInfoSet(
-                            "B1-600103"
+                            GlobalInfo.BoardCont.PostDelete_PasswordIncorrect
                             , "비밀 번호가 틀렸습니다.");
                     }
                     else
@@ -701,9 +744,10 @@ public class BoardController : Controller
             using (ModelsDbContext db3 = new ModelsDbContext())
             {
                 //수정 사항 적용
+                findPost!.PostState = ModelsDB_partial.Board.PostStateType.Delete;
+
                 //아직은 회원 기능이 없으므로 0으로 넣는다.
-                findPost!.idUser_Edit = 0;
-                findPost.PostState = ModelsDB_partial.Board.PostStateType.Delete;
+                findPost.idUser_Edit = 0;
                 findPost.EditTime = dtNow;
 
                 db3.BoardPost.Update(findPost);

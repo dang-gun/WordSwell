@@ -238,8 +238,14 @@ internal class Program
                 , new NamespaceTargetModel()
                 {
                     AssemblyName = "WordSwell.ApiModels"
-                    , NamespaceList = new string[] { "WordSwell.ApiModels" }
+                    , NamespaceList 
+                        = new string[] 
+                        { 
+                            "WordSwell.ApiModels" 
+                            , "WordSwell.Global.InfoMessage"
+                        }
                 }
+                
             });
 
 

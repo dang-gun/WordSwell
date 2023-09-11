@@ -36,8 +36,9 @@ public class BoardPostContents
     /// <remarks>
     /// 비회원이 글쓴 경우 넣는다.
     /// </remarks>
+    [MaxLength(32)]
     [JsonIgnore]
-    public string Password { get; set; } = string.Empty;
+    public string? Password { get; set; }
 
 
     /// <summary>
@@ -46,6 +47,16 @@ public class BoardPostContents
     public string Contents { get; set; } = string.Empty;
 
 
+    /// <summary>
+    /// 댓글 릴스트
+    /// </summary>
+    [ForeignKey("idBoardPostContents")]
+    [JsonIgnore]
+    public ICollection<BoardPostReply>? ReplyList { get; set; }
+
+    /// <summary>
+    /// 첨부파일 리스트
+    /// </summary>
     [ForeignKey("idBoardPostContents")]
     [JsonIgnore]
     public ICollection<FileDbInfo>? FileList { get; set; }
