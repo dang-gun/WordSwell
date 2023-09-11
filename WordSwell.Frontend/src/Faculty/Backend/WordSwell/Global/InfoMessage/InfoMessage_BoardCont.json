@@ -1,0 +1,52 @@
+﻿{
+    /** 게시판을 찾을 수 없습니다 */
+    "PostList_Board_NotFound": "B1-100001",
+    /** 게시판을 찾을 수 없습니다 */
+    "PostView_Board_NotFound": "B1-200001",
+    /** 게시물이 없습니다 */
+    "PostView_BoardPost_NotFound": "B1-200010",
+    /** 게시물의 내용이 없습니다 */
+    "PostView_BoardPostContents_NotFound": "B1-200011",
+    /** 비회원 작성에서 비밀번호는 필수 있습니다. */
+    "PostWrite_PasswordRequired_NonMember": "B1-300001",
+    /** 제목을 넣어 주세요 */
+    "PostWrite_PleaseEnterTitle": "B1-300020",
+    /** 내용을 넣어 주세요 */
+    "PostWrite_PleaseEnterContents": "B1-300021",
+    /** 일부 파일을 저장하는데 실패 했습니다.(글 저장은 성공) */
+    "PostWrite_FileSave_Fail": "0",
+    /** 비회원 작성에서 비밀번호는 필수 있습니다. */
+    "PostEditView_PasswordRequired_NonMember": "B1-400001",
+    /** 게시판을 찾을 수 없습니다 */
+    "PostEditView_Board_NotFound": "B1-400100",
+    /** 게시물이 없습니다 */
+    "PostEditView_BoardPost_NotFound": "B1-400101",
+    /** 게시물의 내용이 없습니다 */
+    "PostEditView_BoardPostContents_NotFound": "B1-400102",
+    /** 비밀 번호가 틀렸습니다. */
+    "PostEditView_PasswordIncorrect": "B1-400103",
+    /** 비회원 작성에서 비밀번호는 필수 있습니다. */
+    "PostEditApply_PasswordRequired_NonMember": "B1-500001",
+    /** 제목을 넣어 주세요 */
+    "PostEditApply_PleaseEnterTitle": "B1-500020",
+    /** 내용을 넣어 주세요 */
+    "PostEditApply_PleaseEnterContents": "B1-500021",
+    /** 게시판을 찾을 수 없습니다 */
+    "PostEditApply_Board_NotFound": "B1-500100",
+    /** 게시물이 없습니다 */
+    "PostEditApply_BoardPost_NotFound": "B1-500101",
+    /** 게시물의 내용이 없습니다 */
+    "PostEditApply_BoardPostContents_NotFound": "B1-500102",
+    /** 비밀 번호가 틀렸습니다. */
+    "PostEditApply_PasswordIncorrect": "B1-500103",
+    /** 비회원 작성에서 비밀번호는 필수 있습니다. */
+    "PostDelete_PasswordRequired_NonMember": "B1-600001",
+    /** 게시판을 찾을 수 없습니다 */
+    "PostDelete_Board_NotFound": "B1-600100",
+    /** 게시물이 없습니다 */
+    "PostDelete_BoardPost_NotFound": "B1-600101",
+    /** 게시물의 내용이 없습니다 */
+    "PostDelete_BoardPostContents_NotFound": "B1-600102",
+    /** 비밀 번호가 틀렸습니다. */
+    "PostDelete_PasswordIncorrect": "B1-600103",
+}
