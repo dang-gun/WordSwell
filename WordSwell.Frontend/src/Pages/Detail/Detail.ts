@@ -308,7 +308,9 @@ export default class Detail extends ContentComponent
 
         const boardPostContent = this.AxeSelectorByName("boardPostContentDom");
         const boardPostContentDom = boardPostContent.Dom as HTMLDivElement;
-        boardPostContentDom.innerHTML = PostView.PostContents.Contents;
+        const replaceContent = GlobalStatic.LoadedFileAndImageReplace(PostView.PostContents.Contents, this.idBoardPost);
+
+        boardPostContentDom.innerHTML = replaceContent;
     }
 
     // private SetFileList(): void

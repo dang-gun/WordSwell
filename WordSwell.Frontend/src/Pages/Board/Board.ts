@@ -131,7 +131,7 @@ export default class Board extends ContentComponent
                 PageNumber: page || 1,
                 ShowCount: 10,
                 idBoard: this.idBoard,
-                SearchTargetType: this.SearchTargetType,
+                SearchTargetType: this.Search && this.SearchTargetType,
                 Search: this.Search
             });
 

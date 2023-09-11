@@ -148,7 +148,16 @@ module.exports = (env, argv) =>
                     },
                     {
                         //에디터 이미지 파일
-                        from: './wwwroot/data/editor/**/*.(png|jpg|gif|svg|webp)',
+                        from: './wwwroot/**/*.(png|jpg|gif|svg|webp)',
+                        to({ context, absoluteFilename }) {
+                            let sOutDir = path.relative(
+                                context,
+                                absoluteFilename
+                            );
+
+                            console.log('sOutDir : ' + sOutDir)
+                            return `${sOutDir}`;
+                        }
                     },
                 ]
             }),

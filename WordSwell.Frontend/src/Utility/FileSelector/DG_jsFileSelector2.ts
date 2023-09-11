@@ -393,13 +393,15 @@ export default class DG_jsFileSelector2
             Length: file.size,
             Type: file.type,
             Description: "",
-            EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
+            EditorDivision: "",
             BinaryIs: true,
             BinaryReadyIs: false,
             Binary: file.stream(),
-            idFile: 0,
+            idFileInfo: 0,
             idLocal: this.FileLocalId,
+            FileInfoName: "",
             Url: "",
+            ErrorIs: false,
             EditIs: false,
             DeleteIs: false,
         };
@@ -432,7 +434,8 @@ export default class DG_jsFileSelector2
         // 아이템 UI 추가
         const domItem = document.createElement("li");
         domItem.classList.add("preview-wrap");
-        domItem.setAttribute("idFile", newItem.idFile.toString());
+        console.log(newItem);
+        domItem.setAttribute("idFileInfo", newItem.idFileInfo.toString());
 
         const domPrivew = document.createElement("div");
         domPrivew.classList.add("preview-box");
@@ -461,12 +464,12 @@ export default class DG_jsFileSelector2
             const FileType = file.type.split("/")[0];
             if ('image' === FileType)
             {
-                this.InsertImageToEditor(file, newItem.EditorDivision);
+                this.InsertImageToEditor(file, newItem.idLocal);
                 this.EditorInsertedList.push(file.name);
             }
             else
             {
-                this.InsertFileToEditor(file, newItem.EditorDivision);
+                this.InsertFileToEditor(file, newItem.idLocal);
                 this.EditorInsertedList.push(file.name);
             }
         })
@@ -558,14 +561,14 @@ export default class DG_jsFileSelector2
         if ("image" === FileType)
         {
             // 파일 타입이 이미지 파일이라면
-            this.InsertImageToEditor(file, newItem.EditorDivision);
+            this.InsertImageToEditor(file, newItem.idLocal);
         }
 
         console.log(this.ItemList)
         this.FileLocalId++;
     }
 
-    private InsertImageToEditor(file: File, EditorDivision: string): void
+    private InsertImageToEditor(file: File, idLocal: number): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
@@ -584,7 +587,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const ImageUtils = EditorInstance.plugins.get('ImageUtils');
-                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${EditorDivision}` });
+                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${idLocal}` });
                 })
 
             }
@@ -593,7 +596,7 @@ export default class DG_jsFileSelector2
         }
     }
 
-    private InsertFileToEditor(file: File, EditorDivision: string): void
+    private InsertFileToEditor(file: File, idLocal: number): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
@@ -612,7 +615,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const Position = EditorInstance.model.document.selection.getFirstPosition();
-                    const TextElement = writer.createText(`![file, ${EditorDivision}]`);
+                    const TextElement = writer.createText(`![file:${file.name}, ${idLocal}]`);
 
                     // TextElement를 굵게 처리
                     writer.setAttribute('bold', true, TextElement);
@@ -730,7 +733,7 @@ export default class DG_jsFileSelector2
         for (let i = 0; i < this.ItemList.length; i++)
         {
             const itemFile = this.ItemList[i];
-            if (true === itemFile.DeleteIs && 0 >= itemFile.idFile)
+            if (true === itemFile.DeleteIs && 0 >= itemFile.idFileInfo)
             {
                 // 삭제 되었는데, 파일 아이디가 없다.
                 // 그렇다는 것은 서버에 알릴 필요가 없는 파일이라는 뜻
@@ -759,7 +762,7 @@ export default class DG_jsFileSelector2
         file.DeleteIs = true;
         dom.remove();
 
-        if (0 >= file.idFile)
+        if (0 >= file.idFileInfo)
         {
             // 파일 아이디가 없다.
             // 로컬 파일이라는 것
@@ -791,13 +794,15 @@ export default class DG_jsFileSelector2
                 Length: file.size,
                 Type: file.type,
                 Description: "",
-                EditorDivision: `${this.getCurrentDateTimeString()}_${file.size}`,
+                EditorDivision: "",
                 BinaryIs: true,
                 BinaryReadyIs: false,
                 Binary: file.stream(),
-                idFile: 0,
+                idFileInfo: 0,
+                FileInfoName: "",
                 idLocal: this.FileLocalId,
                 Url: "",
+                ErrorIs: false,
                 EditIs: false,
                 DeleteIs: false,
             };

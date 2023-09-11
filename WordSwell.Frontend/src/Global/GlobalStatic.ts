@@ -60,6 +60,83 @@ export default class GlobalStatic
         return convertedHtmlString;
     }
 
+    static LoadedFileAndImageReplace = (content: string, idBoardPost: number, isEditCall: boolean = false): string =>
+    {
+        const regex = /\!\[(.+?),\s+(.+?)\]/g
+        const match = content.match(regex);
+
+        if (!match)
+        {
+            return content;
+        }
+
+        for (const item of match)
+        {
+            const match = item.substring(2).slice(0, -1).split(", ");
+            const [fullName, nameOri] = match;
+            const full = `![${fullName}, ${nameOri}]`;
+
+            const [year, month, day] = GlobalStatic.getDateArray();
+
+            if (fullName.includes("file"))
+            {
+                // 파일인 경우
+                if (isEditCall)
+                {
+                    // 파일이면서 수정 페이지에서 호출한 경우
+                    // 그대로 파일 이름만 출력한다.
+                    break;
+                }
+
+                const fileName = fullName.split(":")[1];
+
+                const fileTag = `
+                    <div class="content-in-file-wrapper">
+                        <a class="content-in-file" data-unset="true" href="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileName}" download>
+                            ${nameOri}
+                        </a>
+                    </div>
+                `
+
+                content = content.replace(full, fileTag);
+            }
+            else
+            {
+                // 이미지인 경우
+                const imageTag = `
+                    <img src="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fullName}" alt="${nameOri}}" />
+                `
+
+                content = content.replace(full, imageTag);
+            }
+        }
+
+        return content;
+    }
+
+    /**
+     * 현재 날짜를 배열로 반환하는 함수
+     */
+    static getDateArray(): string[]
+    {
+        const date = new Date();
+        const year = (date.getFullYear()).toString();
+        let month = (date.getMonth() + 1).toString();
+        let day = (date.getDate()).toString();
+
+        if (Number(month) < 10)
+        {
+            month = `0${month}`;
+        }
+
+        if (Number(day) < 10)
+        {
+            day = `0${day}`;
+        }
+
+        return [year, month, day];
+    }
+
     static MessageBox_Success = ({
         sTitle,
         sMsg,

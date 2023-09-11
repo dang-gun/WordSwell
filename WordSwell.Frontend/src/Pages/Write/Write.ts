@@ -213,7 +213,11 @@ export default class Write extends ContentComponent
         postEditUserName.data = EditViewData.Post.UserName;
         this.InputValue.UserName = EditViewData.Post.UserName;
 
-        this.Editor.SetData(EditViewData.PostContents.Contents);
+        const replaceContent = GlobalStatic.LoadedFileAndImageReplace(EditViewData.PostContents.Contents, EditViewData.Post.idBoardPost, true);
+
+        console.log(replaceContent);
+
+        this.Editor.SetData(replaceContent);
 
         if (EditViewData.FileList && EditViewData.FileList.length > 0)
         {
