@@ -44,6 +44,20 @@ public class ApplicationLogging
 
 
     /// <summary>
+    /// 정보 로그로 출력
+    /// </summary>
+    /// <param name="sCategoryName"></param>
+    /// <param name="sMessage"></param>
+    internal void LogInformation(
+        string sCategoryName
+        , string sMessage)
+    {
+        this.LoggerFactory
+            .CreateLogger(sCategoryName)
+            .LogInformation(sMessage);
+    }
+
+    /// <summary>
     /// 에러 로그로 출력
     /// </summary>
     /// <param name="sCategoryName"></param>

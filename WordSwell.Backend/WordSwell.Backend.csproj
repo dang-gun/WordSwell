@@ -10,9 +10,11 @@
 
   <ItemGroup>
     <None Remove="ProjectFiles\readme.txt" />
+    <None Remove="ProjectFiles\에디터_파일첨부.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ProjectFiles\에디터_파일첨부.txt" />
     <Content Include="ProjectFiles\readme.txt" />
   </ItemGroup>
 

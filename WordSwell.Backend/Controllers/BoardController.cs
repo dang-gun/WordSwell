@@ -370,17 +370,15 @@ public class BoardController : Controller
                     //변경에 사용될 추가 문자열
                     string sAddData = string.Empty;
 
-                    switch(item.Type)
+                    if("image" == item.Type.Substring(0, 5))
                     {
-
-                        case "image":
-                            sAddData = string.Empty;
-                            break;
-
-                        default:
-                            sAddData = "file:";
-                            break;
+                        sAddData = string.Empty;
                     }
+                    else
+                    {//나머지는 파일
+                        sAddData = "file:";
+                    }
+
 
                     //추가 문자열에 새로 생성된 이름 붙이기
                     sAddData += item.FileInfoName;
@@ -388,9 +386,9 @@ public class BoardController : Controller
                     newBPC.Contents
                         = newBPC.Contents
                             .Replace(
-                                $"![{item.idLocal}]"
+                                $"![{item.Name}, {item.idLocal}]"
                                 , $"![{sAddData}]");
-                }
+                }//end for i
 
                 using (ModelsDbContext db2 = new ModelsDbContext())
                 {
@@ -431,6 +429,8 @@ public class BoardController : Controller
         BoardPost? findPost = null;
         //지정된 게시물의 내용
         BoardPostContents? findPostContents = null;
+        //첨부된 파일 리스트
+        List<FileDbInfo>? findFileList = null;
 
 
 
@@ -498,6 +498,15 @@ public class BoardController : Controller
                     else
                     {//게시물 내용이 있다.
                         findPostContents = findPost.Contents.First();
+                        findPostContents.FileList
+                            = db3.FileDbInfo
+                                .Where(w => w.idBoardPostContents == findPostContents.idBoardPostContents)
+                                .ToList();
+
+                        if (null != findPostContents.FileList)
+                        {
+                            findFileList = findPostContents.FileList.ToList();
+                        }
                     }
                 }
 
@@ -509,6 +518,7 @@ public class BoardController : Controller
             //결과 넣기
             rmReturn.Post = findPost;
             rmReturn.PostContents = findPostContents;
+            rmReturn.FileList = findFileList;
         }
 
         return arReturn.ToResult();
@@ -535,6 +545,9 @@ public class BoardController : Controller
         BoardPost? findPost = null;
         //지정된 게시물의 내용
         BoardPostContents? findPostContents = null;
+
+        //컨탠츠 임시 저장
+        string sContentsTemp = string.Empty;
 
         if (null == callData.Password
             || string.Empty == callData.Password)
@@ -630,7 +643,10 @@ public class BoardController : Controller
                 findPost.idUser_Edit = 0;
                 findPost.EditTime = dtNow;
 
-                findPostContents!.Contents = callData.Contents!;
+                //컨탠츠 임시 저장
+                sContentsTemp = callData.Contents!;
+                findPostContents!.Contents = sContentsTemp;
+                
 
 
                 db3.BoardPost.Update(findPost);
@@ -638,9 +654,51 @@ public class BoardController : Controller
 
                 db3.SaveChanges();
             }//end using db2
+
+
+
+
+            if (null != callData.FileList
+                && 0 < callData.FileList.Count)
+            {
+                
+                using (ModelsDbContext db4 = new ModelsDbContext())
+                {
+                    foreach (FileItemModel fileItem in callData.FileList)
+                    {
+                        FileDbInfo? findFDI = null;
+                        if (0 < fileItem.idFileInfo)
+                        {//기존 정보가 있다.
+
+                            findFDI
+                                = db4.FileDbInfo
+                                    .Where(w => w.idFileInfo == fileItem.idFileInfo)
+                                    .FirstOrDefault();
+                        }
+                            
+
+                        if (true == fileItem.DeleteIs)
+                        {//파일 삭제
+
+                        }
+                        else if (true == fileItem.EditIs)
+                        {//파일 수정
+
+                        }
+
+                    }
+                }//end using db4
+                
+
+                List<FileItemModel> listTemp 
+                    = callData.FileList.Where(w=>w.DeleteIs == true)
+
+            }
+
+
         }
 
-
+        
         return arReturn.ToResult();
     }
 
