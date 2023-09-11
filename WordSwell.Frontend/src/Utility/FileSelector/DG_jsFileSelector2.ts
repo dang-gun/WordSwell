@@ -554,6 +554,14 @@ export default class DG_jsFileSelector2
         this.ItemList.push(newItem);
         this.LoadCompleteFileList.push(file);
 
+        const FileType = file?.type.split("/")[0] ?? item.Type.split("/")[0];
+
+        if (file && "image" === FileType)
+        {
+            // 파일 타입이 이미지 파일이라면
+            this.InsertImageToEditor(file, newItem);
+        }
+
         console.log(this.ItemList)
         this.FileLocalId++;
     }

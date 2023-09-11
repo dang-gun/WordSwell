@@ -148,7 +148,7 @@ module.exports = (env, argv) =>
                     },
                     {
                         //에디터 이미지 파일
-                        from: './wwwroot/**/*.(png|jpg|gif|svg|webp)',
+                        from: './wwwroot/**/*.(png|jpg|gif|svg|webp|jfif)',
                         to({ context, absoluteFilename }) {
                             let sOutDir = path.relative(
                                 context,
