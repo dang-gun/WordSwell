@@ -51,7 +51,22 @@ export default class GlobalStatic
         let convertedHtmlString = data;
         for (const [src, fileName, editorDivision] of matches)
         {
-            const replacement = `![${fileName}, ${editorDivision}]`;
+            let replacement = `![${fileName}]`;
+
+            if (!editorDivision)
+            {
+                // 이미 등록된 파일인 경우
+                const splitedFileName = src.split('/');
+                const savedFileName = splitedFileName[splitedFileName.length - 1];
+                replacement = `![${savedFileName}]`;
+
+                convertedHtmlString = convertedHtmlString.replace(
+                    `<img src="${src}" alt="${fileName}">`,
+                    replacement
+                )
+
+                continue;
+            }
 
             convertedHtmlString = convertedHtmlString.replace(
                 `<img src="${src}" alt="${fileName}/${editorDivision}">`,
@@ -91,7 +106,6 @@ export default class GlobalStatic
                     break;
                 }
 
-
                 const fileTag = `
                     <div class="content-in-file-wrapper">
                         <a class="content-in-file" data-unset="true" href="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileNameGUID}" download>
@@ -105,10 +119,10 @@ export default class GlobalStatic
             else
             {
                 // 이미지인 경우
-                const findFile = fileList.find((file) => file.Name === fileName);
+                const findFile = fileList.find((file) => file.Name === fileName || file.NameOri === fileName);
 
                 const imageTag = `
-                    <img src="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileName}" alt="${findFile?.idFileInfo}" />
+                    <img src="/wwwroot/production/UploadFile/${findFile.Url}" alt="${findFile?.idFileInfo}" />
                 `
 
                 content = content.replace(full, imageTag);
