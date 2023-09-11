@@ -1,6 +1,7 @@
 ﻿import { BoardPost } from '@/Faculty/Backend/ModelsDB/Board/BoardPost';
 import { BoardPostContents } from '@/Faculty/Backend/ModelsDB/Board/BoardPostContents';
 import { FileDbInfo } from '@/Faculty/Backend/ModelsDB/FileDb/FileDbInfo';
+import { FileItemInterface } from '@/Utility/FileSelector/FileItemInterface';
 
 /** 지정한 게시판의 지정한 게시물을 보기 결과 리스트 */
 export interface PostViewResultModel 

@@ -4,6 +4,7 @@ import { CustomUploadAdapterPlugin } from "../MyUploadAdapter/MyUploadAdapter";
 import DG_jsFileSelector2 from "@/Utility/FileSelector/DG_jsFileSelector2";
 import { marked } from "marked";
 import { FileItemInterface } from "@/Utility/FileSelector/FileItemInterface";
+import { FileDbInfo } from "@/Faculty/Backend/ModelsDB/FileDb/FileDbInfo";
 
 interface EditorWriteData
 {
@@ -165,9 +166,36 @@ export default class Editor
 
     };
 
-    public FileAdd(itemList: FileItemInterface[])
+    public FileAdd(itemList: FileDbInfo[])
     {
-        this.FileSelector.FileAdd_CompleteList(itemList);
+        const FileItemList: FileItemInterface[] = [];
+
+        for (const file of itemList)
+        {
+            const Extension = file.Name.split(".")[1];
+            console.log(file);
+
+            FileItemList.push({
+                Name: file.NameOri,
+                Extension: `.${Extension}`,
+                Length: file.LengthOri,
+                Type: file.Type,
+                Description: file.Description,
+                EditorDivision: "",
+                BinaryIs: false,
+                BinaryReadyIs: false,
+                Binary: "",
+                idFileInfo: file.idFileInfo,
+                idLocal: 0,
+                FileInfoName: file.Name,
+                Url: file.Url,
+                ErrorIs: false,
+                EditIs: false,
+                DeleteIs: false
+            })
+        }
+
+        this.FileSelector.FileAdd_CompleteList(FileItemList);
     }
 
     public SetData(data: string): void

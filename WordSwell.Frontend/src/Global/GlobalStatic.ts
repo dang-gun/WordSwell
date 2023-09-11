@@ -1,3 +1,4 @@
+import { FileDbInfo } from "@/Faculty/Backend/ModelsDB/FileDb/FileDbInfo";
 import App from "..";
 import HeosabiComponent from "../Faculty/Base/HeosabiComponent";
 import PageComponent from "../Faculty/Base/PageComponent";
@@ -5,6 +6,7 @@ import EditorBase from "../Faculty/CustomEditor/EditorBase/EditorBase";
 import { ButtonShowType, ButtonType } from "../Utility/DG_MessageBox2/ButtonEnumType";
 import DG_MessageBox2 from "../Utility/DG_MessageBox2/DG_MessageBox2";
 import DG_jsFileSelector2 from "../Utility/FileSelector/DG_jsFileSelector2";
+import { FileItemInterface } from "@/Utility/FileSelector/FileItemInterface";
 
 
 export default class GlobalStatic
@@ -60,9 +62,9 @@ export default class GlobalStatic
         return convertedHtmlString;
     }
 
-    static LoadedFileAndImageReplace = (content: string, idBoardPost: number, isEditCall: boolean = false): string =>
+    static LoadedFileAndImageReplace = (content: string, idBoardPost: number, fileList: FileDbInfo[], isEditCall: boolean = false): string =>
     {
-        const regex = /\!\[(.+?),\s+(.+?)\]/g
+        const regex = /\!\[([^\]]+)\]/g;
         const match = content.match(regex);
 
         if (!match)
@@ -72,28 +74,28 @@ export default class GlobalStatic
 
         for (const item of match)
         {
-            const match = item.substring(2).slice(0, -1).split(", ");
-            const [fullName, nameOri] = match;
-            const full = `![${fullName}, ${nameOri}]`;
+            const fileName = item.substring(2).slice(0, -1);
+            const full = `![${fileName}]`;
 
             const [year, month, day] = GlobalStatic.getDateArray();
 
-            if (fullName.includes("file"))
+            if (fileName.includes("file"))
             {
-                // 파일인 경우
+                const fileNameGUID = fileName.split(":")[1];
+                const findFile = fileList.find((file) => file.Name === fileNameGUID);
+
                 if (isEditCall)
                 {
-                    // 파일이면서 수정 페이지에서 호출한 경우
-                    // 그대로 파일 이름만 출력한다.
+                    const replaceFileName = `![file:${findFile?.Name}]`;
+                    content = content.replace(full, replaceFileName);
                     break;
                 }
 
-                const fileName = fullName.split(":")[1];
 
                 const fileTag = `
                     <div class="content-in-file-wrapper">
-                        <a class="content-in-file" data-unset="true" href="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileName}" download>
-                            ${nameOri}
+                        <a class="content-in-file" data-unset="true" href="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileNameGUID}" download>
+                            ${findFile?.NameOri}
                         </a>
                     </div>
                 `
@@ -103,8 +105,10 @@ export default class GlobalStatic
             else
             {
                 // 이미지인 경우
+                const findFile = fileList.find((file) => file.Name === fileName);
+
                 const imageTag = `
-                    <img src="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fullName}" alt="${nameOri}}" />
+                    <img src="/wwwroot/production/UploadFile/${year}/${month}/${day}/${idBoardPost}/${fileName}" alt="${findFile?.idFileInfo}" />
                 `
 
                 content = content.replace(full, imageTag);

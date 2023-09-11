@@ -307,8 +307,13 @@ export default class Detail extends ContentComponent
         boardPostDate.data = dayjs(PostView.Post.WriteTime).format("YYYY-MM-DD");
 
         const boardPostContent = this.AxeSelectorByName("boardPostContentDom");
+
         const boardPostContentDom = boardPostContent.Dom as HTMLDivElement;
-        const replaceContent = GlobalStatic.LoadedFileAndImageReplace(PostView.PostContents.Contents, this.idBoardPost);
+        const replaceContent = GlobalStatic.LoadedFileAndImageReplace(
+            PostView.PostContents.Contents,
+            this.idBoardPost,
+            PostView.FileList
+        );
 
         boardPostContentDom.innerHTML = replaceContent;
     }

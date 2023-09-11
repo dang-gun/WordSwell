@@ -434,7 +434,7 @@ export default class DG_jsFileSelector2
         // 아이템 UI 추가
         const domItem = document.createElement("li");
         domItem.classList.add("preview-wrap");
-        console.log(newItem);
+
         domItem.setAttribute("idFileInfo", newItem.idFileInfo.toString());
 
         const domPrivew = document.createElement("div");
@@ -461,16 +461,14 @@ export default class DG_jsFileSelector2
         domBtnEditorAdd.textContent = "에디터에 추가";
         domBtnEditorAdd.addEventListener("click", (event: Event) =>
         {
-            const FileType = file.type.split("/")[0];
+            const FileType = file?.type.split("/")[0] || newItem.Type.split("/")[0];
             if ('image' === FileType)
             {
-                this.InsertImageToEditor(file, newItem.idLocal);
-                this.EditorInsertedList.push(file.name);
+                this.InsertImageToEditor(file, newItem);
             }
             else
             {
-                this.InsertFileToEditor(file, newItem.idLocal);
-                this.EditorInsertedList.push(file.name);
+                this.InsertFileToEditor(file, newItem);
             }
         })
 
@@ -556,25 +554,25 @@ export default class DG_jsFileSelector2
         this.ItemList.push(newItem);
         this.LoadCompleteFileList.push(file);
 
-        const FileType = file?.type.split("/")[0] ?? item.Type.split("/")[0];
-
-        if ("image" === FileType)
-        {
-            // 파일 타입이 이미지 파일이라면
-            this.InsertImageToEditor(file, newItem.idLocal);
-        }
-
         console.log(this.ItemList)
         this.FileLocalId++;
     }
 
-    private InsertImageToEditor(file: File, idLocal: number): void
+    private InsertImageToEditor(file: File, newItem: FileItemInterface): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
             if (!file)
             {
+                const EditorInstance = this.jsonOptionDefault.Editor;
+
+                EditorInstance.model.change(writer =>
+                {
+                    const ImageUtils = EditorInstance.plugins.get('ImageUtils');
+                    ImageUtils.insertImage({ src: `/wwwroot/production/UploadFile/${newItem.Url}`, alt: `${newItem.Name}/${newItem.idFileInfo}` });
+                })
+
                 return;
             }
 
@@ -587,7 +585,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const ImageUtils = EditorInstance.plugins.get('ImageUtils');
-                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${idLocal}` });
+                    ImageUtils.insertImage({ src: Base64URL, alt: `${file.name}/${newItem.idLocal}` });
                 })
 
             }
@@ -596,13 +594,28 @@ export default class DG_jsFileSelector2
         }
     }
 
-    private InsertFileToEditor(file: File, idLocal: number): void
+    private InsertFileToEditor(file: File, newItem: FileItemInterface): void
     {
         // 에디터가 있다면
         if (this.jsonOptionDefault.Editor !== undefined)
         {
             if (!file)
             {
+                const EditorInstance = this.jsonOptionDefault.Editor;
+
+                EditorInstance.model.change(writer =>
+                {
+                    const Position = EditorInstance.model.document.selection.getFirstPosition();
+                    const TextElement = writer.createText(`![file:${newItem.Name}, ${this.FileLocalId + 1}]`);
+
+                    // TextElement를 굵게 처리
+                    writer.setAttribute('bold', true, TextElement);
+                    // TextElement를 밑줄 처리
+                    writer.setAttribute('underline', true, TextElement);
+
+                    EditorInstance.model.insertContent(TextElement, Position);
+                })
+
                 return;
             }
 
@@ -615,7 +628,7 @@ export default class DG_jsFileSelector2
                 EditorInstance.model.change(writer =>
                 {
                     const Position = EditorInstance.model.document.selection.getFirstPosition();
-                    const TextElement = writer.createText(`![file:${file.name}, ${idLocal}]`);
+                    const TextElement = writer.createText(`![file:${file.name}, ${newItem.idLocal}]`);
 
                     // TextElement를 굵게 처리
                     writer.setAttribute('bold', true, TextElement);
