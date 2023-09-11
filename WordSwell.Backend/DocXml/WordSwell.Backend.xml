@@ -137,6 +137,16 @@
             <param name="FileData"></param>
             <returns></returns>
         </member>
+        <member name="T:WordSwell.Backend.Global.GlobalInfo">
+            <summary>
+            정보 코드
+            </summary>
+        </member>
+        <member name="F:WordSwell.Backend.Global.GlobalInfo.BoardCont">
+            <summary>
+            전역에서 공통으로 사용
+            </summary>
+        </member>
         <member name="T:WordSwell.Backend.Program">
             <summary>
             
@@ -263,6 +273,13 @@
             </summary>
             <param name="sCategoryName"></param>
             <returns></returns>
+        </member>
+        <member name="M:Utility.AspdotnetLogger.ApplicationLogging.LogInformation(System.String,System.String)">
+            <summary>
+            정보 로그로 출력
+            </summary>
+            <param name="sCategoryName"></param>
+            <param name="sMessage"></param>
         </member>
         <member name="M:Utility.AspdotnetLogger.ApplicationLogging.LogError(System.String,System.String)">
             <summary>

@@ -612,6 +612,11 @@
             비밀 번호가 틀렸습니다.
             </summary>
         </member>
+        <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostEditApply_FileSave_Fail">
+            <summary>
+            일부 파일을 저장하는데 실패 했습니다.(글 저장은 성공)
+            </summary>
+        </member>
         <member name="F:WordSwell.Global.InfoMessage.InfoMessage_BoardCont.PostDelete_PasswordRequired_NonMember">
             <summary>
             비회원 작성에서 비밀번호는 필수 있습니다.

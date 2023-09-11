@@ -78,10 +78,12 @@ public class BoardController : Controller
                 //검색 대상 전체 리스트 **************************
                 //해당 게시판
                 //정상 상태 게시물만
+                //게시물 번호 기준 내림차순
                 IQueryable<BoardPost> findBpList
                     = db2.BoardPost
                         .Where(w => w.idBoard == findBoard!.idBoard
-                                && w.PostState == PostStateType.Normal);
+                                && w.PostState == PostStateType.Normal)
+                        .OrderByDescending(ob => ob.idBoardPost);
 
 
                 //검색어 확인 ***************************************
@@ -346,13 +348,17 @@ public class BoardController : Controller
                 && 0 < callData.FileList.Count)
             {//파일 리스트가 있는경우
 
+                string sContents = newBPC.Contents;
+
                 int nSuccess 
-                    = GlobalStatic.FileDbProc
-                        .Save(
-                            rmReturn.idBoardPost
-                            , newBPC.idBoardPostContents
-                            , dtNow
-                            , callData.FileList);
+                    = this.FileListSave_ContentChanges(
+                        rmReturn.idBoardPost
+                        , newBPC.idBoardPostContents
+                        , dtNow
+                        , callData.FileList
+                        , ref sContents);
+
+                newBPC.Contents = sContents;
 
                 if(nSuccess != callData.FileList.Count)
                 {
@@ -361,34 +367,6 @@ public class BoardController : Controller
                         , "일부 첨부파일을 저장하는데 실패 했습니다.(글 저장은 성공)");
                 }
 
-                
-                //내용물에서 고유번호로 바꿔야 하는 대상을 찾아 바꾼다.
-                for(int i = 0; i < callData.FileList.Count; ++i)
-                {
-                    FileItemModel item = callData.FileList[i];
-
-                    //변경에 사용될 추가 문자열
-                    string sAddData = string.Empty;
-
-                    if("image" == item.Type.Substring(0, 5))
-                    {
-                        sAddData = string.Empty;
-                    }
-                    else
-                    {//나머지는 파일
-                        sAddData = "file:";
-                    }
-
-
-                    //추가 문자열에 새로 생성된 이름 붙이기
-                    sAddData += item.FileInfoName;
-
-                    newBPC.Contents
-                        = newBPC.Contents
-                            .Replace(
-                                $"![{item.Name}, {item.idLocal}]"
-                                , $"![{sAddData}]");
-                }//end for i
 
                 using (ModelsDbContext db2 = new ModelsDbContext())
                 {
@@ -529,8 +507,8 @@ public class BoardController : Controller
     /// </summary>
     /// <param name="callData"></param>
     /// <returns></returns>
-    [HttpPut]
-    public ActionResult<PostEditApplyResultModel> PostEditApply([FromQuery] PostEditApplyCallModel callData)
+    [HttpPatch]
+    public ActionResult<PostEditApplyResultModel> PostEditApply([FromBody] PostEditApplyCallModel callData)
     {
         ApiResultReady arReturn = new ApiResultReady(this);
         PostEditApplyResultModel rmReturn = new PostEditApplyResultModel();
@@ -656,16 +634,26 @@ public class BoardController : Controller
             }//end using db2
 
 
-
-
             if (null != callData.FileList
                 && 0 < callData.FileList.Count)
             {
+                //새로운 파일 리스트
+                List<FileItemModel> listNewFile = new List<FileItemModel>();
                 
                 using (ModelsDbContext db4 = new ModelsDbContext())
                 {
                     foreach (FileItemModel fileItem in callData.FileList)
                     {
+                        string sTypeStr = string.Empty;
+                        if ("image" == fileItem.Type.Substring(0, 5))
+                        {
+                            sTypeStr = string.Empty;
+                        }
+                        else
+                        {//나머지는 파일
+                            sTypeStr = "file:";
+                        }
+
                         FileDbInfo? findFDI = null;
                         if (0 < fileItem.idFileInfo)
                         {//기존 정보가 있다.
@@ -680,19 +668,65 @@ public class BoardController : Controller
                         if (true == fileItem.DeleteIs)
                         {//파일 삭제
 
+                            if(null != findFDI)
+                            {//대상이 있다.
+
+                                //상태 변경
+                                findFDI.FileDbState 
+                                    = ModelsDB_partial.FileDb.FileDbStateType.Delete;
+                            }
+
+                            //연결된 본문 치환자 제거
+                            sContentsTemp
+                                = sContentsTemp
+                                .Replace($"![{sTypeStr}{fileItem.Name}]"
+                                        , "");
                         }
                         else if (true == fileItem.EditIs)
                         {//파일 수정
 
+                            if (null != findFDI)
+                            {//대상이 있다.
+
+                                //파일 수정은 설명 수정과 대표이미지 수정 뿐이 없다.
+                                findFDI.Description = fileItem.Description;
+                            }
                         }
+                        else
+                        {//파일 추가
+                            listNewFile.Add(fileItem);
+                        }
+                    }//end foreach fileItem
 
+                    int nSuccess
+                        = this.FileListSave_ContentChanges(
+                            findPost.idBoardPost
+                            , findPostContents.idBoardPostContents
+                            , dtNow
+                            , listNewFile
+                            , ref sContentsTemp);
+
+                    if (nSuccess != callData.FileList.Count)
+                    {
+                        arReturn.ApiResultInfoSet(
+                            GlobalInfo.BoardCont.PostEditApply_FileSave_Fail
+                            , "일부 첨부파일을 저장하는데 실패 했습니다.(글 저장은 성공)");
                     }
+
+                    //수정할 대상을 다시 찾고
+                    BoardPostContents findBPC
+                        = db4.BoardPostContents
+                            .Where(w => w.idBoardPostContents 
+                                        == findPostContents.idBoardPostContents)
+                            .First();
+
+                    //수정할 데이터 저장
+                    findBPC.Contents = sContentsTemp;
+
+                    //db에 적용
+                    db4.SaveChanges();
                 }//end using db4
-               
-
             }
-
-
         }
 
         
@@ -813,5 +847,62 @@ public class BoardController : Controller
 
 
         return arReturn.ToResult();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="idBoardPost"></param>
+    /// <param name="idBoardPostContents"></param>
+    /// <param name="dtCallDate"></param>
+    /// <param name="FileDataList"></param>
+    /// <param name="PostContents">수정할 본문 내용</param>
+    /// <returns>업로드 성공 파일 수</returns>
+    private int FileListSave_ContentChanges(
+        long idBoardPost
+        , long idBoardPostContents
+        , DateTime dtCallDate
+        , List<FileItemModel> FileDataList
+        , ref string PostContents)
+    {
+        int nSuccess
+            = GlobalStatic.FileDbProc
+                .Save(
+                    idBoardPost
+                    , idBoardPostContents
+                    , dtCallDate
+                    , FileDataList);
+
+        
+        //내용물에서 고유번호로 바꿔야 하는 대상을 찾아 바꾼다.
+        for (int i = 0; i < FileDataList.Count; ++i)
+        {
+            FileItemModel item = FileDataList[i];
+
+            //변경에 사용될 추가 문자열
+            string sAddData = string.Empty;
+
+            if ("image" == item.Type.Substring(0, 5))
+            {
+                sAddData = string.Empty;
+            }
+            else
+            {//나머지는 파일
+                sAddData = "file:";
+            }
+
+
+            //추가 문자열에 새로 생성된 이름 붙이기
+            sAddData += item.FileInfoName;
+
+            PostContents
+                = PostContents
+                    .Replace(
+                        $"![{item.Name}, {item.idLocal}]"
+                        , $"![{sAddData}]");
+        }//end for i
+
+
+        return nSuccess;
     }
 }

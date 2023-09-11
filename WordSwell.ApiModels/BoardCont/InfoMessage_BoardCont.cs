@@ -41,7 +41,6 @@ public class InfoMessage_BoardCont
     /// 내용을 넣어 주세요
     /// </summary>
     public readonly string PostWrite_PleaseEnterContents = "B1-300021";
-
     /// <summary>
     /// 일부 파일을 저장하는데 실패 했습니다.(글 저장은 성공)
     /// </summary>
@@ -97,6 +96,10 @@ public class InfoMessage_BoardCont
     /// 비밀 번호가 틀렸습니다.
     /// </summary>
     public readonly string PostEditApply_PasswordIncorrect = "B1-500103";
+    /// <summary>
+    /// 일부 파일을 저장하는데 실패 했습니다.(글 저장은 성공)
+    /// </summary>
+    public readonly string PostEditApply_FileSave_Fail = "0";
 
 
     /// <summary>

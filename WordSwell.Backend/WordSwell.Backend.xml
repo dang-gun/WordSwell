@@ -55,6 +55,17 @@
             <param name="callData"></param>
             <returns></returns>
         </member>
+        <member name="M:WordSwell.Backend.Controllers.BoardController.FileListSave_ContentChanges(System.Int64,System.Int64,System.DateTime,System.Collections.Generic.List{WordSwell.ApiModels.FileDb.FileItemModel},System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="idBoardPost"></param>
+            <param name="idBoardPostContents"></param>
+            <param name="dtCallDate"></param>
+            <param name="FileDataList"></param>
+            <param name="PostContents">수정할 본문 내용</param>
+            <returns>업로드 성공 파일 수</returns>
+        </member>
         <member name="T:WordSwell.Backend.Controllers.TestController">
             <summary>
             테스트용 API
