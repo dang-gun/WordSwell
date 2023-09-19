@@ -1,6 +1,6 @@
 ﻿
 using DGUtility.TimeScheduler;
-using Utility.AspdotnetLogger;
+using Utility.ApplicationLogger;
 using Utility.FileAssist;
 using WordSwell.Backend.Faculty.FileDb;
 
@@ -14,7 +14,7 @@ public static class GlobalStatic
     /// <summary>
     /// 로거
     /// </summary>
-    public static ApplicationLogging Log = new ApplicationLogging();
+    public static DotNetLogging Log = new DotNetLogging();
 
     /// <summary>
     /// 디버그 모드 여부

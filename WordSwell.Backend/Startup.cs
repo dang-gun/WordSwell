@@ -5,7 +5,6 @@ using Game_Adosaki.Global;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Utility.AspdotnetLogger;
 using Utility.FileAssist;
 
 namespace WordSwell.Backend;
@@ -192,14 +191,9 @@ public class Startup
 
 
         //로그 파일 설정
-        services.AddLogging(loggingBuilder => {
-            loggingBuilder.AddFile("Logs/app_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts => {
-                fileLoggerOpts.FormatLogFileName = fName => {
-                    return String.Format(fName, DateTime.UtcNow);
-                };
-            });
-        });
-
+        services.AddLogging(
+            loggingBuilder
+                => GlobalStatic.Log.configure(loggingBuilder, true));
     }
 
     /// <summary>
@@ -213,8 +207,9 @@ public class Startup
         , IWebHostEnvironment env
         , ILoggerFactory LoggerFactory)
     {
-        //로그 팩토리 지정 ************************
-        GlobalStatic.Log.LoggerFactory = LoggerFactory;
+        //전역 로거 설정
+        GlobalStatic.Log
+            = new Utility.ApplicationLogger.DotNetLogging(LoggerFactory, true);
 
 
 

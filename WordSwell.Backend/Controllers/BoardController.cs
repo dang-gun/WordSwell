@@ -692,9 +692,12 @@ public class BoardController : Controller
                                 findFDI.Description = fileItem.Description;
                             }
                         }
-                        else
+                        else if (0 >= fileItem.idFileInfo)
                         {//파일 추가
                             listNewFile.Add(fileItem);
+                        }
+                        else
+                        {//기존 파일 수정없음
                         }
                     }//end foreach fileItem
 
